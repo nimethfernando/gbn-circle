@@ -29,7 +29,7 @@ export default function Header() {
 
     return (
         <header
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}
+            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-gbn-navy/95 backdrop-blur-md shadow-lg py-3 border-b border-white/5" : "bg-transparent py-5"}`}
         >
             <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
                 {/* Logo */}
@@ -42,8 +42,8 @@ export default function Header() {
                         className="object-contain"
                     />
                     <div className="flex flex-col">
-                        <span className={`text-2xl font-bold tracking-tight ${isScrolled ? "text-gbn-navy" : "text-white"}`}>GBN Circle</span>
-                        <span className={`text-[10px] tracking-widest uppercase mt-0.5 ${isScrolled ? "text-gbn-gold" : "text-gray-300"}`}>
+                        <span className="text-2xl font-bold tracking-tight text-white">GBN Circle</span>
+                        <span className="text-[10px] tracking-widest uppercase mt-0.5 text-gbn-text-muted">
                             Global Business Network
                         </span>
                     </div>
@@ -55,7 +55,8 @@ export default function Header() {
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`text-sm font-medium transition-colors hover:text-gbn-gold ${isScrolled ? "text-gbn-navy" : "text-gray-100"}`}
+                            className={`text-[10px] tracking-widest font-bold uppercase transition-colors hover:text-gbn-gold pb-1 border-b-2 ${link.name === "Home" ? "border-gbn-gold text-gbn-gold" : "border-transparent text-gray-300"
+                                }`}
                         >
                             {link.name}
                         </Link>
@@ -66,7 +67,7 @@ export default function Header() {
                 <div className="flex items-center gap-4">
                     <Link
                         href="/join"
-                        className="hidden md:inline-flex bg-gbn-gold hover:bg-gbn-gold-hover text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all hover:-translate-y-0.5"
+                        className="hidden md:inline-flex bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] tracking-widest font-bold px-6 py-3 rounded-sm transition-all hover:scale-105 uppercase"
                     >
                         Join GBN Circle
                     </Link>

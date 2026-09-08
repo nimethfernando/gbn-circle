@@ -18,8 +18,8 @@
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #0B162C;
+  --background: #050a14;
+  --foreground: #ffffff;
 }
 
 body {
@@ -39,7 +39,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--color-gbn-navy);
+  color: var(--foreground);
   font-family: var(--font-serif);
   font-weight: 500;
   letter-spacing: -0.01em;
