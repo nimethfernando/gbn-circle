@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gbn-navy: #0B162C;
+  --color-gbn-navy-light: #152A55;
+  --color-gbn-gold: #CFAB7A;
+  --color-gbn-gold-hover: #E3BE8F;
+  --color-background: #F9FAFB; /* soft white/gray */
+  --color-foreground: #0B162C;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
+  --color-gbn-text-muted: #4B5563; /* Tailwind gray-600 */
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0B162C;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base heading styles */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-gbn-navy);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Some utility custom classes if needed */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
