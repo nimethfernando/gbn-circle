@@ -1,4 +1,5 @@
 import { Users, Handshake, Network, Globe } from "lucide-react";
+import Image from "next/image";
 
 export default function WhatIsGBN() {
     const points = [
@@ -26,7 +27,10 @@ export default function WhatIsGBN() {
 
     return (
         <section className="py-24 bg-gbn-navy relative overflow-hidden">
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+            <Image src="/event-global-CKOLaEg2 (1).jpg" alt="Background" fill className="object-cover opacity-[0.07] pointer-events-none mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-gbn-navy via-gbn-navy/90 to-gbn-navy pointer-events-none"></div>
+
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
                 <div className="max-w-3xl mb-16 animate-fade-in-up">
                     <div className="flex items-center gap-4 mb-6">
                         <div className="h-px w-8 bg-gbn-gold rounded-full"></div>

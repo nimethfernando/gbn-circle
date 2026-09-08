@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function WhoIsGBNFor() {
     const matrix = [
@@ -10,7 +11,10 @@ export default function WhoIsGBNFor() {
 
     return (
         <section className="py-24 bg-gbn-navy text-white relative">
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+            <Image src="/event-networking-BdmXOEy2 (1).jpg" alt="Background" fill className="object-cover opacity-10 pointer-events-none mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-l from-gbn-navy via-gbn-navy/90 to-gbn-navy pointer-events-none"></div>
+
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
 
                     <div className="animate-fade-in-up">

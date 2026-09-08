@@ -1,7 +1,12 @@
+import Image from "next/image";
+
 export default function GlobalNetwork() {
     return (
         <section className="py-24 bg-gbn-navy text-white relative overflow-hidden border-t border-white/5">
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+            <Image src="/event-global-CKOLaEg2 (1).jpg" alt="Background" fill className="object-cover opacity-10 pointer-events-none mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-b from-gbn-navy via-gbn-navy/80 to-gbn-navy pointer-events-none"></div>
+
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
                 <div className="text-center max-w-4xl mx-auto mb-16 animate-fade-in-up">
                     <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
                         Think Global. <span className="text-gradient-gold">Connect Global.</span>

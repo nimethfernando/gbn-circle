@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Check } from "lucide-react";
 
 export default function GBNExperience() {
@@ -24,7 +25,10 @@ export default function GBNExperience() {
 
     return (
         <section className="py-24 bg-gbn-navy text-white relative border-t border-white/5">
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+            <Image src="/event-leadership-C1eE1_9Q (1).jpg" alt="Background" fill className="object-cover opacity-10 pointer-events-none mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gbn-navy via-gbn-navy/90 to-gbn-navy pointer-events-none"></div>
+
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
                 <div className="text-center mb-16 animate-fade-in-up">
                     <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">
                         Choose Your <span className="text-gradient-gold">GBN Experience</span>

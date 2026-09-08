@@ -1,9 +1,13 @@
 import { Mail, Phone, Globe } from "lucide-react";
+import Image from "next/image";
 
 export default function Contact() {
     return (
-        <section className="py-24 bg-gbn-navy text-white" id="contact">
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+        <section className="py-24 bg-gbn-navy text-white relative" id="contact">
+            <Image src="/event-leadership-C1eE1_9Q.jpg" alt="Background" fill className="object-cover opacity-10 pointer-events-none mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-l from-gbn-navy via-gbn-navy/90 to-gbn-navy pointer-events-none"></div>
+
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
                 <div className="flex flex-col lg:flex-row gap-16">
 
                     <div className="lg:w-1/2 animate-fade-in-up">
