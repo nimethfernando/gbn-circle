@@ -21,13 +21,20 @@ export default function Leadership() {
     ];
 
     return (
-        <section className="py-24 bg-white relative">
+        <section className="py-24 bg-gbn-navy text-white relative">
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gbn-navy mb-6">
-                        Meet the Leadership Behind GBN Circle
+                <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
+                    <div className="flex items-center justify-center gap-4 mb-6">
+                        <div className="h-px w-8 bg-gbn-gold rounded-full"></div>
+                        <p className="text-gbn-gold uppercase tracking-[0.2em] text-xs font-semibold">
+                            Leadership
+                        </p>
+                        <div className="h-px w-8 bg-gbn-gold rounded-full"></div>
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+                        Meet the Leadership <span className="text-gradient-gold block mt-2">Behind GBN Circle</span>
                     </h2>
-                    <p className="text-lg text-gbn-text-muted leading-relaxed">
+                    <p className="text-lg text-gray-300 font-light leading-relaxed">
                         GBN Circle is built on a simple belief: meaningful connections can create meaningful possibilities.
                     </p>
                 </div>
@@ -36,15 +43,14 @@ export default function Leadership() {
                     {leaders.map((leader, idx) => (
                         <div key={idx} className="group cursor-pointer">
                             <div
-                                className="w-full aspect-[4/5] rounded-3xl mb-6 relative overflow-hidden"
+                                className="w-full aspect-[4/5] rounded-sm border border-white/5 premium-shadow mb-6 relative overflow-hidden"
                                 style={{ background: leader.image }}
                             >
                                 {/* Image Placeholder */}
-                                <div className="absolute inset-0 bg-gbn-navy/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                                <div className="absolute inset-0 bg-gbn-navy/40 group-hover:bg-transparent transition-colors duration-700"></div>
                             </div>
-                            <h3 className="text-2xl font-bold text-gbn-navy mb-1 group-hover:text-gbn-gold transition-colors">{leader.name}</h3>
-                            <p className="text-gbn-text-muted font-medium mb-4">{leader.role}</p>
-                            {/* Note: The PRD says "LinkedIn icon only if his official LinkedIn profile is available" -> we can just put it conditionally or leave it out for now on homepage, usually we put it on Leadership page as per instructions for Leadership page, but we can add small icons here. */}
+                            <h3 className="text-2xl font-serif text-white mb-1 group-hover:text-gbn-gold transition-colors">{leader.name}</h3>
+                            <p className="text-gray-400 font-light text-sm uppercase tracking-wider mb-4">{leader.role}</p>
                         </div>
                     ))}
                 </div>
@@ -52,9 +58,9 @@ export default function Leadership() {
                 <div className="text-center">
                     <Link
                         href="/leadership"
-                        className="inline-flex items-center text-gbn-navy font-semibold hover:text-gbn-gold transition-colors text-lg"
+                        className="inline-flex bg-transparent border border-white/20 text-white text-[10px] tracking-widest font-bold px-8 py-4 rounded-sm transition-all hover:border-gbn-gold hover:text-gbn-gold uppercase"
                     >
-                        Meet Our Leadership <ArrowRight size={20} className="ml-2" />
+                        Meet Our Leadership
                     </Link>
                 </div>
             </div>

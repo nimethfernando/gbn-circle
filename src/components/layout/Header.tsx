@@ -72,7 +72,7 @@ export default function Header() {
                         Join GBN Circle
                     </Link>
                     <button
-                        className={`md:hidden p-2 ${isScrolled ? "text-gbn-navy" : "text-white"}`}
+                        className="md:hidden p-2 text-white"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -82,12 +82,12 @@ export default function Header() {
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="absolute top-full left-0 w-full bg-white shadow-lg py-4 px-6 flex flex-col space-y-4 md:hidden">
+                <div className="absolute top-full left-0 w-full bg-gbn-navy shadow-lg py-4 px-6 flex flex-col space-y-4 md:hidden border-t border-white/10">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="text-gbn-navy font-medium text-lg border-b border-gray-100 pb-2"
+                            className="text-gray-300 hover:text-gbn-gold font-medium text-sm tracking-widest uppercase border-b border-white/5 pb-2"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             {link.name}
@@ -95,7 +95,7 @@ export default function Header() {
                     ))}
                     <Link
                         href="/join"
-                        className="inline-flex justify-center bg-gbn-gold text-white font-semibold px-6 py-3 rounded-full mt-4"
+                        className="inline-flex justify-center bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] tracking-widest font-bold px-6 py-4 rounded-sm mt-4 uppercase"
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         Join GBN Circle

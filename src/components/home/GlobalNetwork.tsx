@@ -1,17 +1,17 @@
 export default function GlobalNetwork() {
     return (
-        <section className="py-24 bg-white overflow-hidden">
+        <section className="py-24 bg-gbn-navy text-white relative overflow-hidden border-t border-white/5">
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-                <div className="text-center max-w-4xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gbn-navy mb-6">
-                        Business Has No Borders. Neither Should Your Network.
+                <div className="text-center max-w-4xl mx-auto mb-16 animate-fade-in-up">
+                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+                        Think Global. <span className="text-gradient-gold">Connect Global.</span>
                     </h2>
-                    <p className="text-lg text-gbn-text-muted leading-relaxed">
+                    <p className="text-lg text-gray-300 leading-relaxed font-light">
                         GBN Circle connects people beyond their immediate business environment, creating opportunities to build relationships across cities, industries and borders.
                     </p>
                 </div>
 
-                <div className="relative w-full max-w-5xl mx-auto rounded-3xl bg-gbn-navy h-64 md:h-96 overflow-hidden flex items-center justify-center premium-shadow group">
+                <div className="relative w-full max-w-5xl mx-auto rounded-md bg-gbn-navy-light/40 h-64 md:h-96 overflow-hidden flex items-center justify-center premium-shadow group border border-white/5">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gbn-navy-light/50 via-gbn-navy to-gbn-navy"></div>
                     {/* Conceptual World Map Animation / Visualization placeholder */}
                     <div className="absolute inset-0 opacity-40 flex items-center justify-center overflow-hidden">
