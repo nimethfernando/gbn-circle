@@ -7,16 +7,39 @@ export default function Hero() {
             {/* Background elegant pattern or subtle gradient */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gbn-navy-light/40 via-gbn-navy to-gbn-navy"></div>
 
-            {/* Subtle global/network visual placeholder */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full stroke-gbn-gold/50 fill-none" strokeWidth="0.1">
-                    {/* Abstract network nodes */}
-                    <circle cx="20" cy="30" r="1" />
-                    <circle cx="80" cy="40" r="1" />
-                    <circle cx="50" cy="70" r="1.5" />
-                    <circle cx="30" cy="80" r="1" />
-                    <circle cx="70" cy="80" r="1" />
-                    <path d="M20,30 L50,70 L80,40 M50,70 L30,80 M50,70 L70,80" />
+            {/* Gold Particles Animation */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                {[...Array(15)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="absolute rounded-full bg-gbn-gold animate-pulse-gold blur-[1px]"
+                        style={{
+                            width: Math.random() * 6 + 2 + 'px',
+                            height: Math.random() * 6 + 2 + 'px',
+                            top: Math.random() * 100 + '%',
+                            left: Math.random() * 100 + '%',
+                            animationDelay: `${Math.random() * 4}s`,
+                            animationDuration: `${Math.random() * 3 + 3}s`
+                        }}
+                    ></div>
+                ))}
+            </div>
+
+            {/* Subtle animated world map placeholder background */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
+                <svg viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" className="w-full h-full stroke-gbn-gold fill-none" strokeWidth="0.5">
+                    {/* Abstract representation of continents */}
+                    <path className="animate-float" d="M150,150 Q200,100 250,160 T350,120 T400,200" strokeDasharray="4 4" />
+                    <path className="animate-float" style={{ animationDelay: '1s' }} d="M450,250 Q500,200 550,220 T650,180 T700,280" strokeDasharray="4 4" />
+                    <path className="animate-float" style={{ animationDelay: '2s' }} d="M750,150 Q800,100 850,140 T950,100" strokeDasharray="4 4" />
+                    <path className="animate-float" style={{ animationDelay: '3s' }} d="M250,300 Q300,250 350,350 T450,320" strokeDasharray="4 4" />
+                    {/* Connecting nodes */}
+                    <circle cx="250" cy="160" r="3" className="fill-gbn-gold animate-pulse-gold" />
+                    <circle cx="400" cy="200" r="2" className="fill-gbn-gold animate-pulse-gold" style={{ animationDelay: '1s' }} />
+                    <circle cx="550" cy="220" r="4" className="fill-gbn-gold animate-pulse-gold" style={{ animationDelay: '2s' }} />
+                    <circle cx="700" cy="280" r="3" className="fill-gbn-gold animate-pulse-gold" style={{ animationDelay: '0.5s' }} />
+                    <circle cx="850" cy="140" r="2" className="fill-gbn-gold animate-pulse-gold" style={{ animationDelay: '1.5s' }} />
+                    <circle cx="350" cy="350" r="3" className="fill-gbn-gold animate-pulse-gold" style={{ animationDelay: '2.5s' }} />
                 </svg>
             </div>
 
@@ -25,12 +48,12 @@ export default function Hero() {
                     Connect • Collaborate • Grow
                 </p>
 
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
-                    Connect With Business Leaders. <span className="text-transparent bg-clip-text bg-gradient-to-r from-gbn-gold to-yellow-200">Grow Together.</span>
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif text-white mb-8 leading-tight tracking-tight">
+                    Where Business Connections Become <br className="hidden md:block" /><span className="text-gradient-gold">Global Opportunities.</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-gray-300 font-light mb-12 max-w-2xl mx-auto leading-relaxed">
-                    GBN Circle is a global business network for entrepreneurs, professionals and business leaders seeking meaningful connections, collaboration and new opportunities.
+                    GBN Circle brings ambitious entrepreneurs, professionals and business leaders together to connect, collaborate and grow through meaningful relationships.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
