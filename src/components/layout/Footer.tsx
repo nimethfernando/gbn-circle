@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -20,11 +21,20 @@ export default function Footer() {
 
                     {/* Brand */}
                     <div className="md:col-span-1">
-                        <Link href="/" className="inline-flex flex-col mb-6">
-                            <span className="text-3xl font-bold tracking-tight text-white mb-1">GBN Circle</span>
-                            <span className="text-xs tracking-[0.2em] uppercase text-gbn-gold font-semibold">
-                                Global Business Network
-                            </span>
+                        <Link href="/" className="inline-flex items-center gap-3 mb-6">
+                            <Image
+                                src="/favicon.png"
+                                alt="GBN Circle Logo"
+                                width={40}
+                                height={40}
+                                className="object-contain"
+                            />
+                            <div className="flex flex-col">
+                                <span className="text-3xl font-bold tracking-tight text-white mb-1">GBN Circle</span>
+                                <span className="text-[10px] tracking-[0.2em] uppercase text-gbn-gold font-semibold">
+                                    Global Business Network
+                                </span>
+                            </div>
                         </Link>
                         <p className="text-gray-400 max-w-xs font-light">
                             Connect • Collaborate • Grow

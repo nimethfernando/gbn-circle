@@ -2,6 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Header() {
@@ -32,11 +33,20 @@ export default function Header() {
         >
             <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
                 {/* Logo */}
-                <Link href="/" className="flex flex-col">
-                    <span className={`text-2xl font-bold tracking-tight ${isScrolled ? "text-gbn-navy" : "text-white"}`}>GBN Circle</span>
-                    <span className={`text-[10px] tracking-widest uppercase mt-0.5 ${isScrolled ? "text-gbn-gold" : "text-gray-300"}`}>
-                        Global Business Network
-                    </span>
+                <Link href="/" className="flex items-center gap-3">
+                    <Image
+                        src="/favicon.png"
+                        alt="GBN Circle Logo"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                    />
+                    <div className="flex flex-col">
+                        <span className={`text-2xl font-bold tracking-tight ${isScrolled ? "text-gbn-navy" : "text-white"}`}>GBN Circle</span>
+                        <span className={`text-[10px] tracking-widest uppercase mt-0.5 ${isScrolled ? "text-gbn-gold" : "text-gray-300"}`}>
+                            Global Business Network
+                        </span>
+                    </div>
                 </Link>
 
                 {/* Desktop Nav */}
