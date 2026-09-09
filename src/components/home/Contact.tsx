@@ -1,4 +1,4 @@
-import { Mail, Phone, Globe } from "lucide-react";
+import { Mail, Phone, Globe, MapPin } from "lucide-react";
 import Image from "next/image";
 
 export default function Contact() {
@@ -44,7 +44,7 @@ export default function Contact() {
                             </a>
 
                             <a href="https://www.gbncircle.com" target="_blank" rel="noopener noreferrer" className="flex items-center group">
-                                <div className="w-12 h-12 border border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-gbn-gold group-hover:text-gbn-gold transition-colors text-white">
+                                <div className="w-12 h-12 border border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-gbn-gold group-hover:text-gbn-gold transition-colors text-white shrink-0">
                                     <Globe size={18} strokeWidth={1} />
                                 </div>
                                 <div>
@@ -52,6 +52,26 @@ export default function Contact() {
                                     <p className="font-light text-gray-300 group-hover:text-white transition-colors">www.gbncircle.com</p>
                                 </div>
                             </a>
+
+                            <div className="flex items-start group pt-4 border-t border-white/5">
+                                <div className="w-12 h-12 border border-white/10 rounded-sm flex items-center justify-center mr-4 text-gbn-gold shrink-0">
+                                    <MapPin size={18} strokeWidth={1} />
+                                </div>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="text-[10px] tracking-widest uppercase font-bold text-gray-500">Georgia Office</p>
+                                        <p className="font-light text-gray-300 text-sm">17 Ioane Shavteli St, Tbilisi, Georgia</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] tracking-widest uppercase font-bold text-gray-500">India Office</p>
+                                        <p className="font-light text-gray-300 text-sm leading-relaxed">
+                                            3rd floor, 261, Sewa Sadan Marg, <br />
+                                            Frontier Colony, Adarsh Nagar, <br />
+                                            Jaipur, Rajasthan 302004
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="flex items-center space-x-4">

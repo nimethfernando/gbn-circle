@@ -58,10 +58,22 @@ export default function Footer() {
                     {/* Contact & Social */}
                     <div className="md:col-span-1">
                         <h4 className="text-lg font-bold text-white mb-6 uppercase tracking-wider text-sm">Contact</h4>
-                        <ul className="space-y-3 mb-8 text-gray-400 font-medium">
+                        <ul className="space-y-3 mb-6 text-gray-400 font-medium">
                             <li><a href="mailto:gbncircle@gmail.com" className="hover:text-white transition-colors">gbncircle@gmail.com</a></li>
                             <li><a href="tel:+919783577773" className="hover:text-white transition-colors">+91 9783577773</a></li>
                             <li><a href="https://www.gbncircle.com" className="hover:text-white transition-colors">www.gbncircle.com</a></li>
+                        </ul>
+
+                        <h4 className="text-[11px] font-bold text-gbn-gold mb-3 uppercase tracking-wider">Offices</h4>
+                        <ul className="space-y-4 mb-8 text-gray-400 font-light text-sm">
+                            <li>
+                                <strong className="block text-white font-medium text-xs mb-1 uppercase tracking-wider">Georgia</strong>
+                                17 Ioane Shavteli St, Tbilisi, Georgia
+                            </li>
+                            <li>
+                                <strong className="block text-white font-medium text-xs mb-1 uppercase tracking-wider">India</strong>
+                                3rd floor, 261, Sewa Sadan Marg,<br />Frontier Colony, Adarsh Nagar,<br />Jaipur, Rajasthan 302004
+                            </li>
                         </ul>
 
                         <h4 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Social</h4>
