@@ -85,9 +85,10 @@ export default function AboutPage() {
     <main className="min-h-screen bg-[#070b19] text-white selection:bg-[#c5a059] selection:text-black">
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden pt-36 pb-24 border-b border-[#1e293b]/60">
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(197,160,89,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(197,160,89,0.12),transparent_70%)] animate-pulse duration-[8000ms]" />
+        
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-          <span className="inline-block px-4 py-1.5 rounded-full border border-[#c5a059]/30 bg-[#c5a059]/10 text-[#e6ca85] text-xs font-semibold tracking-widest uppercase mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-[#c5a059]/30 bg-[#c5a059]/10 text-[#e6ca85] text-xs font-semibold tracking-widest uppercase mb-6 transition-all duration-300 hover:border-[#c5a059]/60 hover:bg-[#c5a059]/20">
             About GBN Circle
           </span>
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-white mb-8 leading-tight">
@@ -118,7 +119,7 @@ export default function AboutPage() {
             <p className="text-xl font-normal text-white">
               Business is built by people.
             </p>
-            <div className="border-l-2 border-[#c5a059] pl-6 py-2 space-y-3 bg-[#0d1527]/50 rounded-r-lg">
+            <div className="border-l-2 border-[#c5a059] pl-6 py-3 space-y-3 bg-[#0d1527]/50 rounded-r-lg transition-colors hover:bg-[#0d1527]/80">
               <p className="italic text-slate-200">The right conversation can create an idea.</p>
               <p className="italic text-slate-200">The right relationship can create trust.</p>
               <p className="italic text-slate-200">The right connection can create an opportunity.</p>
@@ -170,7 +171,7 @@ export default function AboutPage() {
             {missionPoints.map((point, index) => (
               <div
                 key={index}
-                className="p-6 rounded-xl bg-[#0e172a]/60 border border-[#1e293b] hover:border-[#c5a059]/40 transition-colors flex items-start space-x-4"
+                className="p-6 rounded-xl bg-[#0e172a]/60 border border-[#1e293b] hover:border-[#c5a059]/50 hover:-translate-y-1 transition-all duration-300 flex items-start space-x-4 shadow-lg shadow-black/20"
               >
                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#c5a059]/10 text-[#c5a059] flex items-center justify-center font-serif text-sm">
                   {index + 1}
@@ -196,7 +197,7 @@ export default function AboutPage() {
           <p className="text-[#c5a059] text-sm tracking-widest uppercase font-medium mb-8">
             Cities &bull; Industries &bull; Markets &bull; Countries
           </p>
-          <div className="p-8 rounded-2xl border border-[#c5a059]/30 bg-[#070b19]/80 backdrop-blur-sm max-w-xl mx-auto">
+          <div className="p-8 rounded-2xl border border-[#c5a059]/30 bg-[#070b19]/80 backdrop-blur-sm max-w-xl mx-auto shadow-xl shadow-black/30 hover:border-[#c5a059]/60 transition-all duration-300">
             <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">The Vision is Simple</p>
             <p className="text-lg md:text-xl font-serif text-white leading-relaxed">
               Connect people.<br />
@@ -223,10 +224,10 @@ export default function AboutPage() {
             {values.map((val, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-2xl bg-gradient-to-b from-[#0d1629] to-[#090e1a] border border-[#1e293b] hover:border-[#c5a059]/40 transition-colors"
+                className="p-8 rounded-2xl bg-gradient-to-b from-[#0d1629] to-[#090e1a] border border-[#1e293b] hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 group shadow-lg shadow-black/20"
               >
-                <div className="w-10 h-0.5 bg-[#c5a059] mb-6" />
-                <h3 className="text-xl font-serif text-white mb-3">
+                <div className="w-10 h-0.5 bg-[#c5a059] mb-6 group-hover:w-16 transition-all duration-300" />
+                <h3 className="text-xl font-serif text-white mb-3 group-hover:text-[#e6ca85] transition-colors">
                   {val.title}
                 </h3>
                 <p className="text-slate-300 font-light text-sm md:text-base leading-relaxed">
@@ -257,7 +258,7 @@ export default function AboutPage() {
             {pillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-xl bg-[#070b19] border border-[#1e293b] text-center hover:-translate-y-1 transition-transform duration-200"
+                className="p-6 rounded-xl bg-[#070b19] border border-[#1e293b] hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 text-center shadow-md shadow-black/20"
               >
                 <h3 className="text-lg font-serif text-[#e6ca85] uppercase tracking-wider mb-2">
                   {pillar.title}
@@ -283,7 +284,7 @@ export default function AboutPage() {
           <p className="text-slate-300 font-light text-base md:text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
             Today&apos;s businesses are increasingly connected across markets and geographies. GBN Circle is built with a global outlook—creating an environment where business leaders can develop relationships beyond their immediate location and industry.
           </p>
-          <div className="inline-block py-3 px-6 rounded-lg bg-[#0e172a] border border-[#c5a059]/30">
+          <div className="inline-block py-3 px-6 rounded-lg bg-[#0e172a] border border-[#c5a059]/30 hover:border-[#c5a059]/60 hover:scale-105 transition-all duration-300">
             <p className="text-sm md:text-base font-serif text-[#e6ca85] tracking-wide">
               Think Beyond Your Network. Connect Beyond Borders.
             </p>
@@ -310,7 +311,7 @@ export default function AboutPage() {
             {leaders.map((leader, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-2xl bg-[#070b19] border border-[#1e293b] flex flex-col justify-between"
+                className="p-8 rounded-2xl bg-[#070b19] border border-[#1e293b] hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between shadow-lg shadow-black/20"
               >
                 <div>
                   <h3 className="text-lg font-serif text-white mb-1">
@@ -330,7 +331,7 @@ export default function AboutPage() {
           <div className="mt-12 text-center">
             <Link
               href="/leadership"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-md border border-[#c5a059] text-[#e6ca85] hover:bg-[#c5a059]/10 text-sm font-medium transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-md border border-[#c5a059] text-[#e6ca85] hover:bg-[#c5a059]/10 hover:scale-105 active:scale-95 text-sm font-medium transition-all duration-200"
             >
               Meet Our Leadership
             </Link>
@@ -353,7 +354,7 @@ export default function AboutPage() {
           <div>
             <Link
               href="/community"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-md bg-[#c5a059] text-black font-semibold text-sm hover:bg-[#d4af37] transition-colors shadow-lg shadow-[#c5a059]/10"
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-md bg-[#c5a059] text-black font-semibold text-sm hover:bg-[#d4af37] hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-[#c5a059]/10"
             >
               Join GBN Circle
             </Link>

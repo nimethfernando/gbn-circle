@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700"],
 });
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  variable: "--font-jakarta",
   weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "GBN Circle - Global Business Network",
-  description: "GBN Circle is a global business network for entrepreneurs, professionals and business leaders seeking meaningful connections, collaboration and new opportunities.",
-  keywords: ["GBN Circle", "Global Business Network", "Business Leaders", "Networking", "Entrepreneurs", "Professionals"],
+  title: "GBN Circle — Global Business Network",
+  description: "Connect • Collaborate • Grow",
 };
 
 export default function RootLayout({
@@ -25,9 +27,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable} antialiased scroll-smooth`}>
-      <body className="min-h-screen flex flex-col text-gbn-navy bg-white">
-        {children}
+    <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
+      <body className="bg-[#070b19] text-white flex flex-col min-h-screen selection:bg-[#c5a059] selection:text-black font-sans">
+        {/* Persistent Sticky Header */}
+        <Header />
+
+        {/* Dynamic Page Content */}
+        <div className="flex-1">
+          {children}
+        </div>
+
+        {/* Persistent Global Footer */}
+        <Footer />
       </body>
     </html>
   );
