@@ -33,7 +33,7 @@ export default function Header() {
         >
             <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-3">
+                <Link href="/" className="flex items-center gap-3 shrink-0 mr-4">
                     <Image
                         src="/favicon.png"
                         alt="GBN Circle Logo"
@@ -42,20 +42,20 @@ export default function Header() {
                         className="object-contain"
                     />
                     <div className="flex flex-col">
-                        <span className="text-2xl font-bold tracking-tight text-white">GBN Circle</span>
-                        <span className="text-[10px] tracking-widest uppercase mt-0.5 text-gbn-text-muted">
+                        <span className="text-2xl font-bold tracking-tight text-white whitespace-nowrap">GBN Circle</span>
+                        <span className="text-[10px] tracking-widest uppercase mt-0.5 text-gbn-text-muted whitespace-nowrap">
                             Global Business Network
                         </span>
                     </div>
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center space-x-8">
+                <nav className="hidden lg:flex items-center space-x-4 xl:space-x-8 overflow-hidden">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`text-[10px] tracking-widest font-bold uppercase transition-colors hover:text-gbn-gold pb-1 border-b-2 ${link.name === "Home" ? "border-gbn-gold text-gbn-gold" : "border-transparent text-gray-300"
+                            className={`text-[10px] tracking-widest font-bold uppercase transition-colors hover:text-gbn-gold pb-1 border-b-2 whitespace-nowrap ${link.name === "Home" ? "border-gbn-gold text-gbn-gold" : "border-transparent text-gray-300"
                                 }`}
                         >
                             {link.name}
@@ -64,15 +64,15 @@ export default function Header() {
                 </nav>
 
                 {/* CTA & Mobile Toggle */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 shrink-0">
                     <Link
                         href="/join"
-                        className="hidden md:inline-flex bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] tracking-widest font-bold px-6 py-3 rounded-sm transition-all hover:scale-105 uppercase"
+                        className="hidden lg:inline-flex bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] tracking-widest font-bold px-6 py-3 rounded-sm transition-all hover:scale-105 uppercase whitespace-nowrap hover-shine"
                     >
                         Join GBN Circle
                     </Link>
                     <button
-                        className="md:hidden p-2 text-white"
+                        className="lg:hidden p-2 text-white"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -82,7 +82,7 @@ export default function Header() {
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="absolute top-full left-0 w-full bg-gbn-navy shadow-lg py-4 px-6 flex flex-col space-y-4 md:hidden border-t border-white/10">
+                <div className="absolute top-full left-0 w-full bg-gbn-navy shadow-lg py-4 px-6 flex flex-col space-y-4 lg:hidden border-t border-white/10">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
