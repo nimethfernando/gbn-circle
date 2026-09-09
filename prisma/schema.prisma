@@ -1,0 +1,62 @@
+# 2. Write the database models directly into the file
+Set-Content -Path "prisma\schema.prisma" -Value @"
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Event {
+  id                   String           @id @default(cuid())
+  title                String
+  type                 String
+  tier                 String           @default("GBN Circle")
+  format               String           @default("Online")
+  date                 DateTime
+  startTime            String
+  endTime              String
+  timezone             String           @default("IST")
+  image                String
+  shortDescription     String
+  fullDescription      String?
+  eligibility          String
+  allowVisitorRequests Boolean          @default(true)
+  fee                  String           @default("Free")
+  capacity             Int?
+  venueName            String?
+  venueAddress         String?
+  venueCity            String?
+  venueCountry         String?
+  privateMeetingLink   String?
+  meetingId            String?
+  passcode             String?
+  status               String           @default("PUBLISHED")
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+  requests             VisitorRequest[]
+}
+
+model VisitorRequest {
+  id                 String   @id @default(cuid())
+  eventId            String
+  event              Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  fullName           String
+  email              String
+  phone              String
+  country            String
+  city               String
+  companyName        String
+  designation        String
+  industry           String
+  website            String?
+  linkedIn           String?
+  whyAttend          String
+  collaborationGoals String
+  status             String   @default("PENDING")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+"@
