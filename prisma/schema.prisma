@@ -1,12 +1,9 @@
-# 2. Write the database models directly into the file
-Set-Content -Path "prisma\schema.prisma" -Value @"
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
-
 generator client {
   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
 }
 
 model Event {
@@ -59,4 +56,3 @@ model VisitorRequest {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
-"@
