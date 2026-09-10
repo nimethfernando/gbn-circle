@@ -28,14 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
-      <body className="bg-[#070b19] text-white flex flex-col min-h-screen selection:bg-[#c5a059] selection:text-black font-sans">
+      <body
+        suppressHydrationWarning
+        className="bg-[#070b19] text-white flex flex-col min-h-screen selection:bg-[#c5a059] selection:text-black font-sans"
+      >
         {/* Persistent Sticky Header */}
         <Header />
 
         {/* Dynamic Page Content */}
-        <div className="flex-1">
-          {children}
-        </div>
+        <div className="flex-1">{children}</div>
 
         {/* Persistent Global Footer */}
         <Footer />
