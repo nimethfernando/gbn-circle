@@ -18,7 +18,7 @@ export default function Hero() {
                     </div>
 
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-6 leading-[1.1] tracking-tight animate-fade-in-up delay-100">
-                        Where Business Connections <br className="hidden md:block" />Become <span className="text-gradient-gold">Global Opportunities.</span>
+                        Connect With Business Leaders. <br className="hidden md:block" /><span className="text-gradient-gold">Grow Together.</span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-gray-300 font-light mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200">

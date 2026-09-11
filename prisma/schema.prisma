@@ -30,6 +30,11 @@ model Event {
   privateMeetingLink   String?
   meetingId            String?
   passcode             String?
+  speakerHost          String?
+  agenda               String?
+  whatToExpect         String?
+  additionalInfo       String?
+  supportContact       String?
   status               String           @default("PUBLISHED")
   createdAt            DateTime         @default(now())
   updatedAt            DateTime         @updatedAt

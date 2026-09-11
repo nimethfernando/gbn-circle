@@ -22,6 +22,7 @@ export async function GET() {
         venueName: true,
         venueCity: true,
         allowVisitorRequests: true,
+        speakerHost: true,
         status: true,
       },
       orderBy: { date: 'asc' },

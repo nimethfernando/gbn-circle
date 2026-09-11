@@ -1,5 +1,61 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const status = searchParams.get('status');
+    const timeline = searchParams.get('timeline');
+    const search = searchParams.get('search')?.trim();
+
+    const now = new Date();
+    const where: Prisma.EventWhereInput = {};
+
+    // Status filter
+    if (status && status !== 'ALL') {
+      where.status = status;
+    }
+
+    // Timeline filter (upcoming vs past)
+    if (timeline === 'upcoming') {
+      where.date = { gte: now };
+    } else if (timeline === 'past') {
+      where.date = { lt: now };
+    }
+
+    // Keyword search
+    if (search) {
+      where.OR = [
+        { title: { contains: search } },
+        { speakerHost: { contains: search } },
+        { venueName: { contains: search } },
+        { venueCity: { contains: search } },
+      ];
+    }
+
+    // Retrieve events with visitor request counts
+    const events = await prisma.event.findMany({
+      where,
+      include: {
+        _count: {
+          select: {
+            requests: true,
+          },
+        },
+      },
+      orderBy: timeline === 'past' ? { date: 'desc' } : { date: 'asc' },
+    });
+
+    return NextResponse.json({ success: true, data: events });
+  } catch (error) {
+    console.error('Failed to retrieve admin events:', error);
+    return NextResponse.json(
+      { success: false, message: 'Failed to retrieve admin events' },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -44,6 +100,11 @@ export async function POST(req: NextRequest) {
         privateMeetingLink: body.privateMeetingLink || null,
         meetingId: body.meetingId || null,
         passcode: body.passcode || null,
+        speakerHost: body.speakerHost || null,
+        agenda: body.agenda || null,
+        whatToExpect: body.whatToExpect || null,
+        additionalInfo: body.additionalInfo || null,
+        supportContact: body.supportContact || null,
         status: body.status || 'PUBLISHED',
       },
     });
