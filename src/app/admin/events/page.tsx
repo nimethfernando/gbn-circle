@@ -328,10 +328,19 @@ export default function AdminEventsDashboard() {
   };
 
   const handleStatusUpdate = async (id: string, action: 'approve' | 'reject') => {
+    let reason: string | undefined = undefined;
+    if (action === 'reject') {
+      const input = prompt('Optional rejection note / reason to applicant (or click OK for standard notification):');
+      if (input === null) return; // User pressed Cancel
+      if (input.trim()) reason = input.trim();
+    }
+
     setActionLoading(id);
     try {
       const res = await fetch(`/api/admin/requests/${id}/${action}`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason }),
       });
       const json = await res.json();
       if (json.success) {
