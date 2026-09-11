@@ -28,7 +28,7 @@ export async function GET() {
     });
 
     return NextResponse.json({ success: true, data: events });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, message: 'Failed to retrieve events' },
       { status: 500 }

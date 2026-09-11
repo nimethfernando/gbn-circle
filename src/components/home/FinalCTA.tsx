@@ -18,7 +18,7 @@ export default function FinalCTA() {
                 </p>
 
                 <Link
-                    href="/join"
+                    href="/contact"
                     className="inline-flex items-center justify-center bg-gbn-gold hover:bg-gbn-gold-hover text-white text-lg font-semibold px-10 py-5 rounded-full transition-all hover:scale-105 shadow-xl hover:shadow-gbn-gold/20"
                 >
                     Join GBN Circle <ArrowRight size={20} className="ml-2" />

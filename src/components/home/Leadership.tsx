@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function Leadership() {
     const leaders = [
         {
             name: "Amit Batra",
             role: "Founder",
-            image: "linear-gradient(135deg, #0B162C 0%, #152A55 100%)", // placeholder bg
+            image: "/event-leadership-C1eE1_9Q.jpg",
         },
         {
             name: "Asha Bhasin",
             role: "Co-Founder",
-            image: "linear-gradient(135deg, #0B162C 0%, #152A55 100%)",
+            image: "/event-leadership-C1eE1_9Q (1).jpg",
         },
         {
             name: "Ditya Batra",
             role: "Chief Inspiration Officer",
-            image: "linear-gradient(135deg, #0B162C 0%, #152A55 100%)",
+            image: "/vision-wide-Dafp-BMf.jpg",
         },
     ];
 
@@ -42,12 +42,14 @@ export default function Leadership() {
                 <div className="grid md:grid-cols-3 gap-8 mb-16">
                     {leaders.map((leader, idx) => (
                         <div key={idx} className="group cursor-pointer">
-                            <div
-                                className="w-full aspect-[4/5] rounded-sm border border-white/5 premium-shadow mb-6 relative overflow-hidden"
-                                style={{ background: leader.image }}
-                            >
-                                {/* Image Placeholder */}
-                                <div className="absolute inset-0 bg-gbn-navy/40 group-hover:bg-transparent transition-colors duration-700"></div>
+                            <div className="w-full aspect-[4/5] rounded-sm border border-white/5 premium-shadow mb-6 relative overflow-hidden bg-[#070b19]">
+                                <Image
+                                    src={leader.image}
+                                    alt={leader.name}
+                                    fill
+                                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gbn-navy/30 group-hover:bg-transparent transition-colors duration-700"></div>
                             </div>
                             <h3 className="text-2xl font-serif text-white mb-1 group-hover:text-gbn-gold transition-colors">{leader.name}</h3>
                             <p className="text-gray-400 font-light text-sm uppercase tracking-wider mb-4">{leader.role}</p>

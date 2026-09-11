@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface VisitorRequest {
@@ -48,7 +48,7 @@ export default function AdminEventsDashboard() {
     passcode: '',
   });
 
-  const loadRequests = async () => {
+  const loadRequests = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/requests');
       const json = await res.json();
@@ -58,10 +58,25 @@ export default function AdminEventsDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    loadRequests();
+    let ignore = false;
+    async function initRequests() {
+      try {
+        const res = await fetch('/api/admin/requests');
+        const json = await res.json();
+        if (!ignore && json.success) setRequests(json.data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+    initRequests();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const handleLogout = async () => {

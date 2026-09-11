@@ -1,5 +1,3 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Hero from "@/components/home/Hero";
 import WhatIsGBN from "@/components/home/WhatIsGBN";
 import WhoIsGBNFor from "@/components/home/WhoIsGBNFor";
@@ -17,26 +15,22 @@ import Contact from "@/components/home/Contact";
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <main className="flex-1 w-full flex flex-col">
-        <Hero />
-        <WhatIsGBN />
-        <WhoIsGBNFor />
-        <InsideGBN />
-        <ThreePrinciples />
-        <GBNExperience />
-        <GlobalNetwork />
-        <Events />
-        <Leadership />
-        <Inspiration />
-        <MemberCommunity />
-        <GBNJourney />
-        {/* TESTIMONIALS & VERIFIED IMPACT sections omitted for now, as per PRD "hide this section completely if not available" */}
-        <FinalCTA />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <main className="flex-1 w-full flex flex-col">
+      <Hero />
+      <WhatIsGBN />
+      <WhoIsGBNFor />
+      <InsideGBN />
+      <ThreePrinciples />
+      <GBNExperience />
+      <GlobalNetwork />
+      <Events />
+      <Leadership />
+      <Inspiration />
+      <MemberCommunity />
+      <GBNJourney />
+      {/* TESTIMONIALS & VERIFIED IMPACT sections omitted for now, as per PRD "hide this section completely if not available" */}
+      <FinalCTA />
+      <Contact />
+    </main>
   );
 }

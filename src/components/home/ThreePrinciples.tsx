@@ -45,7 +45,7 @@ export default function ThreePrinciples() {
 
                 <div className="text-center">
                     <p className="text-2xl md:text-3xl font-serif font-light text-gbn-gold italic">
-                        "Your network can become your next opportunity."
+                        &ldquo;Your network can become your next opportunity.&rdquo;
                     </p>
                 </div>
             </div>

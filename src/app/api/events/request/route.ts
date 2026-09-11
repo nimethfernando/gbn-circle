@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       message: 'Request submitted for admin review.',
       requestId: newRequest.id,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, message: 'Error processing request' },
       { status: 500 }

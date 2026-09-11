@@ -11,7 +11,7 @@
   /* premium off-white */
   --color-foreground: #0B162C;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
 
   --color-gbn-text-muted: #4B5563;

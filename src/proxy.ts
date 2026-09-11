@@ -5,7 +5,7 @@ const SECRET_KEY = new TextEncoder().encode(
   process.env.ADMIN_JWT_SECRET || 'fallback-secret-key-min-32-characters-long'
 );
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Allow unauthenticated access to the login API and login page

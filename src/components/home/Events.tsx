@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MapPin, Calendar } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 
 export default function Events() {
     const events = [
@@ -81,10 +81,10 @@ export default function Events() {
                                 </p>
 
                                 <div className="flex gap-4">
-                                    <Link href="#" className="flex-1 text-center bg-transparent border border-white/20 hover:border-white text-white text-[10px] font-bold tracking-widest uppercase py-3 transition-colors">
+                                    <Link href="/events" className="flex-1 text-center bg-transparent border border-white/20 hover:border-white text-white text-[10px] font-bold tracking-widest uppercase py-3 transition-colors">
                                         View Event
                                     </Link>
-                                    <Link href="#" className="flex-1 text-center bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] font-bold tracking-widest uppercase py-3 transition-colors">
+                                    <Link href="/events" className="flex-1 text-center bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] font-bold tracking-widest uppercase py-3 transition-colors">
                                         Register Now
                                     </Link>
                                 </div>

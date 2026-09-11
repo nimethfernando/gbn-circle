@@ -42,7 +42,7 @@ export default function InsideGBN() {
             <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
                 <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
                     <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
-                        It's More Than a Meeting. <span className="text-gradient-gold block mt-2">It's a Business Experience.</span>
+                        It&apos;s More Than a Meeting. <span className="text-gradient-gold block mt-2">It&apos;s a Business Experience.</span>
                     </h2>
                     <p className="text-lg text-gray-300 leading-relaxed text-balance font-light">
                         GBN Circle creates regular opportunities for members to meet, introduce themselves, present their businesses, exchange ideas and discover opportunities for collaboration.

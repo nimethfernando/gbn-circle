@@ -54,7 +54,7 @@ export default function GBNJourney() {
                 </div>
 
                 <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto italic font-serif font-light">
-                    "Great business relationships are built over time—not in a single handshake."
+                    &ldquo;Great business relationships are built over time—not in a single handshake.&rdquo;
                 </p>
             </div>
         </section>

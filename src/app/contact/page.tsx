@@ -14,10 +14,39 @@ export default function ContactPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          companyName: formData.company || null,
+          interest: `${formData.inquiryType} (${formData.turnover})`,
+          message: formData.message,
+        }),
+      });
+
+      const json = await res.json();
+      if (json.success) {
+        setSubmitted(true);
+      } else {
+        setError(json.message || 'Failed to send inquiry. Please try again.');
+      }
+    } catch {
+      setError('A network error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -99,6 +128,11 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+                {error && (
+                  <div className="p-3 rounded bg-red-950/50 border border-red-500/40 text-red-300 text-xs">
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-slate-400 mb-1">Full Name *</label>
@@ -186,9 +220,10 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold uppercase rounded text-xs tracking-wider transition"
+                  disabled={loading}
+                  className="w-full py-3 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold uppercase rounded text-xs tracking-wider transition disabled:opacity-50"
                 >
-                  Submit Inquiry to Directorate
+                  {loading ? 'Submitting Inquiry...' : 'Submit Inquiry to Directorate'}
                 </button>
               </form>
             )}
