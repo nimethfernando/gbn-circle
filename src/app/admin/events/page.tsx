@@ -31,12 +31,24 @@ interface AdminEvent {
   endTime: string;
   timezone: string;
   shortDescription: string;
+  fullDescription?: string | null;
   eligibility: string;
+  fee: string;
+  capacity?: number | null;
   status: string;
   venueName?: string | null;
+  venueAddress?: string | null;
   venueCity?: string | null;
+  venueCountry?: string | null;
   privateMeetingLink?: string | null;
+  meetingId?: string | null;
+  passcode?: string | null;
   speakerHost?: string | null;
+  agenda?: string | null;
+  whatToExpect?: string | null;
+  additionalInfo?: string | null;
+  supportContact?: string | null;
+  allowVisitorRequests?: boolean;
   _count?: {
     requests: number;
   };
@@ -73,6 +85,40 @@ export default function AdminEventsDashboard() {
     privateMeetingLink: '',
     meetingId: '',
     passcode: '',
+  });
+
+  // Edit Event Modal State
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editSubmitting, setEditSubmitting] = useState(false);
+  const [editFormData, setEditFormData] = useState({
+    id: '',
+    title: '',
+    type: 'Online Networking',
+    tier: 'GBN Circle',
+    format: 'Online',
+    date: '',
+    startTime: '09:00 AM',
+    endTime: '11:00 AM',
+    timezone: 'IST',
+    shortDescription: '',
+    fullDescription: '',
+    eligibility: '',
+    fee: 'Free (Invite Only)',
+    capacity: '',
+    venueName: '',
+    venueAddress: '',
+    venueCity: '',
+    venueCountry: '',
+    privateMeetingLink: '',
+    meetingId: '',
+    passcode: '',
+    speakerHost: '',
+    agenda: '',
+    whatToExpect: '',
+    additionalInfo: '',
+    supportContact: '',
+    allowVisitorRequests: true,
+    status: 'PUBLISHED',
   });
 
   const loadRequests = useCallback(async () => {
@@ -172,6 +218,89 @@ export default function AdminEventsDashboard() {
       }
     } catch {
       alert('Network error creating event');
+    }
+  };
+
+  const openEditModal = (evt: AdminEvent) => {
+    const d = new Date(evt.date);
+    const formattedDate = !isNaN(d.getTime())
+      ? `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+      : '';
+
+    setEditFormData({
+      id: evt.id,
+      title: evt.title || '',
+      type: evt.type || 'Online Networking',
+      tier: evt.tier || 'GBN Circle',
+      format: evt.format || 'Online',
+      date: formattedDate,
+      startTime: evt.startTime || '09:00 AM',
+      endTime: evt.endTime || '11:00 AM',
+      timezone: evt.timezone || 'IST',
+      shortDescription: evt.shortDescription || '',
+      fullDescription: evt.fullDescription || '',
+      eligibility: evt.eligibility || '',
+      fee: evt.fee || 'Free (Invite Only)',
+      capacity: evt.capacity !== null && evt.capacity !== undefined ? String(evt.capacity) : '',
+      venueName: evt.venueName || '',
+      venueAddress: evt.venueAddress || '',
+      venueCity: evt.venueCity || '',
+      venueCountry: evt.venueCountry || '',
+      privateMeetingLink: evt.privateMeetingLink || '',
+      meetingId: evt.meetingId || '',
+      passcode: evt.passcode || '',
+      speakerHost: evt.speakerHost || '',
+      agenda: evt.agenda || '',
+      whatToExpect: evt.whatToExpect || '',
+      additionalInfo: evt.additionalInfo || '',
+      supportContact: evt.supportContact || '',
+      allowVisitorRequests: evt.allowVisitorRequests ?? true,
+      status: evt.status || 'PUBLISHED',
+    });
+    setEditModalOpen(true);
+  };
+
+  const handleUpdateEvent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editFormData.id) return;
+    setEditSubmitting(true);
+    try {
+      const res = await fetch(`/api/admin/events/${editFormData.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editFormData),
+      });
+      const json = await res.json();
+      if (json.success) {
+        alert('Event updated successfully!');
+        setEditModalOpen(false);
+        await loadEvents();
+      } else {
+        alert(json.message || 'Failed to update event');
+      }
+    } catch {
+      alert('Network error updating event');
+    } finally {
+      setEditSubmitting(false);
+    }
+  };
+
+  const handleDeleteEvent = async (id: string, title: string) => {
+    if (!confirm(`Are you sure you want to delete "${title}"? All associated visitor requests will also be deleted.`)) return;
+    try {
+      const res = await fetch(`/api/admin/events/${id}`, {
+        method: 'DELETE',
+      });
+      const json = await res.json();
+      if (json.success) {
+        alert('Event deleted successfully');
+        await loadEvents();
+        await loadRequests();
+      } else {
+        alert(json.message || 'Failed to delete event');
+      }
+    } catch {
+      alert('Network error deleting event');
     }
   };
 
@@ -377,14 +506,28 @@ export default function AdminEventsDashboard() {
                       {evt._count?.requests ?? 0}
                     </td>
                     <td className="py-3 text-right whitespace-nowrap">
-                      <a
-                        href="/events"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-[11px] font-semibold transition inline-block"
-                      >
-                        View Live
-                      </a>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() => openEditModal(evt)}
+                          className="px-2.5 py-1 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold rounded text-[11px] transition shadow-sm"
+                        >
+                          Edit
+                        </button>
+                        <a
+                          href={`/events/${evt.id}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded text-[11px] font-semibold transition inline-block"
+                        >
+                          Live
+                        </a>
+                        <button
+                          onClick={() => handleDeleteEvent(evt.id, evt.title)}
+                          className="px-2 py-1 bg-red-950/60 hover:bg-red-900 border border-red-800/60 text-red-300 rounded text-[11px] font-semibold transition inline-block"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -637,6 +780,387 @@ export default function AdminEventsDashboard() {
           )}
         </div>
       </div>
+
+      {/* Edit Event Modal (Sec. 9, 11, 29) */}
+      {editModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+          <div className="bg-[#0b1021] border border-[#c5a059]/40 rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative my-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setEditModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl p-1"
+            >
+              &times;
+            </button>
+
+            <div className="mb-6 border-b border-slate-800 pb-4">
+              <span className="text-[#c5a059] text-[10px] uppercase font-bold tracking-widest">
+                Lifecycle &amp; Configuration Management
+              </span>
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white mt-1">
+                Edit Event: {editFormData.title || 'Untitled Session'}
+              </h2>
+              <p className="text-slate-400 text-xs mt-1 font-mono">
+                Event ID: {editFormData.id}
+              </p>
+            </div>
+
+            <form onSubmit={handleUpdateEvent} className="space-y-6 text-xs">
+              {/* Status, Tier & Format */}
+              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-4">
+                <h3 className="text-xs uppercase font-bold text-[#c5a059] tracking-wider">
+                  Lifecycle Status &amp; Tier
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Status *</label>
+                    <select
+                      value={editFormData.status}
+                      onChange={(e) => setEditFormData({ ...editFormData, status: e.target.value })}
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none font-semibold"
+                    >
+                      <option value="PUBLISHED">PUBLISHED (Live)</option>
+                      <option value="DRAFT">DRAFT (Hidden)</option>
+                      <option value="CANCELLED">CANCELLED</option>
+                      <option value="COMPLETED">COMPLETED (Past)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Tier</label>
+                    <select
+                      value={editFormData.tier}
+                      onChange={(e) => setEditFormData({ ...editFormData, tier: e.target.value })}
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    >
+                      <option value="GBN Circle">GBN Circle</option>
+                      <option value="GBN Elite">GBN Elite</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Format</label>
+                    <select
+                      value={editFormData.format}
+                      onChange={(e) => setEditFormData({ ...editFormData, format: e.target.value })}
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    >
+                      <option value="Online">Online</option>
+                      <option value="In-Person">In-Person</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Type</label>
+                    <input
+                      type="text"
+                      value={editFormData.type}
+                      onChange={(e) => setEditFormData({ ...editFormData, type: e.target.value })}
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Event Title *</label>
+                  <input
+                    required
+                    type="text"
+                    value={editFormData.title}
+                    onChange={(e) => setEditFormData({ ...editFormData, title: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none text-sm font-bold"
+                  />
+                </div>
+              </div>
+
+              {/* Date, Time & Capacity (Sec. 11, 29) */}
+              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-4">
+                <h3 className="text-xs uppercase font-bold text-[#c5a059] tracking-wider">
+                  Schedule, Timing &amp; Capacity
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                  <div className="col-span-2 sm:col-span-2">
+                    <label className="block text-slate-400 mb-1 font-semibold">Date *</label>
+                    <input
+                      required
+                      type="date"
+                      value={editFormData.date}
+                      onChange={(e) => setEditFormData({ ...editFormData, date: e.target.value })}
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Start Time *</label>
+                    <input
+                      required
+                      type="text"
+                      value={editFormData.startTime}
+                      onChange={(e) => setEditFormData({ ...editFormData, startTime: e.target.value })}
+                      placeholder="09:00 AM"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">End Time *</label>
+                    <input
+                      required
+                      type="text"
+                      value={editFormData.endTime}
+                      onChange={(e) => setEditFormData({ ...editFormData, endTime: e.target.value })}
+                      placeholder="11:00 AM"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Timezone</label>
+                    <input
+                      type="text"
+                      value={editFormData.timezone}
+                      onChange={(e) => setEditFormData({ ...editFormData, timezone: e.target.value })}
+                      placeholder="IST"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Seat Capacity (Optional)</label>
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="e.g. 50 (leave empty for unlimited)"
+                      value={editFormData.capacity}
+                      onChange={(e) => setEditFormData({ ...editFormData, capacity: e.target.value })}
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Access Fee</label>
+                    <input
+                      type="text"
+                      value={editFormData.fee}
+                      onChange={(e) => setEditFormData({ ...editFormData, fee: e.target.value })}
+                      placeholder="Free (Invite Only)"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Confidential Meeting Links & Credentials (Sec. 9, 11) */}
+              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs uppercase font-bold text-[#c5a059] tracking-wider">
+                    Confidential Meeting Link &amp; Credentials
+                  </h3>
+                  <span className="text-[10px] text-slate-500 uppercase tracking-wider">
+                    Secured by Rule 7
+                  </span>
+                </div>
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Private Meeting Link (Zoom / Webex / Meet)</label>
+                  <input
+                    type="url"
+                    value={editFormData.privateMeetingLink}
+                    onChange={(e) => setEditFormData({ ...editFormData, privateMeetingLink: e.target.value })}
+                    placeholder="https://us02web.zoom.us/j/..."
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none font-mono text-[11px]"
+                  />
+                  <p className="text-[10px] text-slate-500 mt-1">
+                    * This link is strictly guarded on the backend and never exposed on public endpoints.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Meeting ID</label>
+                    <input
+                      type="text"
+                      value={editFormData.meetingId}
+                      onChange={(e) => setEditFormData({ ...editFormData, meetingId: e.target.value })}
+                      placeholder="e.g. 845 2910 4421"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none font-mono"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Passcode</label>
+                    <input
+                      type="text"
+                      value={editFormData.passcode}
+                      onChange={(e) => setEditFormData({ ...editFormData, passcode: e.target.value })}
+                      placeholder="e.g. 772910"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none font-mono"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Physical Venue Details (if In-Person) */}
+              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-4">
+                <h3 className="text-xs uppercase font-bold text-[#c5a059] tracking-wider">
+                  Physical Venue Details (In-Person Summits)
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Venue Name</label>
+                    <input
+                      type="text"
+                      value={editFormData.venueName}
+                      onChange={(e) => setEditFormData({ ...editFormData, venueName: e.target.value })}
+                      placeholder="e.g. The Grand Ballroom, Tbilisi"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">City</label>
+                    <input
+                      type="text"
+                      value={editFormData.venueCity}
+                      onChange={(e) => setEditFormData({ ...editFormData, venueCity: e.target.value })}
+                      placeholder="e.g. Tbilisi, Jaipur, Dubai"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Address</label>
+                    <input
+                      type="text"
+                      value={editFormData.venueAddress}
+                      onChange={(e) => setEditFormData({ ...editFormData, venueAddress: e.target.value })}
+                      placeholder="Street address or landmark"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Country</label>
+                    <input
+                      type="text"
+                      value={editFormData.venueCountry}
+                      onChange={(e) => setEditFormData({ ...editFormData, venueCountry: e.target.value })}
+                      placeholder="e.g. Georgia, India, UAE"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Host, Eligibility & Content */}
+              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-4">
+                <h3 className="text-xs uppercase font-bold text-[#c5a059] tracking-wider">
+                  Host, Audience &amp; Descriptions
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Speaker / Session Host</label>
+                    <input
+                      type="text"
+                      value={editFormData.speakerHost}
+                      onChange={(e) => setEditFormData({ ...editFormData, speakerHost: e.target.value })}
+                      placeholder="e.g. Dr. Rajesh Kothari, Davit Kvirikashvili"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 mb-1 font-semibold">Support Contact</label>
+                    <input
+                      type="text"
+                      value={editFormData.supportContact}
+                      onChange={(e) => setEditFormData({ ...editFormData, supportContact: e.target.value })}
+                      placeholder="gbncircle@gmail.com / +91 9783577773"
+                      className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Eligibility Criteria *</label>
+                  <input
+                    required
+                    type="text"
+                    value={editFormData.eligibility}
+                    onChange={(e) => setEditFormData({ ...editFormData, eligibility: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Short Description (Card Summary) *</label>
+                  <textarea
+                    required
+                    rows={2}
+                    value={editFormData.shortDescription}
+                    onChange={(e) => setEditFormData({ ...editFormData, shortDescription: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Full Description (Detail Page)</label>
+                  <textarea
+                    rows={3}
+                    value={editFormData.fullDescription}
+                    onChange={(e) => setEditFormData({ ...editFormData, fullDescription: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">Agenda / Schedule (One line per session item)</label>
+                  <textarea
+                    rows={3}
+                    value={editFormData.agenda}
+                    onChange={(e) => setEditFormData({ ...editFormData, agenda: e.target.value })}
+                    placeholder="00:00 - 00:15: Welcome&#10;00:15 - 00:45: Keynote Discussion"
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-400 mb-1 font-semibold">What to Expect (One line per takeaway)</label>
+                  <textarea
+                    rows={3}
+                    value={editFormData.whatToExpect}
+                    onChange={(e) => setEditFormData({ ...editFormData, whatToExpect: e.target.value })}
+                    placeholder="Structured high-level introductions&#10;Bilateral trade discovery"
+                    className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none resize-none"
+                  />
+                </div>
+
+                <div className="flex items-center gap-2 pt-2">
+                  <input
+                    type="checkbox"
+                    id="allowVisitorRequestsEdit"
+                    checked={editFormData.allowVisitorRequests}
+                    onChange={(e) => setEditFormData({ ...editFormData, allowVisitorRequests: e.target.checked })}
+                    className="h-4 w-4 rounded bg-slate-900 border-slate-800 text-[#c5a059] focus:ring-0"
+                  />
+                  <label htmlFor="allowVisitorRequestsEdit" className="text-slate-300 font-semibold cursor-pointer">
+                    Allow non-member visitor pass applications
+                  </label>
+                </div>
+              </div>
+
+              {/* Submit Buttons */}
+              <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+                <button
+                  type="button"
+                  onClick={() => setEditModalOpen(false)}
+                  className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-semibold transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={editSubmitting}
+                  className="px-6 py-2.5 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold uppercase rounded tracking-wider shadow transition disabled:opacity-50"
+                >
+                  {editSubmitting ? 'Saving Changes...' : 'Save & Update Event'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
