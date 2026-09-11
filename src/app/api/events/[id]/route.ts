@@ -66,7 +66,9 @@ export async function GET(
         allowVisitorRequests: true,
         status: true,
         createdAt: true,
-        privateMeetingLink: true, // Only returned if email is confirmed approved visitor
+        privateMeetingLink: true, // Only returned if email is confirmed approved member/visitor (Sec. 7)
+        meetingId: true,
+        passcode: true,
       },
     });
 
@@ -120,52 +122,80 @@ export async function GET(
       };
     }
 
-    // Check specific visitor application status if email provided (Sec. 24)
+    // Check member or visitor access if email is provided (PRD Sec. 5 & 24)
+    let member = null;
     let visitorRequest = null;
+
     if (email) {
-      visitorRequest = await prisma.visitorRequest.findFirst({
-        where: {
-          eventId: id,
-          email: { equals: email },
-        },
+      // 1. Check if email belongs to an approved active GBN Circle member
+      member = await prisma.member.findUnique({
+        where: { email },
         select: {
           id: true,
+          name: true,
+          email: true,
+          tier: true,
           status: true,
-          fullName: true,
-          createdAt: true,
         },
       });
 
-      if (visitorRequest) {
-        if (visitorRequest.status === 'PENDING') {
-          buttonLogic = {
-            label: 'REQUEST SUBMITTED',
-            disabled: true,
-            state: 'REQUEST_SUBMITTED',
-            meetingAccessUrl: null,
-          };
-        } else if (visitorRequest.status === 'APPROVED') {
-          // Approved visitor receives secure private meeting credentials per Sec. 7 & 24
-          buttonLogic = {
-            label: 'ACCESS MEETING',
-            disabled: false,
-            state: 'ACCESS_MEETING',
-            meetingAccessUrl: event.privateMeetingLink || null,
-          };
-        } else if (visitorRequest.status === 'REJECTED') {
-          buttonLogic = {
-            label: 'REQUEST NOT APPROVED',
-            disabled: true,
-            state: 'REQUEST_NOT_APPROVED',
-            meetingAccessUrl: null,
-          };
+      if (member && member.status === 'ACTIVE') {
+        // Active member receives direct JOIN MEETING access without any screening form (PRD Sec. 5 & 24)
+        buttonLogic = {
+          label: 'JOIN MEETING',
+          disabled: false,
+          state: 'JOIN_MEETING',
+          meetingAccessUrl: event.privateMeetingLink || null,
+        };
+      } else {
+        // 2. Not an active member -> check VisitorRequest for this event
+        visitorRequest = await prisma.visitorRequest.findFirst({
+          where: {
+            eventId: id,
+            email: { equals: email },
+          },
+          select: {
+            id: true,
+            status: true,
+            fullName: true,
+            createdAt: true,
+          },
+        });
+
+        if (visitorRequest) {
+          if (visitorRequest.status === 'PENDING') {
+            buttonLogic = {
+              label: 'REQUEST SUBMITTED',
+              disabled: true,
+              state: 'REQUEST_SUBMITTED',
+              meetingAccessUrl: null,
+            };
+          } else if (visitorRequest.status === 'APPROVED') {
+            // Approved visitor receives secure private meeting credentials per Sec. 7 & 24
+            buttonLogic = {
+              label: 'ACCESS MEETING',
+              disabled: false,
+              state: 'ACCESS_MEETING',
+              meetingAccessUrl: event.privateMeetingLink || null,
+            };
+          } else if (visitorRequest.status === 'REJECTED') {
+            buttonLogic = {
+              label: 'REQUEST NOT APPROVED',
+              disabled: true,
+              state: 'REQUEST_NOT_APPROVED',
+              meetingAccessUrl: null,
+            };
+          }
         }
       }
     }
 
-    // Security Rule 7: Never return privateMeetingLink on public response unless visitor is verified APPROVED
-    const isMeetingAccessAllowed = buttonLogic.state === 'ACCESS_MEETING';
+    // Security Rule 7: Never return private credentials on public response unless member or approved visitor
+    const isMeetingAccessAllowed =
+      buttonLogic.state === 'JOIN_MEETING' || buttonLogic.state === 'ACCESS_MEETING';
     const sanitizedMeetingLink = isMeetingAccessAllowed ? event.privateMeetingLink : null;
+    const sanitizedMeetingId = isMeetingAccessAllowed ? event.meetingId : null;
+    const sanitizedPasscode = isMeetingAccessAllowed ? event.passcode : null;
 
     // Construct full Sec. 23 event response
     const payload = {
@@ -197,9 +227,16 @@ export async function GET(
       supportContact: event.supportContact,
       allowVisitorRequests: event.allowVisitorRequests,
       status: event.status,
-      buttonLogic,
+      buttonLogic: {
+        ...buttonLogic,
+        isMember: !!member,
+        memberName: member?.name || null,
+        memberTier: member?.tier || null,
+      },
       visitorStatus: visitorRequest?.status || null,
       meetingAccessUrl: sanitizedMeetingLink,
+      meetingId: sanitizedMeetingId,
+      passcode: sanitizedPasscode,
     };
 
     return NextResponse.json({ success: true, data: payload });

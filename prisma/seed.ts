@@ -11,6 +11,7 @@ async function main() {
   await prisma.visitorRequest.deleteMany();
   await prisma.event.deleteMany();
   await prisma.blog.deleteMany();
+  await prisma.member.deleteMany();
 
   console.log('Seeding events with PRD Section 23 rich data...');
 
@@ -307,7 +308,91 @@ The collective intelligence of a room with 50+ combined years of founder experie
     ],
   });
 
-  console.log(`Database seeded successfully! Created 4 events, 3 visitor test requests, and 4 blogs.`);
+  console.log('Seeding verified GBN Circle members (PRD Sec. 5 & 24)...');
+  await prisma.member.createMany({
+    data: [
+      {
+        name: 'Rajesh Subramanian',
+        email: 'rajesh@apexlogistics.com',
+        phone: '+91 98200 11223',
+        company: 'Apex Logistics & Freight Corp',
+        designation: 'Managing Director',
+        industry: 'Logistics & Supply Chain',
+        tier: 'GBN Elite',
+        city: 'Mumbai',
+        turnoverBand: '₹5Cr+',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+      {
+        name: 'Kavita Menon',
+        email: 'kavita@studioterra.in',
+        phone: '+91 98450 33445',
+        company: 'Studio Terra Spatial Labs',
+        designation: 'Founder & Principal Architect',
+        industry: 'Architecture & Design',
+        tier: 'GBN Circle',
+        city: 'Bengaluru',
+        turnoverBand: '₹20L - ₹1Cr',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+      {
+        name: 'Arunav Singhal',
+        email: 'arunav@novusprecision.com',
+        phone: '+91 98110 55667',
+        company: 'Novus Precision Engineering',
+        designation: 'Chief Executive Officer',
+        industry: 'Manufacturing',
+        tier: 'GBN Elite',
+        city: 'Pune',
+        turnoverBand: '₹5Cr+',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+      {
+        name: 'Priyanka Sen',
+        email: 'priyanka@senassociates.in',
+        phone: '+91 98710 77889',
+        company: 'Sen & Associates Corporate Law',
+        designation: 'Managing Partner',
+        industry: 'Legal & Compliance',
+        tier: 'GBN Circle',
+        city: 'New Delhi',
+        turnoverBand: '₹1Cr - ₹5Cr',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+      {
+        name: 'Vikramaditya Chawla',
+        email: 'vikram@synthetixcloud.io',
+        phone: '+91 98490 99001',
+        company: 'Synthetix Cloud Systems',
+        designation: 'Co-Founder & CTO',
+        industry: 'Information Technology',
+        tier: 'GBN Circle',
+        city: 'Hyderabad',
+        turnoverBand: '₹1Cr - ₹5Cr',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+      {
+        name: 'Deepak Merchant',
+        email: 'deepak@merchantpolymers.com',
+        phone: '+91 98250 22334',
+        company: 'Merchant Polymers & Packaging',
+        designation: 'Chairman & MD',
+        industry: 'Manufacturing',
+        tier: 'GBN Elite',
+        city: 'Ahmedabad',
+        turnoverBand: '₹5Cr+',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+    ],
+  });
+
+  console.log(`Database seeded successfully! Created 4 events, 3 visitor test requests, 4 blogs, and 6 active members.`);
 }
 
 main()

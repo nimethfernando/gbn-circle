@@ -60,6 +60,7 @@ export default function AdminEventsDashboard() {
   const [requests, setRequests] = useState<VisitorRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [duplicatingId, setDuplicatingId] = useState<string | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
 
   // Events list state
@@ -328,6 +329,27 @@ export default function AdminEventsDashboard() {
     await handleQuickStatusToggle(id, 'CANCELLED');
   };
 
+  const handleDuplicateEvent = async (id: string, title: string) => {
+    if (!confirm(`Duplicate "${title}" as a new DRAFT event?`)) return;
+    setDuplicatingId(id);
+    try {
+      const res = await fetch(`/api/admin/events/${id}/duplicate`, {
+        method: 'POST',
+      });
+      const json = await res.json();
+      if (json.success) {
+        alert('Event duplicated successfully as a DRAFT! You can now edit its schedule.');
+        await loadEvents();
+      } else {
+        alert(json.message || 'Failed to duplicate event');
+      }
+    } catch {
+      alert('Network error duplicating event');
+    } finally {
+      setDuplicatingId(null);
+    }
+  };
+
   const handleStatusUpdate = async (id: string, action: 'approve' | 'reject') => {
     let reason: string | undefined = undefined;
     if (action === 'reject') {
@@ -422,6 +444,12 @@ export default function AdminEventsDashboard() {
           className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
         >
           Blogs CMS
+        </Link>
+        <Link
+          href="/admin/inquiries"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
+        >
+          Inquiries &amp; Leads
         </Link>
       </div>
 
@@ -570,6 +598,14 @@ export default function AdminEventsDashboard() {
                           className="px-2.5 py-1 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold rounded text-[11px] transition shadow-sm"
                         >
                           Edit
+                        </button>
+                        <button
+                          disabled={duplicatingId === evt.id}
+                          onClick={() => handleDuplicateEvent(evt.id, evt.title)}
+                          className="px-2 py-1 bg-blue-950/70 hover:bg-blue-900 border border-blue-800/60 text-blue-300 rounded text-[11px] font-semibold transition inline-block disabled:opacity-50"
+                          title="Duplicate Event as Draft (Sec. 9, Page 31)"
+                        >
+                          {duplicatingId === evt.id ? 'Duplicating...' : 'Duplicate'}
                         </button>
                         {evt.status !== 'CANCELLED' && (
                           <button

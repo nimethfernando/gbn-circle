@@ -387,6 +387,12 @@ export default function AdminBlogsPage() {
         <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md">
           Blogs CMS
         </div>
+        <Link
+          href="/admin/inquiries"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
+        >
+          Inquiries &amp; Leads
+        </Link>
       </div>
 
       {/* Metrics Row */}

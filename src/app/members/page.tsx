@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Member {
   id: string;
@@ -93,11 +93,27 @@ const INDUSTRIES = [
 ];
 
 export default function MembersDirectoryPage() {
+  const [members, setMembers] = useState<Member[]>(MEMBERS_DATA);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndustry, setSelectedIndustry] = useState('All Sectors');
   const [selectedTier, setSelectedTier] = useState<'ALL' | 'GBN Circle' | 'GBN Elite'>('ALL');
 
-  const filteredMembers = MEMBERS_DATA.filter((m) => {
+  useEffect(() => {
+    let ignore = false;
+    fetch('/api/members')
+      .then((res) => res.json())
+      .then((json) => {
+        if (!ignore && json.success && json.data && json.data.length > 0) {
+          setMembers(json.data);
+        }
+      })
+      .catch((err) => console.error('Error fetching live members:', err));
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  const filteredMembers = members.filter((m) => {
     const matchesSearch =
       m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       m.company.toLowerCase().includes(searchTerm.toLowerCase()) ||

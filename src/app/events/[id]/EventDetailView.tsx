@@ -17,6 +17,7 @@ import {
   Share2,
   Sparkles,
   AlertCircle,
+  Key,
 } from 'lucide-react';
 
 export interface EventDetailData {
@@ -54,6 +55,66 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
   const [copied, setCopied] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success?: boolean; message?: string } | null>(null);
+
+  // Member Access & Status Verification state (PRD Sec. 5 & 24)
+  const [lookupEmail, setLookupEmail] = useState('');
+  const [lookupLoading, setLookupLoading] = useState(false);
+  const [accessData, setAccessData] = useState<{
+    state: string;
+    label: string;
+    disabled: boolean;
+    isMember?: boolean;
+    memberName?: string | null;
+    memberTier?: string | null;
+    meetingAccessUrl?: string | null;
+    meetingId?: string | null;
+    passcode?: string | null;
+    message?: string;
+  } | null>(null);
+
+  const handleLookupAccess = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!lookupEmail.trim()) return;
+
+    setLookupLoading(true);
+    try {
+      const res = await fetch(`/api/events/${event.id}?email=${encodeURIComponent(lookupEmail.trim().toLowerCase())}`);
+      const json = await res.json();
+      if (json.success && json.data) {
+        const bl = json.data.buttonLogic;
+        setAccessData({
+          state: bl.state,
+          label: bl.label,
+          disabled: bl.disabled,
+          isMember: bl.isMember,
+          memberName: bl.memberName,
+          memberTier: bl.memberTier,
+          meetingAccessUrl: json.data.meetingAccessUrl,
+          meetingId: json.data.meetingId,
+          passcode: json.data.passcode,
+          message:
+            bl.state === 'JOIN_MEETING'
+              ? `Welcome, ${bl.memberName}! As a verified ${bl.memberTier} member, you have direct VIP session access.`
+              : bl.state === 'ACCESS_MEETING'
+              ? 'Your visitor application has been approved by the screening committee. Your meeting credentials are now unlocked.'
+              : bl.state === 'REQUEST_SUBMITTED'
+              ? 'Your visitor application is currently under executive screening. We will notify you via email.'
+              : bl.state === 'REQUEST_NOT_APPROVED'
+              ? 'Your visitor application was not approved for this session.'
+              : 'Email not recognized as an active member or applicant. You can apply for a visitor pass below.',
+        });
+
+        // If applicant not found and visitor requests open, prefill modal email
+        if (bl.state === 'REQUEST_TO_ATTEND') {
+          setFormData((prev) => ({ ...prev, email: lookupEmail.trim() }));
+        }
+      }
+    } catch {
+      alert('Unable to verify credentials. Please check your network connection.');
+    } finally {
+      setLookupLoading(false);
+    }
+  };
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -449,21 +510,21 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
                 </div>
               </div>
 
-              {/* Action Button */}
+              {/* Action Button (PRD Sec. 24 exact button states) */}
               <div className="pt-2">
                 {event.status === 'CANCELLED' ? (
                   <button
                     disabled
                     className="w-full py-3.5 px-4 bg-red-950/80 border border-red-800/80 text-red-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"
                   >
-                    Session Cancelled
+                    Event Cancelled
                   </button>
                 ) : event.status === 'ACCESS_CLOSED' || event.status === 'CLOSED' ? (
                   <button
                     disabled
                     className="w-full py-3.5 px-4 bg-amber-950/80 border border-amber-800/80 text-amber-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"
                   >
-                    Access Closed (Seats Full)
+                    Access Closed
                   </button>
                 ) : isPast ? (
                   <button
@@ -472,12 +533,37 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
                   >
                     Event Concluded
                   </button>
-                ) : requestSubmitted ? (
+                ) : accessData?.state === 'JOIN_MEETING' ? (
+                  <a
+                    href={accessData.meetingAccessUrl || '#'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-3.5 px-4 bg-gradient-to-r from-[#c5a059] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-black font-bold text-xs tracking-widest uppercase rounded-lg transition-all shadow-lg hover:scale-[1.02] flex items-center justify-center gap-2 text-center"
+                  >
+                    <Video size={16} /> Join Meeting
+                  </a>
+                ) : accessData?.state === 'ACCESS_MEETING' ? (
+                  <a
+                    href={accessData.meetingAccessUrl || '#'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-3.5 px-4 bg-gradient-to-r from-[#c5a059] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-black font-bold text-xs tracking-widest uppercase rounded-lg transition-all shadow-lg hover:scale-[1.02] flex items-center justify-center gap-2 text-center"
+                  >
+                    <Video size={16} /> Access Meeting
+                  </a>
+                ) : accessData?.state === 'REQUEST_SUBMITTED' || requestSubmitted ? (
                   <button
                     disabled
                     className="w-full py-3.5 px-4 bg-amber-950/70 border border-amber-700/80 text-amber-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center flex items-center justify-center gap-2"
                   >
                     <CheckCircle2 size={15} /> Request Submitted
+                  </button>
+                ) : accessData?.state === 'REQUEST_NOT_APPROVED' ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 bg-red-950/70 border border-red-800/80 text-red-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"
+                  >
+                    Request Not Approved
                   </button>
                 ) : event.allowVisitorRequests ? (
                   <button
@@ -487,7 +573,7 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
                     }}
                     className="w-full py-3.5 px-4 bg-gradient-to-r from-[#c5a059] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-black font-bold text-xs tracking-widest uppercase rounded-lg transition-all shadow-lg hover:scale-[1.02]"
                   >
-                    Request Visitor Pass
+                    Request to Attend
                   </button>
                 ) : (
                   <button
@@ -499,14 +585,86 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
                 )}
               </div>
 
-              {/* Verified Member Notice */}
-              <div className="p-4 bg-slate-900/80 border border-[#c5a059]/20 rounded-xl space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#c5a059] uppercase tracking-wider">
-                  <ShieldCheck size={16} /> GBN Circle Members
+              {/* Private Meeting Credentials Reveal Box (Rule 7 & Sec. 24) */}
+              {(accessData?.state === 'JOIN_MEETING' || accessData?.state === 'ACCESS_MEETING') && (
+                <div className="p-4 bg-gradient-to-br from-slate-900 to-amber-950/30 border border-[#c5a059]/40 rounded-xl space-y-3 animate-in fade-in duration-300">
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#c5a059] uppercase tracking-wider">
+                    <Key size={15} /> Private Meeting Credentials
+                  </div>
+                  <div className="space-y-1.5 text-xs">
+                    {accessData.meetingId && (
+                      <div className="flex justify-between items-center text-slate-300">
+                        <span className="text-slate-400">Meeting ID:</span>
+                        <span className="font-mono font-bold text-white bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                          {accessData.meetingId}
+                        </span>
+                      </div>
+                    )}
+                    {accessData.passcode && (
+                      <div className="flex justify-between items-center text-slate-300">
+                        <span className="text-slate-400">Passcode:</span>
+                        <span className="font-mono font-bold text-[#c5a059] bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                          {accessData.passcode}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  {accessData.meetingAccessUrl && (
+                    <a
+                      href={accessData.meetingAccessUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block w-full py-2 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold text-center text-xs uppercase tracking-wider rounded transition"
+                    >
+                      Open Zoom Boardroom
+                    </a>
+                  )}
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Approved members do not need to register. Your VIP access credentials have been automatically assigned to your member calendar and registered email.
+              )}
+
+              {/* Member Identification & Status Verification (PRD Sec. 5 & 24) */}
+              <div className="p-4 bg-slate-900/90 border border-slate-800 rounded-xl space-y-3">
+                <div className="flex items-center gap-2 text-[11px] font-bold text-[#c5a059] uppercase tracking-wider">
+                  <ShieldCheck size={15} /> GBN Member / Visitor Verification
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed font-light">
+                  Approved members have automatic access without registering. Enter your registered email to verify and unlock meeting access.
                 </p>
+
+                <form onSubmit={handleLookupAccess} className="space-y-2">
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      value={lookupEmail}
+                      onChange={(e) => setLookupEmail(e.target.value)}
+                      placeholder="Enter registered email..."
+                      className="flex-1 min-w-0 bg-slate-950 border border-slate-800 focus:border-[#c5a059] rounded px-2.5 py-1.5 text-xs text-white placeholder-slate-500 outline-none"
+                    />
+                    <button
+                      type="submit"
+                      disabled={lookupLoading || !lookupEmail.trim()}
+                      className="px-3 py-1.5 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold text-xs rounded uppercase tracking-wider transition disabled:opacity-50 shrink-0"
+                    >
+                      {lookupLoading ? '...' : 'Verify'}
+                    </button>
+                  </div>
+
+                  {accessData?.message && (
+                    <div
+                      className={`p-2.5 rounded text-[11px] border leading-relaxed ${
+                        accessData.state === 'JOIN_MEETING' || accessData.state === 'ACCESS_MEETING'
+                          ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300'
+                          : accessData.state === 'REQUEST_SUBMITTED'
+                          ? 'bg-amber-950/60 border-amber-800 text-amber-300'
+                          : accessData.state === 'REQUEST_NOT_APPROVED'
+                          ? 'bg-red-950/60 border-red-800 text-red-300'
+                          : 'bg-slate-950 border-slate-800 text-slate-300'
+                      }`}
+                    >
+                      {accessData.message}
+                    </div>
+                  )}
+                </form>
               </div>
 
               {/* Key Details Snapshot */}
