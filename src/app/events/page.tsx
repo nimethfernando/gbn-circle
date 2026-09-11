@@ -76,13 +76,16 @@ export default function EventsPage() {
         const res = await fetch('/api/events');
         const json = await res.json();
         if (json.success) {
-          setEvents(json.data);
+          const allList: EventItem[] = Array.isArray(json.data)
+            ? json.data
+            : [...(json.data?.upcoming || json.upcoming || []), ...(json.data?.past || json.past || [])];
+          setEvents(allList);
           // Pre-select the date of the first upcoming event if available
-          const upcoming = json.data.find(
+          const firstUpcoming = (json.upcoming || json.data?.upcoming || allList).find(
             (e: EventItem) => new Date(e.date).getTime() >= new Date().setHours(0, 0, 0, 0)
           );
-          if (upcoming) {
-            const d = new Date(upcoming.date);
+          if (firstUpcoming) {
+            const d = new Date(firstUpcoming.date);
             setSelectedCalendarDate(
               `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
             );
