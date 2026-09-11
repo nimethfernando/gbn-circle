@@ -10,6 +10,7 @@ async function main() {
   console.log('Clearing existing data...');
   await prisma.visitorRequest.deleteMany();
   await prisma.event.deleteMany();
+  await prisma.blog.deleteMany();
 
   console.log('Seeding events with PRD Section 23 rich data...');
 
@@ -202,7 +203,111 @@ Closing`,
     ],
   });
 
-  console.log(`Database seeded successfully! Created 4 events and 3 visitor test requests.`);
+  // Seed initial PRD Page 45 blogs
+  console.log('Seeding initial executive blog articles...');
+  await prisma.blog.createMany({
+    data: [
+      {
+        slug: 'anatomy-of-high-trust-business-networks',
+        title: 'The Anatomy of High-Trust Business Networks: Why Quality Always Trumps Quantity',
+        excerpt:
+          'In a hyper-connected world inundated with digital spam and transactional requests, high-tier founders are returning to curated, vetted private circles where confidentiality and trust form the bedrock of dealmaking.',
+        category: 'Networking & Trust',
+        readTime: '6 min read',
+        authorName: 'GBN Executive Board',
+        authorRole: 'Global Business Network Leadership',
+        image: '/vision-wide-Dafp-BMf.jpg',
+        featured: true,
+        published: true,
+        takeaways: JSON.stringify([
+          'Transactional networking yields shallow contacts; curated peer circles unlock transformational joint ventures.',
+          'Trust is cultivated through rigorous peer screening and non-solicitation community norms.',
+          'High-table relationships compound in value over decades, acting as an executive balance sheet.',
+        ]),
+        content: `In modern commerce, the volume of your contact book has ceased to be an advantage. What matters today is relationship density — the proportion of contacts in your circle with whom you share mutual trust, intellectual alignment, and strategic synergy.
+
+When founders assemble in unfiltered networking groups, conversations inevitably descend into pitch-fests. Real dealmaking, capital allocation, and market expansion never happen in such environments. They happen in closed rooms where everyone has skin in the game, a verified track record, and a shared ethos of peer elevation.
+
+High-trust networks operate on three non-negotiable axioms:
+1. Strict Revenue & Character Verification: Ensuring every peer has conquered similar operational complexities.
+2. The Giver-First Principle: Relationships begin with intellectual generosity and ecosystem support rather than immediate commercial asks.
+3. Radical Discretion: Private boardroom discussions remain strictly confidential, allowing vulnerability and authentic strategic debate.
+
+As your enterprise scales, audit your network ruthlessly. Prune transactional noise and invest deeply in high-trust peer circles.`,
+      },
+      {
+        slug: 'cross-border-market-entry-playbook',
+        title: 'Cross-Border Market Entry for Mid-Market Enterprises: Playbooks & Pitfalls',
+        excerpt:
+          'Expanding into international territories requires more than capital; it requires trusted local counterparts who navigate regulatory friction, cultural nuances, and distribution channels.',
+        category: 'Global Expansion',
+        readTime: '8 min read',
+        authorName: 'Sanjay Nair',
+        authorRole: 'Regional Director, South India Chapter',
+        image: '/event-global-CKOLaEg2 (1).jpg',
+        featured: false,
+        published: true,
+        takeaways: [
+          'Direct export without local ground-level alliances carries a 70% higher operational failure rate.',
+          'Bilateral peer networks eliminate months of cold outreach when entering the GCC and Southeast Asian corridors.',
+          'Structuring joint ventures with vetted regional partners protects IP and accelerates regulatory licensing.',
+        ].join('\n'),
+        content: `Expanding into international territories is one of the most perilous leaps a mid-market enterprise can take. Traditional playbooks advocate heavy consulting expenditure, broad trade fairs, and speculative marketing campaigns. Yet data indicates that over 65% of international expansions fail to achieve profitability within three years.
+
+The differentiator between successful globalizers and failed attempts is local peer sponsorship. When you enter a new jurisdiction with an introduction from an established peer in that market, bureaucratic hurdles diminish, banking relationships materialize swiftly, and initial customer discovery accelerates by months.
+
+GBN Circle was founded specifically to bridge this void — creating reliable corridors between India, the GCC, Southeast Asia, and European commercial hubs through verified executive introductions.`,
+      },
+      {
+        slug: 'from-transactional-to-transformational',
+        title: 'From Transactional Referrals to Long-Term Strategic Joint Ventures',
+        excerpt:
+          'How seasoned founders transcend direct lead-generation to engineer equity partnerships, shared IP, and consortium bids that reshape industry verticals.',
+        category: 'Leadership',
+        readTime: '5 min read',
+        authorName: 'Amit Batra',
+        authorRole: 'Founder & President, GBN Circle',
+        image: '/event-leadership-C1eE1_9Q (1).jpg',
+        featured: false,
+        published: true,
+        takeaways: [
+          'Lead exchange produces linear revenue; strategic joint ventures produce exponential valuation growth.',
+          'Complementary skill matrices among peers unlock consortium bidding on multi-million dollar contracts.',
+          'True collaboration requires understanding a partner’s strategic vision, not just their price sheet.',
+        ].join('\n'),
+        content: `Most business networks measure their success in referrals exchanged. While immediate business flow is valuable, it represents the lowest common denominator of business networking.
+
+The true inflection point in an entrepreneur's journey occurs when networking shifts from transactional to transformational. Transformational networking is when two non-competing firms combine their competencies to bid for contracts that neither could fulfill alone, or when two founders co-found a technology spin-off capitalizing on their collective client bases.
+
+At GBN Circle, our structured interaction frameworks are purposefully calibrated to surface hidden strategic synergies. We urge leaders to look beyond the immediate sale and ask: 'What multi-crore problem can we solve by combining forces?'`,
+      },
+      {
+        slug: 'architecture-of-peer-masterminds',
+        title: 'The Architecture of Peer Masterminds: How 8-Figure Founders Solve High-Stakes Dilemmas',
+        excerpt:
+          'Inside the closed-door dynamics of executive masterminds where founders debate capital allocation, leadership burnout, and crisis management without fear of exposure.',
+        category: 'Leadership',
+        readTime: '7 min read',
+        authorName: 'Dr. Rajesh Kothari',
+        authorRole: 'Senior Director, GBN Elite Board',
+        image: '/event-leadership-C1eE1_9Q.jpg',
+        featured: false,
+        published: true,
+        takeaways: [
+          'Chief executives have fewer confidants as their companies grow; peer masterminds eliminate executive loneliness.',
+          'Unbiased peer critiques unearth cognitive blind spots in capital allocation and board governance.',
+          'Cross-industry perspectives frequently solve legacy domain bottlenecks with breakthrough paradigms.',
+        ].join('\n'),
+        content: `It is a truism of leadership that the higher you ascend, the narrower your counsel becomes. Founders cannot openly discuss existential anxieties with their subordinates, and board members often have fiduciary interests that mandate a curated posture.
+
+A peer mastermind provides the psychological and strategic sanctuary required for high-stakes problem-solving. Surrounded by peers who operate at comparable revenue scales but in non-competing sectors, founders can lay bare operational crises, messy co-founder disputes, or market pivots without posturing.
+
+The collective intelligence of a room with 50+ combined years of founder experience routinely resolves in thirty minutes what months of internal management meetings fail to untangle.`,
+      },
+    ],
+  });
+
+  console.log(`Database seeded successfully! Created 4 events, 3 visitor test requests, and 4 blogs.`);
 }
 
 main()

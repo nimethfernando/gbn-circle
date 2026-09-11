@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -200,23 +200,76 @@ const CATEGORIES = [
 ];
 
 export default function BlogsPage() {
+  const [articles, setArticles] = useState<Article[]>(ARTICLES);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [readingArticle, setReadingArticle] = useState<Article | null>(null);
   const [subscribed, setSubscribed] = useState(false);
   const [subscribeEmail, setSubscribeEmail] = useState('');
 
-  const filteredArticles = ARTICLES.filter((article) => {
-    const matchesCategory =
-      activeCategory === 'All' || article.category === activeCategory;
-    const matchesSearch =
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.author.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  useEffect(() => {
+    const fetchLiveBlogs = async () => {
+      try {
+        const res = await fetch('/api/blogs');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const mapped: Article[] = json.data.map((b: {
+            id: string;
+            slug: string;
+            title: string;
+            excerpt: string;
+            category: string;
+            readTime: string;
+            createdAt: string;
+            authorName: string;
+            authorRole: string;
+            image: string;
+            featured: boolean;
+            contentParagraphs?: string[];
+            content: string;
+            takeaways?: string[];
+          }) => ({
+            id: b.id,
+            slug: b.slug,
+            title: b.title,
+            excerpt: b.excerpt,
+            category: b.category,
+            readTime: b.readTime,
+            date: new Date(b.createdAt).toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            }),
+            author: {
+              name: b.authorName,
+              role: b.authorRole,
+            },
+            image: b.image || '/vision-wide-Dafp-BMf.jpg',
+            featured: b.featured,
+            content:
+              b.contentParagraphs && b.contentParagraphs.length > 0
+                ? b.contentParagraphs
+                : [b.content],
+            takeaways: b.takeaways || [],
+          }));
+          setArticles(mapped);
+        }
+      } catch (err) {
+        console.error('Error fetching live blogs:', err);
+      }
+    };
+    fetchLiveBlogs();
+  }, []);
 
-  const featuredArticle = ARTICLES.find((a) => a.featured) || ARTICLES[0];
+  const filteredArticles = articles.filter(
+    (article) =>
+      (activeCategory === 'All' || article.category === activeCategory) &&
+      (article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.author.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  const featuredArticle = articles.find((a) => a.featured) || articles[0];
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();

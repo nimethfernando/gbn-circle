@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface VisitorRequest {
   id: string;
@@ -409,6 +410,19 @@ export default function AdminEventsDashboard() {
           </svg>
           {loggingOut ? 'Signing out...' : 'Sign Out'}
         </button>
+      </div>
+
+      {/* Admin Module Tabs */}
+      <div className="flex items-center gap-2 border-b border-slate-800 mb-8 pb-3">
+        <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md">
+          Events Management
+        </div>
+        <Link
+          href="/admin/blogs"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
+        >
+          Blogs CMS
+        </Link>
       </div>
 
       {/* Overview Metrics Bar */}

@@ -75,3 +75,21 @@ model ContactSubmission {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  takeaways   String?
+  image       String
+  category    String   @default("Networking & Trust")
+  readTime    String   @default("5 min read")
+  authorName  String   @default("GBN Executive Board")
+  authorRole  String   @default("Global Business Network Leadership")
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
