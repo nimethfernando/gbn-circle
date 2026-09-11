@@ -92,10 +92,10 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/events"
+            href="/community"
             className="hidden lg:inline-flex bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black text-[10px] tracking-widest font-bold px-5 py-2.5 rounded transition-all hover:scale-105 uppercase whitespace-nowrap shadow-md"
           >
-            Join Session
+            Join GBN Circle
           </Link>
 
           <button
@@ -140,11 +140,11 @@ export default function Header() {
               Admin Portal
             </Link>
             <Link
-              href="/events"
+              href="/community"
               className="inline-flex justify-center bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black text-[11px] tracking-widest font-bold px-6 py-3 rounded uppercase"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Join Session
+              Join GBN Circle
             </Link>
           </div>
         </div>
