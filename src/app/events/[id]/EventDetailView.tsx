@@ -52,6 +52,7 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success?: boolean; message?: string } | null>(null);
 
   const [formData, setFormData] = useState({
@@ -103,6 +104,7 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
       const json = await res.json();
 
       if (json.success) {
+        setRequestSubmitted(true);
         setSubmitStatus({
           success: true,
           message: 'Your visitor request has been submitted for executive review. You will receive an email confirmation shortly.',
@@ -145,14 +147,14 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
     }
   };
 
-  // Parse default or custom what to expect
+  // Parse default or custom what to expect (Sec. 23)
   const defaultExpectations = [
-    'Structured executive introductions across industries and cross-border chapters',
-    'Strategic collaboration & high-value business matchmaking with vetted leaders',
-    'Curated breakout roundtables focused on market expansion and investments',
-    'Direct industry intelligence and peer advisory without commercial pitching',
-    'Access to international network chapters across Tbilisi, Dubai, and India',
-    'Post-session directory introductions and follow-up support',
+    'Welcome & Opening',
+    'Member Introductions',
+    '2–3 Business Presentations',
+    'Interaction & Strategic Roundtable',
+    'Networking & Opportunity Exchange',
+    'Closing & Collaboration Next Steps',
   ];
 
   const expectationsList = event.whatToExpect
@@ -469,6 +471,13 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
                     className="w-full py-3.5 px-4 bg-slate-800 text-slate-500 font-semibold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"
                   >
                     Event Concluded
+                  </button>
+                ) : requestSubmitted ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 bg-amber-950/70 border border-amber-700/80 text-amber-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center flex items-center justify-center gap-2"
+                  >
+                    <CheckCircle2 size={15} /> Request Submitted
                   </button>
                 ) : event.allowVisitorRequests ? (
                   <button
