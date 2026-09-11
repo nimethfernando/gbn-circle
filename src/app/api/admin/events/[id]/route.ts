@@ -169,13 +169,26 @@ export async function DELETE(
       );
     }
 
+    const existing = await prisma.event.findUnique({
+      where: { id },
+      select: { id: true, title: true },
+    });
+
+    if (!existing) {
+      return NextResponse.json(
+        { success: false, message: 'Event not found' },
+        { status: 404 }
+      );
+    }
+
     await prisma.event.delete({
       where: { id },
     });
 
     return NextResponse.json({
       success: true,
-      message: 'Event deleted successfully',
+      message: `Event "${existing.title}" deleted successfully`,
+      data: { id: existing.id, title: existing.title },
     });
   } catch (error) {
     console.error('Failed to delete event:', error);
@@ -185,3 +198,4 @@ export async function DELETE(
     );
   }
 }
+

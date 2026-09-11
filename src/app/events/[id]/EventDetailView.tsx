@@ -228,7 +228,17 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
               <span className="text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded bg-slate-900/80 text-[#c5a059] border border-[#c5a059]/30">
                 {event.type}
               </span>
-              {isPast && (
+              {event.status === 'CANCELLED' && (
+                <span className="text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded bg-red-950/90 text-red-300 border border-red-700/80 animate-pulse">
+                  Cancelled
+                </span>
+              )}
+              {(event.status === 'ACCESS_CLOSED' || event.status === 'CLOSED') && (
+                <span className="text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded bg-amber-950/90 text-amber-300 border border-amber-700/80">
+                  Access Closed
+                </span>
+              )}
+              {isPast && event.status !== 'CANCELLED' && (
                 <span className="text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded bg-rose-950/80 text-rose-300 border border-rose-800/60">
                   Concluded
                 </span>
@@ -439,7 +449,21 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
 
               {/* Action Button */}
               <div className="pt-2">
-                {isPast ? (
+                {event.status === 'CANCELLED' ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 bg-red-950/80 border border-red-800/80 text-red-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"
+                  >
+                    Session Cancelled
+                  </button>
+                ) : event.status === 'ACCESS_CLOSED' || event.status === 'CLOSED' ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 bg-amber-950/80 border border-amber-800/80 text-amber-300 font-bold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"
+                  >
+                    Access Closed (Seats Full)
+                  </button>
+                ) : isPast ? (
                   <button
                     disabled
                     className="w-full py-3.5 px-4 bg-slate-800 text-slate-500 font-semibold text-xs uppercase tracking-wider rounded-lg cursor-not-allowed text-center"

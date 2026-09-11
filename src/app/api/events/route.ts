@@ -4,7 +4,9 @@ import { prisma } from '@/lib/prisma';
 export async function GET() {
   try {
     const events = await prisma.event.findMany({
-      where: { status: 'PUBLISHED' },
+      where: {
+        status: { not: 'DRAFT' },
+      },
       select: {
         id: true,
         title: true,

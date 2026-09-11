@@ -74,7 +74,7 @@ export default async function EventDetailPage({
       },
     });
 
-    if (raw && raw.status === 'PUBLISHED') {
+    if (raw && raw.status !== 'DRAFT') {
       event = {
         ...raw,
         date: raw.date.toISOString(),

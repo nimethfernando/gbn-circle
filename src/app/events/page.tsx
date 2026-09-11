@@ -356,6 +356,16 @@ export default function EventsPage() {
                             {evt.format.toLowerCase() === 'online' ? <Video size={11} className="text-[#c5a059]" /> : <MapPin size={11} className="text-[#c5a059]" />}
                             {evt.format}
                           </span>
+                          {evt.status === 'CANCELLED' && (
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-red-950/90 text-red-300 border border-red-700/80">
+                              Cancelled
+                            </span>
+                          )}
+                          {(evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED') && (
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-950/90 text-amber-300 border border-amber-700/80">
+                              Access Closed
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -411,7 +421,15 @@ export default function EventsPage() {
                             Details <ExternalLink size={12} />
                           </Link>
 
-                          {evt.allowVisitorRequests ? (
+                          {evt.status === 'CANCELLED' ? (
+                            <span className="flex-1 py-2.5 px-2 bg-red-950/60 border border-red-800/60 text-red-300 font-bold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
+                              Cancelled
+                            </span>
+                          ) : evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED' ? (
+                            <span className="flex-1 py-2.5 px-2 bg-amber-950/60 border border-amber-800/60 text-amber-300 font-bold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
+                              Access Closed
+                            </span>
+                          ) : evt.allowVisitorRequests ? (
                             <button
                               onClick={() => {
                                 setSelectedEvent(evt);
@@ -659,7 +677,19 @@ export default function EventsPage() {
                         className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-[#c5a059]/40 transition-all space-y-3"
                       >
                         <div className="flex items-center justify-between text-[10px] uppercase font-semibold">
-                          <span className="text-[#c5a059]">{evt.tier}</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[#c5a059]">{evt.tier}</span>
+                            {evt.status === 'CANCELLED' && (
+                              <span className="px-1.5 py-0.5 rounded bg-red-950 text-red-300 border border-red-800 text-[9px] font-bold">
+                                Cancelled
+                              </span>
+                            )}
+                            {(evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED') && (
+                              <span className="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 text-[9px] font-bold">
+                                Closed
+                              </span>
+                            )}
+                          </div>
                           <span className="text-slate-400">{evt.format}</span>
                         </div>
 
@@ -687,7 +717,15 @@ export default function EventsPage() {
                           >
                             View Details
                           </Link>
-                          {evt.allowVisitorRequests && (
+                          {evt.status === 'CANCELLED' ? (
+                            <span className="flex-1 py-2 bg-red-950/60 border border-red-800/60 text-red-300 text-center text-xs font-bold rounded-lg cursor-not-allowed uppercase">
+                              Cancelled
+                            </span>
+                          ) : evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED' ? (
+                            <span className="flex-1 py-2 bg-amber-950/60 border border-amber-800/60 text-amber-300 text-center text-xs font-bold rounded-lg cursor-not-allowed uppercase">
+                              Closed
+                            </span>
+                          ) : evt.allowVisitorRequests ? (
                             <button
                               onClick={() => {
                                 setSelectedEvent(evt);
@@ -697,7 +735,7 @@ export default function EventsPage() {
                             >
                               Request Pass
                             </button>
-                          )}
+                          ) : null}
                         </div>
                       </div>
                     ))

@@ -49,9 +49,9 @@ export async function GET(
       },
     });
 
-    if (!event || event.status !== 'PUBLISHED') {
+    if (!event || event.status === 'DRAFT') {
       return NextResponse.json(
-        { success: false, message: 'Event not found or not published' },
+        { success: false, message: 'Event not found or restricted' },
         { status: 404 }
       );
     }

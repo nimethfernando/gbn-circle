@@ -304,6 +304,29 @@ export default function AdminEventsDashboard() {
     }
   };
 
+  const handleQuickStatusToggle = async (id: string, newStatus: string) => {
+    try {
+      const res = await fetch(`/api/admin/events/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        await loadEvents();
+      } else {
+        alert(json.message || 'Failed to update status');
+      }
+    } catch {
+      alert('Error updating status');
+    }
+  };
+
+  const handleCancelEvent = async (id: string, title: string) => {
+    if (!confirm(`Are you sure you want to cancel "${title}"? This will mark the event as CANCELLED on the public platform.`)) return;
+    await handleQuickStatusToggle(id, 'CANCELLED');
+  };
+
   const handleStatusUpdate = async (id: string, action: 'approve' | 'reject') => {
     setActionLoading(id);
     try {
@@ -492,15 +515,27 @@ export default function AdminEventsDashboard() {
                       </span>
                     </td>
                     <td className="py-3 pr-4 whitespace-nowrap">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        evt.status === 'PUBLISHED'
-                          ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60'
-                          : evt.status === 'DRAFT'
-                          ? 'bg-amber-950 text-amber-400 border border-amber-800/60'
-                          : 'bg-slate-900 text-slate-400 border border-slate-800'
-                      }`}>
-                        {evt.status}
-                      </span>
+                      <select
+                        value={evt.status}
+                        onChange={(e) => handleQuickStatusToggle(evt.id, e.target.value)}
+                        className={`px-2 py-1 rounded text-[10px] font-bold border outline-none cursor-pointer transition ${
+                          evt.status === 'PUBLISHED'
+                            ? 'bg-emerald-950 text-emerald-400 border-emerald-800/60'
+                            : evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED'
+                            ? 'bg-amber-950 text-amber-300 border-amber-800/60'
+                            : evt.status === 'CANCELLED'
+                            ? 'bg-red-950 text-red-300 border-red-800/60'
+                            : evt.status === 'DRAFT'
+                            ? 'bg-slate-900 text-slate-400 border-slate-700'
+                            : 'bg-purple-950 text-purple-300 border-purple-800/60'
+                        }`}
+                      >
+                        <option value="PUBLISHED" className="bg-slate-950 text-emerald-400">PUBLISHED</option>
+                        <option value="ACCESS_CLOSED" className="bg-slate-950 text-amber-300">ACCESS CLOSED</option>
+                        <option value="CANCELLED" className="bg-slate-950 text-red-300">CANCELLED</option>
+                        <option value="DRAFT" className="bg-slate-950 text-slate-400">DRAFT</option>
+                        <option value="COMPLETED" className="bg-slate-950 text-purple-300">COMPLETED</option>
+                      </select>
                     </td>
                     <td className="py-3 pr-4 text-center font-bold text-slate-200">
                       {evt._count?.requests ?? 0}
@@ -513,6 +548,15 @@ export default function AdminEventsDashboard() {
                         >
                           Edit
                         </button>
+                        {evt.status !== 'CANCELLED' && (
+                          <button
+                            onClick={() => handleCancelEvent(evt.id, evt.title)}
+                            className="px-2 py-1 bg-amber-950/60 hover:bg-amber-900 border border-amber-800/60 text-amber-300 rounded text-[11px] font-semibold transition"
+                            title="Cancel Event (Sec. 9, 19)"
+                          >
+                            Cancel
+                          </button>
+                        )}
                         <a
                           href={`/events/${evt.id}`}
                           target="_blank"
@@ -524,6 +568,7 @@ export default function AdminEventsDashboard() {
                         <button
                           onClick={() => handleDeleteEvent(evt.id, evt.title)}
                           className="px-2 py-1 bg-red-950/60 hover:bg-red-900 border border-red-800/60 text-red-300 rounded text-[11px] font-semibold transition inline-block"
+                          title="Permanently Delete Event"
                         >
                           Delete
                         </button>
@@ -819,8 +864,9 @@ export default function AdminEventsDashboard() {
                       className="w-full bg-slate-900 border border-slate-800 focus:border-[#c5a059] rounded p-2 text-white outline-none font-semibold"
                     >
                       <option value="PUBLISHED">PUBLISHED (Live)</option>
-                      <option value="DRAFT">DRAFT (Hidden)</option>
+                      <option value="ACCESS_CLOSED">ACCESS CLOSED (Seats Full)</option>
                       <option value="CANCELLED">CANCELLED</option>
+                      <option value="DRAFT">DRAFT (Hidden)</option>
                       <option value="COMPLETED">COMPLETED (Past)</option>
                     </select>
                   </div>
