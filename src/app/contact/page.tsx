@@ -302,7 +302,7 @@ export default function ContactPage() {
                 className="w-full py-3.5 bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black font-bold uppercase rounded text-xs tracking-widest hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg cursor-pointer"
               >
                 {loading && <Loader2 size={16} className="animate-spin" />}
-                {loading ? 'Submitting Message...' : 'Submit Message'}
+                {loading ? 'Contacting...' : 'Contact GBN Circle'}
               </button>
             </form>
           </div>
