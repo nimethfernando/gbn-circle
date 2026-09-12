@@ -34,7 +34,7 @@ export default function GBNExperience() {
                         Choose Your <span className="text-gradient-gold">GBN Experience</span>
                     </h2>
                     <p className="text-lg text-gray-400 font-light max-w-2xl mx-auto">
-                        Find the right level of networking for your business. Understanding the difference between our core entrepreneurial network (₹20L+) and exclusive executive council (₹5Cr+).
+                        Understanding the difference between our core entrepreneurial network (₹20L+ annual turnover) and exclusive executive council (₹5Cr+ annual turnover).
                     </p>
                 </div>
 
