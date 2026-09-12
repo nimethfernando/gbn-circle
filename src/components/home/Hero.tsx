@@ -22,12 +22,12 @@ export default function Hero() {
                     </h1>
 
                     <p className="text-lg md:text-xl text-gray-300 font-light mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200">
-                        GBN Circle brings ambitious entrepreneurs, professionals and business leaders together to connect, collaborate and grow through meaningful relationships.
+                        GBN Circle is a global business network for entrepreneurs, professionals and business leaders seeking meaningful connections, collaboration and new opportunities.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 animate-fade-in-up delay-300">
                         <Link
-                            href="/contact"
+                            href="/community"
                             className="w-full sm:w-auto bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:scale-105 flex items-center justify-center uppercase hover-shine"
                         >
                             Join GBN Circle

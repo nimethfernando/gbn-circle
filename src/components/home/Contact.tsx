@@ -301,7 +301,7 @@ export default function Contact() {
                   className="w-full bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-[10px] tracking-widest uppercase font-bold py-4 rounded-sm transition-all mt-4 flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50"
                 >
                   {loading && <Loader2 size={14} className="animate-spin" />}
-                  {loading ? 'Submitting Message...' : 'Submit Message'}
+                  {loading ? 'Contacting...' : 'Contact GBN Circle'}
                 </button>
               </form>
             </div>
