@@ -1,9 +1,9 @@
+import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
-import path from 'path';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const dbPath = path.resolve(process.cwd(), 'dev.db');
-const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` });
+const connectionString = process.env.DIRECT_URL || process.env.DATABASE_URL;
+const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
@@ -131,7 +131,6 @@ Closing`,
     },
   });
 
-  // Create one past event to test past event categorization
   await prisma.event.create({
     data: {
       title: 'GBN Global Trade & Expansion Conclave 2025',
@@ -155,7 +154,6 @@ Closing`,
     },
   });
 
-  // Seed sample visitor requests on Event 1 for state testing
   await prisma.visitorRequest.createMany({
     data: [
       {
@@ -204,7 +202,6 @@ Closing`,
     ],
   });
 
-  // Seed initial PRD Page 45 blogs
   console.log('Seeding initial executive blog articles...');
   await prisma.blog.createMany({
     data: [
