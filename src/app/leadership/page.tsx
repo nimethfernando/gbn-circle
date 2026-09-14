@@ -99,7 +99,7 @@ export default function LeadershipPage() {
   return (
     <main className="min-h-screen bg-[#070b19] text-white selection:bg-[#c5a059] selection:text-black">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-36 pb-20 border-b border-[#1e293b]/60">
+      <section className="relative overflow-hidden pt-32 pb-20 border-b border-[#1e293b]/60">
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(197,160,89,0.12),transparent_70%)] animate-pulse duration-[8000ms]" />
 
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">

@@ -234,9 +234,9 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
   const isOnline = event.format.toLowerCase() === 'online';
 
   return (
-    <div className="min-h-screen bg-[#070b19] text-white pt-24 pb-20">
+    <div className="min-h-screen bg-[#070b19] text-white pt-32 pb-20">
       {/* Breadcrumb & Top Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Link
             href="/events"

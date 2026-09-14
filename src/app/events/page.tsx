@@ -220,9 +220,9 @@ export default function EventsPage() {
     : [];
 
   return (
-    <div className="min-h-screen bg-[#070b19] text-white pt-24 pb-24">
+    <div className="min-h-screen bg-[#070b19] text-white pb-24">
       {/* Hero Section per PRD Sec. 2 */}
-      <section className="relative overflow-hidden py-16 sm:py-24 border-b border-white/5">
+      <section className="relative overflow-hidden pt-32 pb-16 sm:pb-24 border-b border-white/5">
         <div className="absolute inset-0 bg-radial-gradient from-slate-900/60 via-[#070b19] to-[#070b19]"></div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 text-[#c5a059] text-xs uppercase tracking-widest font-bold mb-6">

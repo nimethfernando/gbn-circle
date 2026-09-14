@@ -49,7 +49,7 @@ export default function CommunityPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#070b19] text-white pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#070b19] text-white pt-32 pb-24 px-4 sm:px-6 lg:px-8">
       {/* Hero */}
       <div className="max-w-4xl mx-auto text-center">
         <span className="text-[#c5a059] text-xs uppercase tracking-widest font-semibold border border-[#c5a059]/30 px-3 py-1 rounded-full">
