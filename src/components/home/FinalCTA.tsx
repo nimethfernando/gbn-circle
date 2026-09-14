@@ -89,27 +89,27 @@ export default function FinalCTA() {
         {/* 17. Complete Comparison Matrix (PRD Pages 11–12) */}
         <div className="border border-slate-800 rounded-2xl bg-[#0a1020]/90 backdrop-blur-md overflow-hidden shadow-2xl">
           {/* Table Header */}
-          <div className="grid grid-cols-12 bg-slate-950/90 border-b border-slate-800 py-6 px-4 sm:px-8 items-center">
-            <div className="col-span-5 sm:col-span-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400">
+          <div className="grid grid-cols-12 bg-slate-950/95 border-b border-slate-800 py-6 px-4 sm:px-8 items-center">
+            <div className="col-span-5 sm:col-span-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300">
               Evaluation Criteria
             </div>
 
             {/* GBN Circle Column Header */}
             <div className="col-span-3 sm:col-span-4 text-center px-2">
-              <span className="inline-block text-[10px] sm:text-xs uppercase font-bold tracking-widest px-3 py-1 rounded bg-slate-900 border border-slate-700 text-slate-200">
+              <span className="inline-block text-xs sm:text-sm uppercase font-bold tracking-wider px-3.5 py-1.5 rounded-md bg-slate-900 border border-slate-700 text-slate-200 shadow-sm">
                 GBN Circle
               </span>
-              <p className="text-xs sm:text-sm font-serif font-bold text-white mt-1.5 hidden sm:block">
+              <p className="text-base sm:text-lg font-bold text-white mt-2 tracking-wide font-sans">
                 ₹20L+ Cohort
               </p>
             </div>
 
             {/* GBN Elite Column Header */}
             <div className="col-span-4 text-center px-2">
-              <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs uppercase font-bold tracking-widest px-3 py-1 rounded bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black shadow-md">
-                <ShieldCheck size={12} /> GBN Elite
+              <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm uppercase font-bold tracking-wider px-3.5 py-1.5 rounded-md bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black shadow-md">
+                <ShieldCheck size={14} /> GBN Elite
               </span>
-              <p className="text-xs sm:text-sm font-serif font-bold text-[#c5a059] mt-1.5 hidden sm:block">
+              <p className="text-base sm:text-lg font-bold text-[#f3d37a] mt-2 tracking-wide font-sans">
                 ₹5Cr+ Council
               </p>
             </div>
@@ -120,16 +120,16 @@ export default function FinalCTA() {
             {comparisonRows.map((row, idx) => (
               <div
                 key={idx}
-                className={`grid grid-cols-12 py-4 sm:py-5 px-4 sm:px-8 items-center text-xs transition-colors hover:bg-slate-800/20 ${
+                className={`grid grid-cols-12 py-4.5 sm:py-5.5 px-4 sm:px-8 items-center transition-colors hover:bg-slate-800/25 ${
                   row.isHighlight
-                    ? 'bg-[#c5a059]/5'
+                    ? 'bg-[#c5a059]/10'
                     : idx % 2 === 0
                     ? 'bg-transparent'
                     : 'bg-slate-950/30'
                 }`}
               >
                 {/* Feature Label */}
-                <div className="col-span-5 sm:col-span-4 font-semibold text-slate-200 text-[11px] sm:text-xs pr-2">
+                <div className="col-span-5 sm:col-span-4 font-semibold text-slate-100 text-xs sm:text-sm md:text-base pr-2">
                   {row.feature}
                 </div>
 
@@ -137,18 +137,18 @@ export default function FinalCTA() {
                 <div className="col-span-3 sm:col-span-4 text-center px-2">
                   {typeof row.circle === 'boolean' ? (
                     row.circle ? (
-                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-950/60 border border-emerald-800 text-emerald-400">
-                        <Check size={14} strokeWidth={2.5} />
+                      <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-950/70 border border-emerald-600 text-emerald-400 shadow-sm">
+                        <Check size={16} strokeWidth={2.5} />
                       </span>
                     ) : (
-                      <span className="inline-flex items-center justify-center text-slate-600 font-bold">
-                        <Minus size={16} />
+                      <span className="inline-flex items-center justify-center text-slate-500 font-bold">
+                        <Minus size={18} strokeWidth={2.5} />
                       </span>
                     )
                   ) : (
                     <span
-                      className={`text-[11px] sm:text-xs font-medium ${
-                        row.isHighlight ? 'text-white font-bold' : 'text-slate-300'
+                      className={`text-xs sm:text-sm md:text-base ${
+                        row.isHighlight ? 'text-white font-bold' : 'text-slate-200 font-medium'
                       }`}
                     >
                       {row.circle}
@@ -160,18 +160,18 @@ export default function FinalCTA() {
                 <div className="col-span-4 text-center px-2">
                   {typeof row.elite === 'boolean' ? (
                     row.elite ? (
-                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#c5a059]/20 border border-[#c5a059]/60 text-[#c5a059]">
-                        <Check size={14} strokeWidth={2.5} />
+                      <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#c5a059]/25 border border-[#c5a059]/70 text-[#f3d37a] shadow-sm">
+                        <Check size={16} strokeWidth={2.5} />
                       </span>
                     ) : (
-                      <span className="inline-flex items-center justify-center text-slate-600 font-bold">
-                        <Minus size={16} />
+                      <span className="inline-flex items-center justify-center text-slate-500 font-bold">
+                        <Minus size={18} strokeWidth={2.5} />
                       </span>
                     )
                   ) : (
                     <span
-                      className={`text-[11px] sm:text-xs font-medium ${
-                        row.isHighlight ? 'text-[#c5a059] font-bold' : 'text-[#c5a059]'
+                      className={`text-xs sm:text-sm md:text-base ${
+                        row.isHighlight ? 'text-[#f3d37a] font-bold' : 'text-[#e5c158] font-medium'
                       }`}
                     >
                       {row.elite}
@@ -183,12 +183,12 @@ export default function FinalCTA() {
           </div>
 
           {/* Table Footer: Dual Action Buttons (PRD Page 12) */}
-          <div className="grid grid-cols-12 py-6 px-4 sm:px-8 bg-slate-950/90 border-t border-slate-800 items-center gap-2 sm:gap-4">
+          <div className="grid grid-cols-12 py-6 px-4 sm:px-8 bg-slate-950/95 border-t border-slate-800 items-center gap-3 sm:gap-4">
             <div className="col-span-12 sm:col-span-4 mb-3 sm:mb-0 text-center sm:text-left">
-              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold block">
+              <span className="text-xs sm:text-sm uppercase tracking-wider text-slate-300 font-bold block">
                 Next Steps
               </span>
-              <p className="text-xs text-slate-300 font-light mt-0.5">
+              <p className="text-xs sm:text-sm text-slate-300 font-light mt-0.5">
                 Select your qualifying tier to apply.
               </p>
             </div>
@@ -197,10 +197,10 @@ export default function FinalCTA() {
             <div className="col-span-6 sm:col-span-4 px-1 sm:px-2">
               <Link
                 href="/community"
-                className="w-full py-3 sm:py-3.5 px-3 sm:px-5 rounded-md border border-white/20 hover:border-[#c5a059] bg-slate-900/90 hover:bg-slate-800 text-white hover:text-[#c5a059] font-bold text-[10px] sm:text-xs tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-1.5 text-center whitespace-nowrap"
+                className="w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-md border border-white/20 hover:border-[#c5a059] bg-slate-900 hover:bg-slate-800 text-white hover:text-[#c5a059] font-bold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-2 text-center whitespace-nowrap"
               >
                 <span>Join GBN Circle</span>
-                <ArrowRight size={13} className="hidden sm:inline" />
+                <ArrowRight size={15} className="hidden sm:inline" />
               </Link>
             </div>
 
@@ -208,17 +208,17 @@ export default function FinalCTA() {
             <div className="col-span-6 sm:col-span-4 px-1 sm:px-2">
               <Link
                 href="/contact"
-                className="w-full py-3 sm:py-3.5 px-3 sm:px-5 rounded-md bg-gradient-to-r from-[#c5a059] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-black font-bold text-[10px] sm:text-xs tracking-wider uppercase transition-all hover:scale-[1.02] shadow-lg shadow-[#c5a059]/20 flex items-center justify-center gap-1.5 text-center whitespace-nowrap"
+                className="w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-md bg-gradient-to-r from-[#c5a059] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-black font-bold text-xs sm:text-sm tracking-wider uppercase transition-all hover:scale-[1.02] shadow-lg shadow-[#c5a059]/20 flex items-center justify-center gap-2 text-center whitespace-nowrap"
               >
                 <span>Apply for GBN Elite</span>
-                <ArrowRight size={13} className="hidden sm:inline" />
+                <ArrowRight size={15} className="hidden sm:inline" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Pricing Note (PRD Page 6 & 15 Rule) */}
-        <p className="text-center text-[11px] text-slate-400 font-light mt-6 italic">
+        <p className="text-center text-xs sm:text-sm text-slate-400 font-light mt-6 italic">
           * Full membership plans, regional chapter dues, and onboarding schedules are provided upon executive application review.
         </p>
       </div>
