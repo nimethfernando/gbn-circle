@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // server.js - Custom entry point for cPanel Node.js Application Manager (Phusion Passenger)
 const { createServer } = require('http');
 const { parse } = require('url');

@@ -1,7 +1,25 @@
 import Link from 'next/link';
 import { Check, Minus, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { HomePageContent } from '@/lib/defaultPageContent';
 
-export default function FinalCTA() {
+interface FinalCTAProps {
+  data?: HomePageContent['finalCta'];
+}
+
+export default function FinalCTA({ data }: FinalCTAProps = {}) {
+  const badge = data?.badge || "Membership Tiers & Evaluation Matrix";
+  const heading = data?.heading || "Ready to Expand Your Business Network?";
+  const subtitle =
+    data?.subtitle ||
+    "Join GBN Circle today and become part of a global community built on meaningful relationships, trust, and shared growth.";
+  const circleBtnText = data?.circleBtnText || "Join GBN Circle";
+  const circleBtnLink = data?.circleBtnLink || "/community";
+  const eliteBtnText = data?.eliteBtnText || "Apply for GBN Elite";
+  const eliteBtnLink = data?.eliteBtnLink || "/contact";
+  const footnote =
+    data?.footnote ||
+    "* Full membership plans, regional chapter dues, and onboarding schedules are provided upon executive application review.";
+
   const comparisonRows = [
     {
       feature: 'Business Eligibility',
@@ -76,13 +94,13 @@ export default function FinalCTA() {
         {/* Section Header (PRD Sec. 17, Page 11–12 & 14) */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 text-[#c5a059] text-[10px] uppercase tracking-widest font-bold mb-5">
-            <Sparkles size={12} /> Membership Tiers &amp; Evaluation Matrix
+            <Sparkles size={12} /> {badge}
           </div>
           <h2 className="text-3xl sm:text-5xl font-serif text-white mb-5 leading-tight font-bold">
-            Ready to Expand Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c5a059] via-[#e5c158] to-[#c5a059]">Business Network?</span>
+            {heading}
           </h2>
           <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
-            Join GBN Circle today and become part of a global community built on meaningful relationships, trust, and shared growth.
+            {subtitle}
           </p>
         </div>
 
@@ -196,10 +214,10 @@ export default function FinalCTA() {
             {/* CTA 1: Join GBN Circle */}
             <div className="col-span-6 sm:col-span-4 px-1 sm:px-2">
               <Link
-                href="/community"
+                href={circleBtnLink}
                 className="w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-md border border-white/20 hover:border-[#c5a059] bg-slate-900 hover:bg-slate-800 text-white hover:text-[#c5a059] font-bold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-2 text-center whitespace-nowrap"
               >
-                <span>Join GBN Circle</span>
+                <span>{circleBtnText}</span>
                 <ArrowRight size={15} className="hidden sm:inline" />
               </Link>
             </div>
@@ -207,10 +225,10 @@ export default function FinalCTA() {
             {/* CTA 2: Apply for GBN Elite */}
             <div className="col-span-6 sm:col-span-4 px-1 sm:px-2">
               <Link
-                href="/contact"
+                href={eliteBtnLink}
                 className="w-full py-3.5 sm:py-4 px-3 sm:px-5 rounded-md bg-gradient-to-r from-[#c5a059] to-[#d4af37] hover:from-[#d4af37] hover:to-[#e5c158] text-black font-bold text-xs sm:text-sm tracking-wider uppercase transition-all hover:scale-[1.02] shadow-lg shadow-[#c5a059]/20 flex items-center justify-center gap-2 text-center whitespace-nowrap"
               >
-                <span>Apply for GBN Elite</span>
+                <span>{eliteBtnText}</span>
                 <ArrowRight size={15} className="hidden sm:inline" />
               </Link>
             </div>
@@ -219,7 +237,7 @@ export default function FinalCTA() {
 
         {/* Pricing Note (PRD Page 6 & 15 Rule) */}
         <p className="text-center text-xs sm:text-sm text-slate-400 font-light mt-6 italic">
-          * Full membership plans, regional chapter dues, and onboarding schedules are provided upon executive application review.
+          {footnote}
         </p>
       </div>
     </section>

@@ -1,9 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ShieldCheck } from "lucide-react";
+import { HomePageContent } from "@/lib/defaultPageContent";
 
-export default function WhoIsGBNFor() {
-  const cards = [
+interface WhoIsGBNForProps {
+  data?: HomePageContent['whoIsGbnFor'];
+}
+
+export default function WhoIsGBNFor({ data }: WhoIsGBNForProps = {}) {
+  const badge = data?.badge || "Who is GBN Circle For?";
+  const heading =
+    data?.heading || "Built for People Who Believe in the Power of Connection.";
+  const intro =
+    data?.intro ||
+    "GBN Circle is designed for entrepreneurs, professionals and business leaders who want to build stronger networks and explore meaningful business opportunities.";
+  const circleEligibility =
+    data?.circleEligibility ||
+    "GBN Circle is designed for businesses with ₹20 Lakh+ annual turnover.";
+  const eliteEligibility =
+    data?.eliteEligibility ||
+    "GBN Elite is designed for established businesses with ₹5 Crore+ annual turnover.";
+  const btnText = data?.btnText || "Explore Membership";
+  const btnLink = data?.btnLink || "/community";
+
+  const defaultCards = [
     {
       title: "Entrepreneurs",
       desc: "Build and expand your business network.",
@@ -26,6 +46,9 @@ export default function WhoIsGBNFor() {
     },
   ];
 
+  const cards =
+    data?.roles && data.roles.length > 0 ? data.roles : defaultCards;
+
   return (
     <section className="py-24 bg-gbn-navy text-white relative">
       <Image
@@ -41,16 +64,16 @@ export default function WhoIsGBNFor() {
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-8 bg-gbn-gold rounded-full"></div>
             <p className="text-gbn-gold uppercase tracking-[0.2em] text-xs font-semibold">
-              Who is GBN Circle For?
+              {badge}
             </p>
           </div>
 
           <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">
-            Built for People Who Believe in the Power of Connection.
+            {heading}
           </h2>
 
           <p className="text-lg text-gray-300 font-light leading-relaxed max-w-2xl">
-            GBN Circle is designed for entrepreneurs, professionals and business leaders who want to build stronger networks and explore meaningful business opportunities.
+            {intro}
           </p>
         </div>
 
@@ -84,19 +107,19 @@ export default function WhoIsGBNFor() {
             </div>
             <div className="space-y-1 text-sm text-gray-300">
               <p className="font-medium text-white">
-                <span className="text-[#c5a059] font-bold">GBN Circle</span> is designed for businesses with <span className="text-white font-semibold">₹20 Lakh+</span> annual turnover.
+                {circleEligibility}
               </p>
               <p className="font-medium text-white">
-                <span className="text-[#c5a059] font-bold">GBN Elite</span> is designed for established businesses with <span className="text-white font-semibold">₹5 Crore+</span> annual turnover.
+                {eliteEligibility}
               </p>
             </div>
           </div>
 
           <Link
-            href="/community"
+            href={btnLink}
             className="inline-flex items-center gap-3 bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black text-xs tracking-widest font-bold px-7 py-3.5 rounded-sm transition-all hover:scale-105 uppercase whitespace-nowrap shadow-md"
           >
-            <span>Explore Membership</span>
+            <span>{btnText}</span>
             <ArrowRight size={14} />
           </Link>
         </div>

@@ -194,6 +194,12 @@ export default function AdminInquiriesPage() {
         <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md">
           Inquiries &amp; Leads
         </div>
+        <Link
+          href="/admin/pages"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
+        >
+          Pages Content CMS
+        </Link>
       </div>
 
       {/* Metrics Cards */}

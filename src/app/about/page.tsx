@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { getPageContent } from '@/lib/getPageContent';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'About Us | GBN Circle — Global Business Network',
@@ -8,7 +11,9 @@ export const metadata: Metadata = {
     'A premium global business community built around meaningful relationships, collaboration, and long-term growth.',
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const content = await getPageContent('about');
+
   const missionPoints = [
     'Build meaningful business relationships',
     'Exchange ideas and expertise',
@@ -18,7 +23,7 @@ export default function AboutPage() {
     'Grow together',
   ];
 
-  const values = [
+  const defaultValues = [
     {
       title: 'Meaningful Relationships',
       description:
@@ -41,7 +46,12 @@ export default function AboutPage() {
     },
   ];
 
-  const pillars = [
+  const values =
+    content?.values && content.values.length > 0
+      ? content.values
+      : defaultValues;
+
+  const defaultPillars = [
     {
       title: 'Connect',
       text: 'Meet people who value meaningful business relationships.',
@@ -59,6 +69,11 @@ export default function AboutPage() {
       text: 'Build connections beyond geographical boundaries.',
     },
   ];
+
+  const pillars =
+    content?.pillars && content.pillars.length > 0
+      ? content.pillars
+      : defaultPillars;
 
   const leaders = [
     {
@@ -89,19 +104,17 @@ export default function AboutPage() {
         
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <span className="inline-block px-4 py-1.5 rounded-full border border-[#c5a059]/30 bg-[#c5a059]/10 text-[#e6ca85] text-xs font-semibold tracking-widest uppercase mb-6 transition-all duration-300 hover:border-[#c5a059]/60 hover:bg-[#c5a059]/20">
-            About GBN Circle
+            {content?.hero?.badge || "About GBN Circle"}
           </span>
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-white mb-8 leading-tight">
-            A Global Business Community Built Around{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#aa7c11]">
-              Meaningful Relationships.
-            </span>
+            {content?.hero?.heading || "A Global Business Community Built Around Meaningful Relationships."}
           </h1>
           <p className="text-base md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed mb-6">
-            GBN Circle is a premium global business network for entrepreneurs, business owners, founders, professionals, and business leaders who believe in the power of meaningful relationships, collaboration, and long-term growth.
+            {content?.hero?.subtitle ||
+              "GBN Circle is a premium global business network for entrepreneurs, business owners, founders, professionals, and business leaders who believe in the power of meaningful relationships, collaboration, and long-term growth."}
           </p>
           <p className="text-[#c5a059] font-medium tracking-widest text-sm uppercase">
-            Connect &bull; Collaborate &bull; Grow
+            Connect • Collaborate • Grow
           </p>
         </div>
       </section>
@@ -110,27 +123,28 @@ export default function AboutPage() {
       <section className="py-24 border-b border-[#1e293b]/60 relative">
         <div className="max-w-4xl mx-auto px-6">
           <div className="mb-4 text-[#c5a059] text-xs font-semibold tracking-widest uppercase">
-            Our Story
+            {content?.story?.badge || "Our Story"}
           </div>
           <h2 className="text-2xl md:text-4xl font-serif text-white mb-8">
-            Why GBN Circle Exists
+            {content?.story?.heading || "Why GBN Circle Exists"}
           </h2>
           <div className="space-y-6 text-slate-300 text-base md:text-lg leading-relaxed font-light">
             <p className="text-xl font-normal text-white">
-              Business is built by people.
+              {content?.story?.paragraph1 || "Business is built by people."}
             </p>
             <div className="border-l-2 border-[#c5a059] pl-6 py-3 space-y-3 bg-[#0d1527]/50 rounded-r-lg transition-colors hover:bg-[#0d1527]/80">
-              <p className="italic text-slate-200">The right conversation can create an idea.</p>
-              <p className="italic text-slate-200">The right relationship can create trust.</p>
-              <p className="italic text-slate-200">The right connection can create an opportunity.</p>
+              <p className="italic text-slate-200">
+                The right conversation can create an idea. The right relationship can create trust. The right connection can create an opportunity.
+              </p>
             </div>
             <p>
-              GBN Circle was created to bring the right people together in a structured, professional, and human environment where meaningful business relationships can develop over time.
+              {content?.story?.paragraph2 ||
+                "GBN Circle was created to bring the right people together in a structured, professional, and human environment where meaningful business relationships can develop over time."}
             </p>
             <div className="pt-2 text-slate-200 font-normal">
               <p>Our goal is not simply to create more connections.</p>
               <p className="text-[#e6ca85] font-medium mt-1">
-                Our goal is to create meaningful connections.
+                {content?.story?.paragraph3 || "Our goal is to create meaningful connections."}
               </p>
             </div>
           </div>
@@ -221,7 +235,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((val, idx) => (
+            {values.map((val: { title: string; description: string }, idx: number) => (
               <div
                 key={idx}
                 className="p-8 rounded-2xl bg-gradient-to-b from-[#0d1629] to-[#090e1a] border border-[#1e293b] hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 group shadow-lg shadow-black/20"
@@ -255,7 +269,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pillars.map((pillar, idx) => (
+            {pillars.map((pillar: { title: string; text: string }, idx: number) => (
               <div
                 key={idx}
                 className="p-6 rounded-xl bg-[#070b19] border border-[#1e293b] hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 text-center shadow-md shadow-black/20"
@@ -343,20 +357,21 @@ export default function AboutPage() {
       <section className="py-24 text-center relative">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-serif text-white mb-6">
-            Built Around People. Driven by Possibility.
+            {content?.finalCta?.heading || "Built Around People. Driven by Possibility."}
           </h2>
           <p className="text-slate-300 text-base md:text-lg font-light leading-relaxed mb-6">
-            GBN Circle brings together people who believe that meaningful relationships can open new doors, create new conversations, and build new possibilities.
+            {content?.finalCta?.description ||
+              "GBN Circle brings together people who believe that meaningful relationships can open new doors, create new conversations, and build new possibilities."}
           </p>
           <p className="text-[#c5a059] font-medium tracking-widest text-xs uppercase mb-10">
             Connect &bull; Collaborate &bull; Grow
           </p>
-          <div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/community"
+              href={content?.finalCta?.btnLink || "/community"}
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-md bg-[#c5a059] text-black font-semibold text-sm hover:bg-[#d4af37] hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-[#c5a059]/10"
             >
-              Join GBN Circle
+              {content?.finalCta?.btnText || "Join GBN Circle"}
             </Link>
           </div>
         </div>

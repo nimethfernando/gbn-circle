@@ -2,6 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { getPageContent } from '@/lib/getPageContent';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Leadership | GBN Circle — Global Business Network',
@@ -9,8 +12,10 @@ export const metadata: Metadata = {
     'Meet the leadership team behind GBN Circle — driven by purpose, human connection, and meaningful relationships.',
 };
 
-export default function LeadershipPage() {
-  const leadershipProfiles = [
+export default async function LeadershipPage() {
+  const content = await getPageContent('leadership');
+
+  const defaultProfiles = [
     {
       name: 'Amit Batra',
       role: 'Founder',
@@ -55,7 +60,16 @@ export default function LeadershipPage() {
     },
   ];
 
-  const leadershipPrinciples = [
+  const leadershipProfiles =
+    content?.leaders && content.leaders.length > 0
+      ? content.leaders.map((leader, i) => ({
+          ...leader,
+          image: leader.image || defaultProfiles[i]?.image || '/vision-wide-Dafp-BMf.jpg',
+          focus: leader.focus || defaultProfiles[i]?.focus || [],
+        }))
+      : defaultProfiles;
+
+  const defaultPrinciples = [
     {
       title: 'Meaningful Relationships',
       description:
@@ -78,7 +92,12 @@ export default function LeadershipPage() {
     },
   ];
 
-  const journeySteps = [
+  const leadershipPrinciples =
+    content?.principles && content.principles.length > 0
+      ? content.principles
+      : defaultPrinciples;
+
+  const defaultJourney = [
     {
       stage: 'VISION',
       description:
@@ -96,6 +115,11 @@ export default function LeadershipPage() {
     },
   ];
 
+  const journeySteps =
+    content?.journey && content.journey.length > 0
+      ? content.journey
+      : defaultJourney;
+
   return (
     <main className="min-h-screen bg-[#070b19] text-white selection:bg-[#c5a059] selection:text-black">
       {/* 1. HERO SECTION */}
@@ -104,19 +128,14 @@ export default function LeadershipPage() {
 
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <span className="inline-block px-4 py-1.5 rounded-full border border-[#c5a059]/30 bg-[#c5a059]/10 text-[#e6ca85] text-xs font-semibold tracking-widest uppercase mb-6 transition-all duration-300">
-            Leadership
+            {content?.hero?.badge || "Leadership"}
           </span>
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-white mb-6 leading-tight">
-            The People Behind{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#f3e5ab] to-[#aa7c11]">
-              GBN Circle
-            </span>
+            {content?.hero?.heading || "The People Behind GBN Circle"}
           </h1>
           <p className="text-base md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed mb-4">
-            GBN Circle is built with a simple belief — meaningful relationships create meaningful growth.
-          </p>
-          <p className="text-sm md:text-base text-slate-400 font-light max-w-2xl mx-auto leading-relaxed mb-8">
-            Behind the community is a leadership team committed to building a trusted global business network where entrepreneurs, professionals and business leaders can connect, collaborate and grow together.
+            {content?.hero?.subtitle ||
+              "GBN Circle is built with a simple belief — meaningful relationships create meaningful growth."}
           </p>
           <p className="text-[#c5a059] font-medium tracking-widest text-xs md:text-sm uppercase">
             Connect &bull; Collaborate &bull; Grow
@@ -128,16 +147,18 @@ export default function LeadershipPage() {
       <section className="py-20 border-b border-[#1e293b]/60 bg-[#0a1020]">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
-            Leadership With Purpose
+            {content?.intro?.badge || "Leadership With Purpose"}
           </span>
           <h2 className="text-2xl md:text-3xl font-serif text-white mb-6">
-            Shaping a Business Community for Genuine Growth
+            {content?.intro?.heading || "Shaping a Business Community for Genuine Growth"}
           </h2>
           <p className="text-slate-300 font-light text-base leading-relaxed mb-4">
-            GBN Circle is more than a networking platform. It is a community shaped by people who believe in the power of relationships, collaboration and shared growth.
+            {content?.intro?.p1 ||
+              "GBN Circle is more than a networking platform. It is a community shaped by people who believe in the power of relationships, collaboration and shared growth."}
           </p>
           <p className="text-slate-400 font-light text-sm leading-relaxed">
-            Our leadership brings together vision, community building and inspiration to create a business network designed for meaningful, long-term connections.
+            {content?.intro?.p2 ||
+              "Our leadership brings together vision, community building and inspiration to create a business network designed for meaningful, long-term connections."}
           </p>
         </div>
       </section>
@@ -186,7 +207,7 @@ export default function LeadershipPage() {
                       Leadership Focus
                     </span>
                     <ul className="space-y-1.5 mb-6">
-                      {leader.focus.map((item, idx) => (
+                      {leader.focus.map((item: string, idx: number) => (
                         <li
                           key={idx}
                           className="text-xs text-slate-300 flex items-center space-x-2"
@@ -241,7 +262,7 @@ export default function LeadershipPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {leadershipPrinciples.map((item, idx) => (
+            {leadershipPrinciples.map((item: { title: string; description: string }, idx: number) => (
               <div
                 key={idx}
                 className="p-8 rounded-2xl bg-[#070b19] border border-[#1e293b] hover:border-[#c5a059]/40 hover:-translate-y-1 transition-all duration-300"
@@ -272,7 +293,7 @@ export default function LeadershipPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {journeySteps.map((step, idx) => (
+            {journeySteps.map((step: { stage: string; description: string }, idx: number) => (
               <div
                 key={idx}
                 className="p-8 rounded-2xl bg-[#0e172a]/60 border border-[#1e293b] text-center flex flex-col items-center relative"
@@ -340,26 +361,27 @@ export default function LeadershipPage() {
       <section className="py-24 text-center bg-[#070b19]">
         <div className="max-w-3xl mx-auto px-6">
           <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
-            Get Involved
+            {content?.finalCta?.badge || "Get Involved"}
           </span>
           <h2 className="text-2xl md:text-4xl font-serif text-white mb-6">
-            Be Part of the GBN Circle
+            {content?.finalCta?.heading || "Be Part of the GBN Circle"}
           </h2>
           <p className="text-slate-300 text-base md:text-lg font-light leading-relaxed mb-10 max-w-2xl mx-auto">
-            Connect with a community built around meaningful business relationships, collaboration and long-term growth.
+            {content?.finalCta?.subtitle ||
+              "Connect with a community built around meaningful business relationships, collaboration and long-term growth."}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/community"
+              href={content?.finalCta?.primaryBtnLink || "/community"}
               className="w-full sm:w-auto px-8 py-3.5 rounded-md bg-[#c5a059] text-black font-semibold text-sm hover:bg-[#d4af37] hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-[#c5a059]/10"
             >
-              Join GBN Circle
+              {content?.finalCta?.primaryBtnText || "Join GBN Circle"}
             </Link>
             <Link
-              href="/community"
+              href={content?.finalCta?.secondaryBtnLink || "/community"}
               className="w-full sm:w-auto px-8 py-3.5 rounded-md border border-[#c5a059]/50 text-[#e6ca85] hover:bg-[#c5a059]/10 hover:border-[#c5a059] hover:scale-105 active:scale-95 text-sm font-medium transition-all duration-200"
             >
-              Explore the Community
+              {content?.finalCta?.secondaryBtnText || "Explore the Community"}
             </Link>
           </div>
         </div>

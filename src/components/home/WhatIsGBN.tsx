@@ -1,30 +1,60 @@
 import { Users, Handshake, Network, TrendingUp, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { HomePageContent } from "@/lib/defaultPageContent";
 
-export default function WhatIsGBN() {
-  const points = [
+interface WhatIsGBNProps {
+  data?: HomePageContent['whatIsGbn'];
+}
+
+export default function WhatIsGBN({ data }: WhatIsGBNProps = {}) {
+  const badge = data?.badge || "What is GBN Circle?";
+  const heading =
+    data?.heading || "A Business Network Built Around Meaningful Relationships.";
+  const description =
+    data?.description ||
+    "Networking should be more than exchanging business cards. GBN Circle brings entrepreneurs, professionals and business leaders together through structured networking experiences designed to create meaningful relationships, exchange opportunities and encourage collaboration.";
+  const btnText = data?.btnText || "Discover GBN Circle";
+  const btnLink = data?.btnLink || "/about";
+
+  const icons = [
+    <Users key="1" className="w-5 h-5 text-gbn-gold" />,
+    <Handshake key="2" className="w-5 h-5 text-gbn-gold" />,
+    <Network key="3" className="w-5 h-5 text-gbn-gold" />,
+    <TrendingUp key="4" className="w-5 h-5 text-gbn-gold" />,
+  ];
+
+  const defaultPillars = [
     {
       title: "Meet People",
-      description: "Connect with entrepreneurs, professionals and business leaders.",
-      icon: <Users className="w-5 h-5 text-gbn-gold" />,
+      desc: "Connect with entrepreneurs, professionals and business leaders.",
     },
     {
       title: "Build Relationships",
-      description: "Develop meaningful business relationships over time.",
-      icon: <Handshake className="w-5 h-5 text-gbn-gold" />,
+      desc: "Develop meaningful business relationships over time.",
     },
     {
       title: "Exchange Opportunities",
-      description: "Share referrals, ideas, expertise and business possibilities.",
-      icon: <Network className="w-5 h-5 text-gbn-gold" />,
+      desc: "Share referrals, ideas, expertise and business possibilities.",
     },
     {
       title: "Collaborate & Grow",
-      description: "Turn relationships into collaboration and long-term growth.",
-      icon: <TrendingUp className="w-5 h-5 text-gbn-gold" />,
+      desc: "Turn relationships into collaboration and long-term growth.",
     },
   ];
+
+  const points =
+    data?.pillars && data.pillars.length > 0
+      ? data.pillars.map((p, i) => ({
+          title: p.title,
+          description: p.desc,
+          icon: icons[i % icons.length],
+        }))
+      : defaultPillars.map((p, i) => ({
+          title: p.title,
+          description: p.desc,
+          icon: icons[i % icons.length],
+        }));
 
   return (
     <section className="py-24 bg-gbn-navy relative overflow-hidden">
@@ -41,21 +71,16 @@ export default function WhatIsGBN() {
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-8 bg-gbn-gold rounded-full"></div>
             <p className="text-gbn-gold uppercase tracking-[0.2em] text-xs font-semibold">
-              What is GBN Circle?
+              {badge}
             </p>
           </div>
 
           <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">
-            A Business Network Built Around Meaningful Relationships.
+            {heading}
           </h2>
 
           <div className="space-y-4 text-lg text-gray-300 font-light leading-relaxed max-w-2xl">
-            <p>Networking should be more than exchanging business cards.</p>
-            <p>
-              GBN Circle brings entrepreneurs, professionals and business leaders together
-              through structured networking experiences designed to create meaningful
-              relationships, exchange opportunities and encourage collaboration.
-            </p>
+            <p>{description}</p>
           </div>
         </div>
 
@@ -80,10 +105,10 @@ export default function WhatIsGBN() {
 
         <div>
           <Link
-            href="/about"
+            href={btnLink}
             className="inline-flex items-center gap-3 bg-transparent border border-white/20 text-white text-xs tracking-widest font-bold px-8 py-4 rounded-sm transition-all hover:border-gbn-gold hover:text-gbn-gold uppercase shadow-sm group"
           >
-            <span>Discover GBN Circle</span>
+            <span>{btnText}</span>
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
