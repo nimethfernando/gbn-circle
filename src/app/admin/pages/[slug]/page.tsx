@@ -15,6 +15,9 @@ import {
   Sparkles,
   Layers,
   HelpCircle,
+  Upload,
+  ImageIcon,
+  Trash2,
 } from 'lucide-react';
 
 export default function AdminPageEditor() {
@@ -33,6 +36,8 @@ export default function AdminPageEditor() {
     type: 'success' | 'error';
     text: string;
   } | null>(null);
+  const [uploadingLeaderIdx, setUploadingLeaderIdx] = useState<number | null>(null);
+  const [uploadError, setUploadError] = useState<{ [idx: number]: string }>({});
 
   const fetchPageData = useCallback(async () => {
     try {
@@ -185,6 +190,55 @@ export default function AdminPageEditor() {
         [arrayKey]: arr,
       };
     });
+  };
+
+  const handleLeaderImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    leaderIdx: number
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Reset previous error for this item
+    setUploadError((prev) => ({ ...prev, [leaderIdx]: '' }));
+
+    // Client-side file size check (8MB)
+    if (file.size > 8 * 1024 * 1024) {
+      setUploadError((prev) => ({
+        ...prev,
+        [leaderIdx]: 'File exceeds 8MB limit. Please choose a smaller photo.',
+      }));
+      return;
+    }
+
+    try {
+      setUploadingLeaderIdx(leaderIdx);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success && data.url) {
+        updateDirectArrayItem('leaders', leaderIdx, 'image', data.url);
+      } else {
+        setUploadError((prev) => ({
+          ...prev,
+          [leaderIdx]: data.message || 'Failed to upload photo',
+        }));
+      }
+    } catch {
+      setUploadError((prev) => ({
+        ...prev,
+        [leaderIdx]: 'Network error while uploading photo',
+      }));
+    } finally {
+      setUploadingLeaderIdx(null);
+      e.target.value = '';
+    }
   };
 
   if (loading) {
@@ -1047,13 +1101,111 @@ export default function AdminPageEditor() {
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Image URL / Path</label>
+                        <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">LinkedIn URL (Optional)</label>
                         <input
                           type="text"
-                          value={leader.image || ''}
-                          onChange={(e) => updateDirectArrayItem('leaders', idx, 'image', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-400 font-mono"
+                          value={leader.linkedinUrl || ''}
+                          onChange={(e) => updateDirectArrayItem('leaders', idx, 'linkedinUrl', e.target.value)}
+                          placeholder="https://linkedin.com/in/profile"
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 font-mono"
                         />
+                      </div>
+
+                      {/* Photo Upload & Preview Widget */}
+                      <div className="pt-2 border-t border-slate-800/80">
+                        <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-2 flex items-center justify-between">
+                          <span>Portrait Photo</span>
+                          {leader.image && (
+                            <button
+                              type="button"
+                              onClick={() => updateDirectArrayItem('leaders', idx, 'image', '')}
+                              className="text-[10px] text-slate-500 hover:text-rose-400 transition-colors flex items-center gap-1"
+                              title="Clear photo"
+                            >
+                              <Trash2 size={11} />
+                              <span>Clear</span>
+                            </button>
+                          )}
+                        </label>
+
+                        <div className="flex gap-3 items-start">
+                          {/* Photo Preview Thumbnail */}
+                          <div className="relative w-20 h-24 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center group/thumb">
+                            {leader.image ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={leader.image}
+                                alt={leader.name || 'Leader Portrait'}
+                                className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300"
+                              />
+                            ) : (
+                              <div className="flex flex-col items-center justify-center text-slate-600 gap-1">
+                                <ImageIcon size={22} />
+                                <span className="text-[9px]">No photo</span>
+                              </div>
+                            )}
+
+                            {uploadingLeaderIdx === idx && (
+                              <div className="absolute inset-0 bg-slate-950/80 flex flex-col items-center justify-center text-[10px] text-[#e6ca85] backdrop-blur-xs">
+                                <Loader2 size={18} className="animate-spin mb-1 text-[#c5a059]" />
+                                <span className="font-semibold text-[9px]">Uploading...</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* File Uploader Button & Direct Path */}
+                          <div className="flex-1 min-w-0 space-y-2">
+                            <div>
+                              <input
+                                type="file"
+                                id={`leader-photo-upload-${idx}`}
+                                accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
+                                className="hidden"
+                                onChange={(e) => handleLeaderImageUpload(e, idx)}
+                                disabled={uploadingLeaderIdx === idx}
+                              />
+                              <label
+                                htmlFor={`leader-photo-upload-${idx}`}
+                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all border ${
+                                  uploadingLeaderIdx === idx
+                                    ? 'bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed'
+                                    : 'bg-[#c5a059]/15 text-[#e6ca85] border-[#c5a059]/40 hover:bg-[#c5a059]/25 hover:border-[#c5a059]'
+                                }`}
+                              >
+                                {uploadingLeaderIdx === idx ? (
+                                  <>
+                                    <Loader2 size={13} className="animate-spin" />
+                                    <span>Uploading...</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Upload size={13} />
+                                    <span>Upload Portrait</span>
+                                  </>
+                                )}
+                              </label>
+                            </div>
+
+                            {uploadError[idx] && (
+                              <p className="text-[11px] text-rose-400 font-medium leading-tight">
+                                {uploadError[idx]}
+                              </p>
+                            )}
+
+                            <div>
+                              <label className="block text-[9px] uppercase font-mono text-slate-500 mb-0.5">
+                                Image Path / URL
+                              </label>
+                              <input
+                                type="text"
+                                value={leader.image || ''}
+                                onChange={(e) => updateDirectArrayItem('leaders', idx, 'image', e.target.value)}
+                                placeholder="/uploads/... or https://..."
+                                className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-[11px] text-slate-400 font-mono focus:border-[#c5a059] focus:outline-none"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
