@@ -8,8 +8,24 @@ const SECRET_KEY = new TextEncoder().encode(
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow unauthenticated access to the login API and login page
-  if (pathname === '/admin/login' || pathname === '/api/admin/login') {
+  // Allow unauthenticated access to the login API
+  if (pathname === '/api/admin/login') {
+    return NextResponse.next();
+  }
+
+  // If already authenticated and accessing the login page, redirect to the dashboard
+  if (pathname === '/admin/login') {
+    const sessionCookie = req.cookies.get('gbn_admin_session')?.value;
+    if (sessionCookie) {
+      try {
+        const { payload } = await jwtVerify(sessionCookie, SECRET_KEY);
+        if (payload.role === 'admin') {
+          return NextResponse.redirect(new URL('/admin/events', req.url));
+        }
+      } catch {
+        // Invalid session cookie, allow viewing the login screen
+      }
+    }
     return NextResponse.next();
   }
 

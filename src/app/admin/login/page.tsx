@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,14 +23,15 @@ export default function AdminLoginPage() {
       const data = await res.json();
 
       if (data.success) {
-        router.push('/admin/events');
-        router.refresh();
+        const searchParams = new URLSearchParams(window.location.search);
+        const redirectUrl = searchParams.get('redirect') || '/admin/events';
+        window.location.href = redirectUrl;
       } else {
         setError(data.message || 'Authentication failed');
+        setLoading(false);
       }
     } catch {
       setError('An error occurred during authentication.');
-    } finally {
       setLoading(false);
     }
   };

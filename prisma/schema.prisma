@@ -117,4 +117,4 @@ model PageContent {
   title     String
   data      String
   updatedAt DateTime @updatedAt
-}
+}
