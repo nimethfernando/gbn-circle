@@ -62,29 +62,45 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    let publicUrl: string;
+    let savedToDisk = false;
+
     // Target upload path
     const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadDir, { recursive: true });
 
-    // Sanitize filename & generate unique name
-    const originalExt = path.extname(file.name || '') || '.jpg';
-    const baseName = path
-      .basename(file.name || 'portrait', originalExt)
-      .replace(/[^a-zA-Z0-9_-]/g, '_')
-      .slice(0, 40);
-    const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-    const filename = `${baseName}-${uniqueId}${originalExt.toLowerCase()}`;
+    try {
+      await fs.mkdir(uploadDir, { recursive: true });
 
-    const destinationPath = path.join(uploadDir, filename);
-    await fs.writeFile(destinationPath, buffer);
+      // Sanitize filename & generate unique name
+      const originalExt = path.extname(file.name || '') || '.jpg';
+      const baseName = path
+        .basename(file.name || 'portrait', originalExt)
+        .replace(/[^a-zA-Z0-9_-]/g, '_')
+        .slice(0, 40);
+      const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+      const filename = `${baseName}-${uniqueId}${originalExt.toLowerCase()}`;
 
-    const publicUrl = `/uploads/${filename}`;
+      const destinationPath = path.join(uploadDir, filename);
+      await fs.writeFile(destinationPath, buffer);
+
+      publicUrl = `/uploads/${filename}`;
+      savedToDisk = true;
+    } catch (fsError: unknown) {
+      // Graceful fallback for serverless platforms (like Vercel) where /var/task is read-only
+      console.warn(
+        'Local filesystem is not writable (serverless/Vercel detected). Storing as optimized Data URL instead:',
+        fsError
+      );
+      const base64 = buffer.toString('base64');
+      const mimeType = file.type || 'image/jpeg';
+      publicUrl = `data:${mimeType};base64,${base64}`;
+    }
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
-      filename,
       size: file.size,
+      savedToDisk,
     });
   } catch (error: unknown) {
     console.error('Error handling admin upload:', error);

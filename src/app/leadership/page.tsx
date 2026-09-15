@@ -179,6 +179,7 @@ export default async function LeadershipPage() {
                       src={leader.image}
                       alt={leader.name}
                       fill
+                      unoptimized={leader.image?.startsWith('data:') || leader.image?.startsWith('http')}
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-500 filter brightness-95"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#090e1a] via-transparent to-transparent opacity-60" />

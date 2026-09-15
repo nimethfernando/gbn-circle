@@ -192,6 +192,69 @@ export default function AdminPageEditor() {
     });
   };
 
+  const compressImageForUpload = (
+    file: File,
+    maxWidth = 1200,
+    quality = 0.85
+  ): Promise<File> => {
+    return new Promise((resolve) => {
+      if (
+        typeof window === 'undefined' ||
+        file.type === 'image/svg+xml' ||
+        file.type === 'image/gif' ||
+        file.size < 200 * 1024
+      ) {
+        resolve(file);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new window.Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(file);
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          const outputType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const optimizedFile = new File([blob], file.name, {
+                  type: outputType,
+                  lastModified: Date.now(),
+                });
+                resolve(optimizedFile);
+              } else {
+                resolve(file);
+              }
+            },
+            outputType,
+            quality
+          );
+        };
+        img.onerror = () => resolve(file);
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleLeaderImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
     leaderIdx: number
@@ -202,19 +265,21 @@ export default function AdminPageEditor() {
     // Reset previous error for this item
     setUploadError((prev) => ({ ...prev, [leaderIdx]: '' }));
 
-    // Client-side file size check (8MB)
-    if (file.size > 8 * 1024 * 1024) {
+    // Client-side file size check (12MB)
+    if (file.size > 12 * 1024 * 1024) {
       setUploadError((prev) => ({
         ...prev,
-        [leaderIdx]: 'File exceeds 8MB limit. Please choose a smaller photo.',
+        [leaderIdx]: 'File exceeds 12MB limit. Please choose a smaller photo.',
       }));
       return;
     }
 
     try {
       setUploadingLeaderIdx(leaderIdx);
+      const readyFile = await compressImageForUpload(file);
+
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', readyFile);
 
       const res = await fetch('/api/admin/upload', {
         method: 'POST',
