@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
 import { verifyAdminToken } from '@/lib/auth';
 import {
+  DEFAULT_PAGE_CONTENTS,
+  HomePageContent,
+  LeadershipPageContent,
   PageContentMap,
   PAGE_DEFINITIONS,
 } from '@/lib/defaultPageContent';
@@ -42,6 +45,15 @@ export async function GET(
     const savedRecord = await prisma.pageContent.findUnique({
       where: { slug },
     });
+
+    // For home editor, ensure leaders are populated from leadership page if not already set
+    if (slug === 'home') {
+      const homeContent = mergedContent as HomePageContent;
+      if (!homeContent.leaders || !Array.isArray(homeContent.leaders) || homeContent.leaders.length === 0) {
+        const leadershipContent = await getPageContent('leadership');
+        homeContent.leaders = leadershipContent.leaders;
+      }
+    }
 
     return NextResponse.json({
       success: true,
@@ -110,9 +122,86 @@ export async function PUT(
       },
     });
 
+    // Bidirectional sync for leaders between Home and Leadership pages
+    interface LeaderItemPayload {
+      name?: string;
+      role?: string;
+      statement?: string;
+      image?: string;
+      focus?: string[];
+      linkedinUrl?: string | null;
+    }
+
+    const payload = content as { leaders?: LeaderItemPayload[] };
+
+    if (slug === 'home' && Array.isArray(payload.leaders) && payload.leaders.length > 0) {
+      try {
+        const leadershipRecord = await prisma.pageContent.findUnique({
+          where: { slug: 'leadership' },
+        });
+        const currentLeadershipData = (leadershipRecord?.data
+          ? JSON.parse(leadershipRecord.data)
+          : { ...DEFAULT_PAGE_CONTENTS.leadership }) as LeadershipPageContent;
+
+        const existingLeaders = currentLeadershipData.leaders || DEFAULT_PAGE_CONTENTS.leadership.leaders;
+        const mergedLeaders = payload.leaders.map((homeLeader, idx) => {
+          const existing = existingLeaders[idx] || {
+            name: '',
+            role: '',
+            statement: '',
+            image: '',
+            focus: [],
+            linkedinUrl: null,
+          };
+          return {
+            ...existing,
+            name: homeLeader.name ?? existing.name ?? '',
+            role: homeLeader.role ?? existing.role ?? '',
+            image: homeLeader.image ?? existing.image ?? '',
+          };
+        });
+
+        currentLeadershipData.leaders = mergedLeaders;
+
+        await prisma.pageContent.upsert({
+          where: { slug: 'leadership' },
+          update: {
+            data: JSON.stringify(currentLeadershipData),
+          },
+          create: {
+            slug: 'leadership',
+            title: 'Leadership',
+            data: JSON.stringify(currentLeadershipData),
+          },
+        });
+      } catch (leaderSyncErr) {
+        console.warn('Failed to sync leaders to leadership page:', leaderSyncErr);
+      }
+    }
+
+    if (slug === 'leadership' && Array.isArray(payload.leaders) && payload.leaders.length > 0) {
+      try {
+        const homeRecord = await prisma.pageContent.findUnique({
+          where: { slug: 'home' },
+        });
+        if (homeRecord?.data) {
+          const homeData = JSON.parse(homeRecord.data) as HomePageContent;
+          homeData.leaders = payload.leaders as HomePageContent['leaders'];
+          await prisma.pageContent.update({
+            where: { slug: 'home' },
+            data: { data: JSON.stringify(homeData) },
+          });
+        }
+      } catch (homeSyncErr) {
+        console.warn('Failed to sync leaders to home page:', homeSyncErr);
+      }
+    }
+
     try {
       revalidatePath('/', 'layout');
       revalidatePath(pageDef.path);
+      if (slug === 'home') revalidatePath('/leadership');
+      if (slug === 'leadership') revalidatePath('/');
     } catch (revalErr) {
       console.warn('Revalidation warning:', revalErr);
     }

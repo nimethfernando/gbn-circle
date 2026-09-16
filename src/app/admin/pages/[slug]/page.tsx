@@ -1120,6 +1120,216 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
               </div>
+
+              {/* Section: Leadership Section & Team Portraits */}
+              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                  <div className="flex items-center gap-2.5">
+                    <Layers size={18} className="text-[#c5a059]" />
+                    <h2 className="text-lg font-bold font-serif text-white">6. Leadership Section &amp; Team Portraits</h2>
+                  </div>
+                  <Link
+                    href="/admin/pages/leadership"
+                    className="text-xs text-[#c5a059] hover:text-[#e5c158] inline-flex items-center gap-1.5 font-semibold transition-colors"
+                  >
+                    <span>Open Full Leaders Page Editor</span>
+                    <ExternalLink size={13} />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Section Badge
+                    </label>
+                    <input
+                      type="text"
+                      value={content.leadershipSection?.badge || ''}
+                      onChange={(e) => updateNestedField('leadershipSection', 'badge', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Section Heading
+                    </label>
+                    <input
+                      type="text"
+                      value={content.leadershipSection?.heading || ''}
+                      onChange={(e) => updateNestedField('leadershipSection', 'heading', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Section Description
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={content.leadershipSection?.description || ''}
+                      onChange={(e) => updateNestedField('leadershipSection', 'description', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      CTA Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={content.leadershipSection?.btnText || ''}
+                      onChange={(e) => updateNestedField('leadershipSection', 'btnText', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      CTA Button Destination Link
+                    </label>
+                    <input
+                      type="text"
+                      value={content.leadershipSection?.btnLink || ''}
+                      onChange={(e) => updateNestedField('leadershipSection', 'btnLink', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Team Portraits & Members Preview/Edit */}
+                <div className="pt-6 border-t border-slate-800/80">
+                  <div className="mb-4">
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] flex items-center gap-2">
+                      <span>Leadership Members &amp; Portrait Photos</span>
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Members and photos configured here are displayed on both the Home page leadership section and the Leadership page. Any photo uploaded or changed here updates the live site upon saving.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {(content.leaders || []).map((leader: any, idx: number) => (
+                      <div key={idx} className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Full Name</label>
+                          <input
+                            type="text"
+                            value={leader.name || ''}
+                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'name', e.target.value)}
+                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-sm font-bold text-white focus:border-[#c5a059] outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-1">Role Title</label>
+                          <input
+                            type="text"
+                            value={leader.role || ''}
+                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'role', e.target.value)}
+                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-[#e5c158] focus:border-[#c5a059] outline-none"
+                          />
+                        </div>
+
+                        {/* Portrait Photo Upload & Preview */}
+                        <div className="pt-2 border-t border-slate-800/80">
+                          <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-2 flex items-center justify-between">
+                            <span>Portrait Photo</span>
+                            {leader.image && (
+                              <button
+                                type="button"
+                                onClick={() => updateDirectArrayItem('leaders', idx, 'image', '')}
+                                className="text-[10px] text-slate-500 hover:text-rose-400 transition-colors flex items-center gap-1"
+                                title="Clear photo"
+                              >
+                                <Trash2 size={11} />
+                                <span>Clear</span>
+                              </button>
+                            )}
+                          </label>
+
+                          <div className="flex gap-3 items-start">
+                            {/* Photo Preview Thumbnail */}
+                            <div className="relative w-20 h-24 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center group/thumb">
+                              {leader.image ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  src={leader.image}
+                                  alt={leader.name || 'Leader Portrait'}
+                                  className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300"
+                                />
+                              ) : (
+                                <div className="flex flex-col items-center justify-center text-slate-600 gap-1">
+                                  <ImageIcon size={22} />
+                                  <span className="text-[9px]">No photo</span>
+                                </div>
+                              )}
+
+                              {uploadingLeaderIdx === idx && (
+                                <div className="absolute inset-0 bg-slate-950/80 flex flex-col items-center justify-center text-[10px] text-[#e6ca85] backdrop-blur-xs">
+                                  <Loader2 size={18} className="animate-spin mb-1 text-[#c5a059]" />
+                                  <span className="font-semibold text-[9px]">Uploading...</span>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* File Uploader Button & Direct Path */}
+                            <div className="flex-1 min-w-0 space-y-2">
+                              <div>
+                                <input
+                                  type="file"
+                                  id={`home-leader-photo-upload-${idx}`}
+                                  accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
+                                  className="hidden"
+                                  onChange={(e) => handleLeaderImageUpload(e, idx)}
+                                  disabled={uploadingLeaderIdx === idx}
+                                />
+                                <label
+                                  htmlFor={`home-leader-photo-upload-${idx}`}
+                                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all border ${
+                                    uploadingLeaderIdx === idx
+                                      ? 'bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed'
+                                      : 'bg-[#c5a059]/15 text-[#e6ca85] border-[#c5a059]/40 hover:bg-[#c5a059]/25 hover:border-[#c5a059]'
+                                  }`}
+                                >
+                                  {uploadingLeaderIdx === idx ? (
+                                    <>
+                                      <Loader2 size={13} className="animate-spin" />
+                                      <span>Uploading...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Upload size={13} />
+                                      <span>Upload Photo</span>
+                                    </>
+                                  )}
+                                </label>
+                              </div>
+
+                              <div>
+                                <input
+                                  type="text"
+                                  value={leader.image || ''}
+                                  onChange={(e) => updateDirectArrayItem('leaders', idx, 'image', e.target.value)}
+                                  placeholder="/event-leadership-... or https://"
+                                  className="w-full bg-slate-900 border border-slate-800 rounded p-1.5 text-[11px] text-slate-300 font-mono placeholder:text-slate-600 focus:border-[#c5a059] outline-none"
+                                />
+                              </div>
+
+                              {uploadError[idx] && (
+                                <p className="text-[10px] text-rose-400 leading-tight">
+                                  {uploadError[idx]}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </>
           )}
 

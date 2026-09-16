@@ -17,7 +17,10 @@ import { getPageContent } from "@/lib/getPageContent";
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const content = await getPageContent('home');
+  const [content, leadershipContent] = await Promise.all([
+    getPageContent('home'),
+    getPageContent('leadership'),
+  ]);
   const vis = content?.visibility;
 
   const showMemberSection = vis?.showMemberSection ?? false;
@@ -27,6 +30,12 @@ export default async function Home() {
   const showLeadershipSection = vis?.showLeadershipSection ?? true;
   const showInspirationSection = vis?.showInspirationSection ?? true;
   const showJourneySection = vis?.showJourneySection ?? true;
+
+  // Dynamically load leadership profiles configured on Leaders page (fallback to home content)
+  const leaders =
+    leadershipContent?.leaders && leadershipContent.leaders.length > 0
+      ? leadershipContent.leaders
+      : content?.leaders;
 
   return (
     <main className="flex-1 w-full flex flex-col">
@@ -38,7 +47,9 @@ export default async function Home() {
       {showExperienceSection && <GBNExperience data={content.gbnExperience} />}
       {showGlobalNetworkSection && <GlobalNetwork />}
       {showEventsSection && <Events />}
-      {showLeadershipSection && <Leadership />}
+      {showLeadershipSection && (
+        <Leadership data={content.leadershipSection} leaders={leaders} />
+      )}
       {showInspirationSection && <Inspiration />}
       {showMemberSection && <MemberCommunity />}
       {showJourneySection && <GBNJourney />}

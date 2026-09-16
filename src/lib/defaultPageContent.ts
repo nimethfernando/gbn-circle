@@ -71,6 +71,14 @@ export interface HomePageContent {
     btnText: string;
     btnLink: string;
   };
+  leaders?: Array<{
+    name: string;
+    role: string;
+    statement: string;
+    image: string;
+    focus?: string[];
+    linkedinUrl?: string | null;
+  }>;
   inspiration: {
     heading: string;
     quote: string;
@@ -420,6 +428,50 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
       btnText: "Meet Our Leadership",
       btnLink: "/leadership",
     },
+    leaders: [
+      {
+        name: "Amit Batra",
+        role: "Founder",
+        statement:
+          "Driven by the vision of creating a trusted global business networking ecosystem where meaningful relationships create meaningful growth.",
+        image: "/event-leadership-C1eE1_9Q.jpg",
+        focus: [
+          "Vision & Strategy",
+          "Global Business Network",
+          "Community Development",
+          "Long-Term Growth",
+        ],
+        linkedinUrl: "#",
+      },
+      {
+        name: "Asha Bhasin",
+        role: "Co-Founder",
+        statement:
+          "Part of the leadership team helping build the foundation, community and long-term growth of GBN Circle.",
+        image: "/event-leadership-C1eE1_9Q (1).jpg",
+        focus: [
+          "Community Foundation",
+          "Member Experience",
+          "Community Development",
+          "Long-Term Growth",
+        ],
+        linkedinUrl: "#",
+      },
+      {
+        name: "Ditya Batra",
+        role: "Chief Inspiration Officer",
+        statement:
+          "The inspiration behind GBN Circle and the vision of creating a community where people around the world can connect, collaborate and grow together.",
+        image: "/vision-wide-Dafp-BMf.jpg",
+        focus: [
+          "Inspiration",
+          "Human Connection",
+          "Community Vision",
+          "Connect • Collaborate • Grow",
+        ],
+        linkedinUrl: null,
+      },
+    ],
     inspiration: {
       heading: "Inspired by Connection. Built for the Future.",
       quote:
