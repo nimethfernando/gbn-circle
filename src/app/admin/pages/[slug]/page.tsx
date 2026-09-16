@@ -401,101 +401,80 @@ export default function AdminPageEditor() {
           {slug === 'home' && (
             <>
               {/* Feature Visibility Controls (No-Code Toggles) */}
-              <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border-2 border-[#c5a059]/40 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-6">
+              <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border-2 border-[#c5a059]/40 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
                   <div>
                     <div className="flex items-center gap-2 text-[#c5a059]">
                       <Sparkles size={20} />
                       <h2 className="text-xl font-bold font-serif text-white">
-                        Feature Visibility Controls (No-Code Toggles)
+                        Feature Visibility &amp; Social Links Controls (No-Code)
                       </h2>
                     </div>
                     <p className="text-xs text-slate-400 mt-1">
-                      Turn sections and navigation elements ON or OFF without touching any code. Click &quot;Save Changes&quot; below to apply to the live site.
+                      Control visibility of all sections, menus, and configure live social profile links without touching code. Click &quot;Save Changes&quot; below to update the live website.
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  {/* Toggle 1: Member Community Section */}
-                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                          Member Community Section
-                        </span>
+                {/* --- 1. SOCIAL MEDIA CHANNELS & PROFILE LINKS --- */}
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
+                    <span>1. Social Media Channels &amp; Links</span>
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Instagram Card */}
+                    <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-full bg-pink-900/60 border border-pink-700/50 flex items-center justify-center text-[10px] font-bold text-pink-300">IG</span>
+                          <span className="text-xs font-bold uppercase tracking-wider text-white">Instagram Profile</span>
+                        </div>
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                            content.visibility?.showMemberSection
+                            content.visibility?.showInstagram !== false
                               ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
                               : 'bg-slate-900 text-slate-400 border border-slate-700'
                           }`}
                         >
-                          {content.visibility?.showMemberSection ? 'Visible' : 'Hidden'}
+                          {content.visibility?.showInstagram !== false ? 'Visible' : 'Hidden'}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        Show the &quot;Member Community&quot; showcase section on the homepage.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        updateNestedField('visibility', 'showMemberSection', !content.visibility?.showMemberSection)
-                      }
-                      className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
-                        content.visibility?.showMemberSection
-                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
-                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
-                      }`}
-                    >
-                      {content.visibility?.showMemberSection ? 'Hide from Homepage' : 'Unhide on Homepage'}
-                    </button>
-                  </div>
 
-                  {/* Toggle 2: Members in Navigation */}
-                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                          &quot;Members&quot; Menu Item
-                        </span>
-                        <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                            content.visibility?.showMemberNav
-                              ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
-                              : 'bg-slate-900 text-slate-400 border border-slate-700'
-                          }`}
-                        >
-                          {content.visibility?.showMemberNav ? 'Visible' : 'Hidden'}
-                        </span>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                          Instagram URL / QR Link
+                        </label>
+                        <input
+                          type="text"
+                          value={content.visibility?.instagramUrl ?? 'https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr'}
+                          onChange={(e) => updateNestedField('visibility', 'instagramUrl', e.target.value)}
+                          placeholder="https://www.instagram.com/username"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:border-[#c5a059] outline-none font-mono"
+                        />
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        Show &quot;Members&quot; in top Header navigation and bottom Footer navigation.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        updateNestedField('visibility', 'showMemberNav', !content.visibility?.showMemberNav)
-                      }
-                      className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
-                        content.visibility?.showMemberNav
-                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
-                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
-                      }`}
-                    >
-                      {content.visibility?.showMemberNav ? 'Hide from Navigation' : 'Unhide in Navigation'}
-                    </button>
-                  </div>
 
-                  {/* Toggle 3: Global LinkedIn */}
-                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                          LinkedIn Icon &amp; Links
-                        </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateNestedField('visibility', 'showInstagram', content.visibility?.showInstagram === false)
+                        }
+                        className={`w-full py-2 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                          content.visibility?.showInstagram !== false
+                            ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                            : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                        }`}
+                      >
+                        {content.visibility?.showInstagram !== false ? 'Hide Instagram from Site' : 'Unhide Instagram on Site'}
+                      </button>
+                    </div>
+
+                    {/* LinkedIn Card */}
+                    <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-full bg-blue-900/60 border border-blue-700/50 flex items-center justify-center text-[10px] font-bold text-blue-300">LI</span>
+                          <span className="text-xs font-bold uppercase tracking-wider text-white">LinkedIn Profile</span>
+                        </div>
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
                             content.visibility?.showLinkedIn
@@ -506,23 +485,318 @@ export default function AdminPageEditor() {
                           {content.visibility?.showLinkedIn ? 'Visible' : 'Hidden'}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        Show LinkedIn icon in Footer, Contact page, and Leadership team cards.
-                      </p>
+
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                          LinkedIn Company / Profile URL
+                        </label>
+                        <input
+                          type="text"
+                          value={content.visibility?.linkedInUrl ?? 'https://www.linkedin.com/company/gbn-circle/'}
+                          onChange={(e) => updateNestedField('visibility', 'linkedInUrl', e.target.value)}
+                          placeholder="https://www.linkedin.com/company/..."
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:border-[#c5a059] outline-none font-mono"
+                        />
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateNestedField('visibility', 'showLinkedIn', !content.visibility?.showLinkedIn)
+                        }
+                        className={`w-full py-2 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                          content.visibility?.showLinkedIn
+                            ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                            : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                        }`}
+                      >
+                        {content.visibility?.showLinkedIn ? 'Hide LinkedIn from Site' : 'Unhide LinkedIn on Site'}
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        updateNestedField('visibility', 'showLinkedIn', !content.visibility?.showLinkedIn)
-                      }
-                      className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
-                        content.visibility?.showLinkedIn
-                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
-                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
-                      }`}
-                    >
-                      {content.visibility?.showLinkedIn ? 'Hide Site-Wide' : 'Unhide Site-Wide'}
-                    </button>
+                  </div>
+                </div>
+
+                {/* --- 2. MEMBERS & COMMUNITY VISIBILITY --- */}
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
+                    <span>2. Member Community &amp; Navigation</span>
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Toggle: Member Community Section */}
+                    <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                            Member Community Section
+                          </span>
+                          <span
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                              content.visibility?.showMemberSection
+                                ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                                : 'bg-slate-900 text-slate-400 border border-slate-700'
+                            }`}
+                          >
+                            {content.visibility?.showMemberSection ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          Show the &quot;Member Community&quot; showcase section on the homepage.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateNestedField('visibility', 'showMemberSection', !content.visibility?.showMemberSection)
+                        }
+                        className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                          content.visibility?.showMemberSection
+                            ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                            : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                        }`}
+                      >
+                        {content.visibility?.showMemberSection ? 'Hide from Homepage' : 'Unhide on Homepage'}
+                      </button>
+                    </div>
+
+                    {/* Toggle: Members in Navigation */}
+                    <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                            &quot;Members&quot; Menu Item
+                          </span>
+                          <span
+                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                              content.visibility?.showMemberNav
+                                ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                                : 'bg-slate-900 text-slate-400 border border-slate-700'
+                            }`}
+                          >
+                            {content.visibility?.showMemberNav ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          Show &quot;Members&quot; in top Header navigation and bottom Footer navigation.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateNestedField('visibility', 'showMemberNav', !content.visibility?.showMemberNav)
+                        }
+                        className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                          content.visibility?.showMemberNav
+                            ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                            : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                        }`}
+                      >
+                        {content.visibility?.showMemberNav ? 'Hide from Navigation' : 'Unhide in Navigation'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* --- 3. HOMEPAGE KEY SECTIONS --- */}
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
+                    <span>3. Homepage Key Sections</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {/* Events Section */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">Events Section</span>
+                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${content.visibility?.showEventsSection !== false ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-900 text-slate-400 border border-slate-700'}`}>
+                            {content.visibility?.showEventsSection !== false ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mb-3">Live upcoming networking sessions</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showEventsSection', content.visibility?.showEventsSection === false)}
+                        className={`w-full py-1.5 px-3 rounded text-[11px] font-bold transition ${content.visibility?.showEventsSection !== false ? 'bg-slate-800 hover:bg-red-950 hover:text-red-300 text-slate-300' : 'bg-emerald-700 hover:bg-emerald-600 text-white'}`}
+                      >
+                        {content.visibility?.showEventsSection !== false ? 'Hide Section' : 'Unhide Section'}
+                      </button>
+                    </div>
+
+                    {/* Leadership Section */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">Leadership Section</span>
+                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${content.visibility?.showLeadershipSection !== false ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-900 text-slate-400 border border-slate-700'}`}>
+                            {content.visibility?.showLeadershipSection !== false ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mb-3">Founders &amp; executive leadership preview</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showLeadershipSection', content.visibility?.showLeadershipSection === false)}
+                        className={`w-full py-1.5 px-3 rounded text-[11px] font-bold transition ${content.visibility?.showLeadershipSection !== false ? 'bg-slate-800 hover:bg-red-950 hover:text-red-300 text-slate-300' : 'bg-emerald-700 hover:bg-emerald-600 text-white'}`}
+                      >
+                        {content.visibility?.showLeadershipSection !== false ? 'Hide Section' : 'Unhide Section'}
+                      </button>
+                    </div>
+
+                    {/* Inspiration Section */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">Inspiration Quote</span>
+                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${content.visibility?.showInspirationSection !== false ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-900 text-slate-400 border border-slate-700'}`}>
+                            {content.visibility?.showInspirationSection !== false ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mb-3">Inspiration statement banner</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showInspirationSection', content.visibility?.showInspirationSection === false)}
+                        className={`w-full py-1.5 px-3 rounded text-[11px] font-bold transition ${content.visibility?.showInspirationSection !== false ? 'bg-slate-800 hover:bg-red-950 hover:text-red-300 text-slate-300' : 'bg-emerald-700 hover:bg-emerald-600 text-white'}`}
+                      >
+                        {content.visibility?.showInspirationSection !== false ? 'Hide Section' : 'Unhide Section'}
+                      </button>
+                    </div>
+
+                    {/* Journey Section */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">GBN Journey</span>
+                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${content.visibility?.showJourneySection !== false ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-900 text-slate-400 border border-slate-700'}`}>
+                            {content.visibility?.showJourneySection !== false ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mb-3">Structured journey progression roadmap</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showJourneySection', content.visibility?.showJourneySection === false)}
+                        className={`w-full py-1.5 px-3 rounded text-[11px] font-bold transition ${content.visibility?.showJourneySection !== false ? 'bg-slate-800 hover:bg-red-950 hover:text-red-300 text-slate-300' : 'bg-emerald-700 hover:bg-emerald-600 text-white'}`}
+                      >
+                        {content.visibility?.showJourneySection !== false ? 'Hide Section' : 'Unhide Section'}
+                      </button>
+                    </div>
+
+                    {/* Global Network Section */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">Global Network</span>
+                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${content.visibility?.showGlobalNetworkSection !== false ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-900 text-slate-400 border border-slate-700'}`}>
+                            {content.visibility?.showGlobalNetworkSection !== false ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mb-3">Worldwide reach &amp; office locations</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showGlobalNetworkSection', content.visibility?.showGlobalNetworkSection === false)}
+                        className={`w-full py-1.5 px-3 rounded text-[11px] font-bold transition ${content.visibility?.showGlobalNetworkSection !== false ? 'bg-slate-800 hover:bg-red-950 hover:text-red-300 text-slate-300' : 'bg-emerald-700 hover:bg-emerald-600 text-white'}`}
+                      >
+                        {content.visibility?.showGlobalNetworkSection !== false ? 'Hide Section' : 'Unhide Section'}
+                      </button>
+                    </div>
+
+                    {/* GBN Experience Section */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">GBN Experience</span>
+                          <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${content.visibility?.showExperienceSection !== false ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-900 text-slate-400 border border-slate-700'}`}>
+                            {content.visibility?.showExperienceSection !== false ? 'Visible' : 'Hidden'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mb-3">Circle vs Elite tier comparisons</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showExperienceSection', content.visibility?.showExperienceSection === false)}
+                        className={`w-full py-1.5 px-3 rounded text-[11px] font-bold transition ${content.visibility?.showExperienceSection !== false ? 'bg-slate-800 hover:bg-red-950 hover:text-red-300 text-slate-300' : 'bg-emerald-700 hover:bg-emerald-600 text-white'}`}
+                      >
+                        {content.visibility?.showExperienceSection !== false ? 'Hide Section' : 'Unhide Section'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* --- 4. NAVIGATION MENU TOGGLES --- */}
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
+                    <span>4. Navigation Menu Items (Header Navbar &amp; Footer)</span>
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {/* Events Nav */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold text-slate-200">Events</span>
+                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${content.visibility?.showEventsNav !== false ? 'bg-emerald-950 text-emerald-400' : 'bg-slate-900 text-slate-400'}`}>
+                          {content.visibility?.showEventsNav !== false ? 'ON' : 'OFF'}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showEventsNav', content.visibility?.showEventsNav === false)}
+                        className="w-full py-1 text-[10px] font-bold uppercase rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      >
+                        {content.visibility?.showEventsNav !== false ? 'Hide Menu' : 'Unhide Menu'}
+                      </button>
+                    </div>
+
+                    {/* Blogs Nav */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold text-slate-200">Blogs</span>
+                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${content.visibility?.showBlogsNav !== false ? 'bg-emerald-950 text-emerald-400' : 'bg-slate-900 text-slate-400'}`}>
+                          {content.visibility?.showBlogsNav !== false ? 'ON' : 'OFF'}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showBlogsNav', content.visibility?.showBlogsNav === false)}
+                        className="w-full py-1 text-[10px] font-bold uppercase rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      >
+                        {content.visibility?.showBlogsNav !== false ? 'Hide Menu' : 'Unhide Menu'}
+                      </button>
+                    </div>
+
+                    {/* Community Nav */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold text-slate-200">Community</span>
+                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${content.visibility?.showCommunityNav !== false ? 'bg-emerald-950 text-emerald-400' : 'bg-slate-900 text-slate-400'}`}>
+                          {content.visibility?.showCommunityNav !== false ? 'ON' : 'OFF'}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showCommunityNav', content.visibility?.showCommunityNav === false)}
+                        className="w-full py-1 text-[10px] font-bold uppercase rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      >
+                        {content.visibility?.showCommunityNav !== false ? 'Hide Menu' : 'Unhide Menu'}
+                      </button>
+                    </div>
+
+                    {/* Leadership Nav */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold text-slate-200">Leadership</span>
+                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${content.visibility?.showLeadershipNav !== false ? 'bg-emerald-950 text-emerald-400' : 'bg-slate-900 text-slate-400'}`}>
+                          {content.visibility?.showLeadershipNav !== false ? 'ON' : 'OFF'}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => updateNestedField('visibility', 'showLeadershipNav', content.visibility?.showLeadershipNav === false)}
+                        className="w-full py-1 text-[10px] font-bold uppercase rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                      >
+                        {content.visibility?.showLeadershipNav !== false ? 'Hide Menu' : 'Unhide Menu'}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

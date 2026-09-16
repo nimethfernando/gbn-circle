@@ -2,7 +2,7 @@ import React from 'react';
 import { Mail, Phone, Globe, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { getPageContent } from '@/lib/getPageContent';
+import { getPageContent, getSiteVisibility } from '@/lib/getPageContent';
 import ContactForm from '@/components/contact/ContactForm';
 
 export const dynamic = 'force-dynamic';
@@ -10,25 +10,28 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Contact Us | GBN Circle — Global Business Network',
   description:
-    'Reach out to GBN Circle for membership queries, partnerships, and executive inquiries.',
+    'Get in touch with GBN Circle executive leadership. For memberships, partnerships, or business inquiries.',
 };
 
 export default async function ContactPage() {
   const content = await getPageContent('contact');
+  const visibility = await getSiteVisibility();
 
   const email = content?.channels?.email || 'gbncircle@gmail.com';
   const phone = content?.channels?.phone || '+91 9783577773';
   const website = content?.channels?.website || 'www.gbncircle.com';
   const websiteUrl = website.startsWith('http') ? website : `https://${website}`;
 
-  const georgiaOffice = content?.channels?.georgiaOffice || '17 Ioane Shavteli St, Tbilisi, Georgia';
+  const georgiaOffice =
+    content?.channels?.georgiaOffice || '17 Ioane Shavteli St, Tbilisi, Georgia';
   const indiaOffice =
     content?.channels?.indiaOffice ||
     '3rd floor, 243, Seva Sadan Marg, Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004';
 
-  const instagram = content?.channels?.instagramUrl || 'https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr';
-  const linkedin = content?.channels?.linkedInUrl || 'https://www.linkedin.com/company/gbn-circle/';
-  const showLinkedIn = Boolean(content?.channels?.showLinkedIn);
+  const instagram = content?.channels?.instagramUrl || visibility.instagramUrl;
+  const linkedin = content?.channels?.linkedInUrl || visibility.linkedInUrl;
+  const showInstagram = content?.channels?.showInstagram ?? visibility.showInstagram;
+  const showLinkedIn = content?.channels?.showLinkedIn ?? visibility.showLinkedIn;
 
   return (
     <div className="min-h-screen bg-[#070b19] text-white pt-32 pb-24 px-4 sm:px-6 lg:px-8">
@@ -130,14 +133,16 @@ export default async function ContactPage() {
                   Social Links
                 </span>
                 <div className="flex items-center space-x-3">
-                  <Link
-                    href={instagram}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 rounded border border-slate-800 bg-slate-950/60 hover:border-[#c5a059] text-slate-300 hover:text-white text-xs font-semibold tracking-wider transition-colors flex items-center gap-2"
-                  >
-                    <span className="text-[10px] text-[#c5a059] font-bold">IG</span> Instagram
-                  </Link>
+                  {showInstagram && (
+                    <Link
+                      href={instagram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-4 py-2 rounded border border-slate-800 bg-slate-950/60 hover:border-[#c5a059] text-slate-300 hover:text-white text-xs font-semibold tracking-wider transition-colors flex items-center gap-2"
+                    >
+                      <span className="text-[10px] text-[#c5a059] font-bold">IG</span> Instagram
+                    </Link>
+                  )}
                   {showLinkedIn && (
                     <Link
                       href={linkedin}

@@ -97,9 +97,29 @@ export interface HomePageContent {
     footnote: string;
   };
   visibility?: {
+    // Members & Community
     showMemberSection?: boolean;
     showMemberNav?: boolean;
+
+    // Social Media Links & Visibility
+    showInstagram?: boolean;
+    instagramUrl?: string;
     showLinkedIn?: boolean;
+    linkedInUrl?: string;
+
+    // Homepage Section Visibility
+    showEventsSection?: boolean;
+    showLeadershipSection?: boolean;
+    showInspirationSection?: boolean;
+    showJourneySection?: boolean;
+    showGlobalNetworkSection?: boolean;
+    showExperienceSection?: boolean;
+
+    // Navigation Menu Visibility
+    showEventsNav?: boolean;
+    showBlogsNav?: boolean;
+    showCommunityNav?: boolean;
+    showLeadershipNav?: boolean;
   };
 }
 
@@ -210,6 +230,7 @@ export interface ContactPageContent {
     indiaOffice: string;
     instagramUrl: string;
     linkedInUrl: string;
+    showInstagram?: boolean;
     showLinkedIn?: boolean;
   };
   form: {
@@ -440,7 +461,23 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
     visibility: {
       showMemberSection: false,
       showMemberNav: false,
+
+      showInstagram: true,
+      instagramUrl: "https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr",
       showLinkedIn: false,
+      linkedInUrl: "https://www.linkedin.com/company/gbn-circle/",
+
+      showEventsSection: true,
+      showLeadershipSection: true,
+      showInspirationSection: true,
+      showJourneySection: true,
+      showGlobalNetworkSection: true,
+      showExperienceSection: true,
+
+      showEventsNav: true,
+      showBlogsNav: true,
+      showCommunityNav: true,
+      showLeadershipNav: true,
     },
   },
 

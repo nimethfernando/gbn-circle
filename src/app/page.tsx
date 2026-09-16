@@ -18,7 +18,15 @@ export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const content = await getPageContent('home');
-  const showMemberSection = Boolean(content?.visibility?.showMemberSection);
+  const vis = content?.visibility;
+
+  const showMemberSection = vis?.showMemberSection ?? false;
+  const showExperienceSection = vis?.showExperienceSection ?? true;
+  const showGlobalNetworkSection = vis?.showGlobalNetworkSection ?? true;
+  const showEventsSection = vis?.showEventsSection ?? true;
+  const showLeadershipSection = vis?.showLeadershipSection ?? true;
+  const showInspirationSection = vis?.showInspirationSection ?? true;
+  const showJourneySection = vis?.showJourneySection ?? true;
 
   return (
     <main className="flex-1 w-full flex flex-col">
@@ -27,13 +35,13 @@ export default async function Home() {
       <WhoIsGBNFor data={content.whoIsGbnFor} />
       <InsideGBN />
       <ThreePrinciples data={content.threePrinciples} />
-      <GBNExperience data={content.gbnExperience} />
-      <GlobalNetwork />
-      <Events />
-      <Leadership />
-      <Inspiration />
+      {showExperienceSection && <GBNExperience data={content.gbnExperience} />}
+      {showGlobalNetworkSection && <GlobalNetwork />}
+      {showEventsSection && <Events />}
+      {showLeadershipSection && <Leadership />}
+      {showInspirationSection && <Inspiration />}
       {showMemberSection && <MemberCommunity />}
-      <GBNJourney />
+      {showJourneySection && <GBNJourney />}
       {/* TESTIMONIALS & VERIFIED IMPACT sections omitted for now, as per PRD "hide this section completely if not available" */}
       <FinalCTA data={content.finalCta} />
       <Contact />

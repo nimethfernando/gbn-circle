@@ -8,9 +8,19 @@ import { useState, useEffect } from "react";
 
 interface HeaderProps {
   showMembers?: boolean;
+  showEvents?: boolean;
+  showBlogs?: boolean;
+  showCommunity?: boolean;
+  showLeadership?: boolean;
 }
 
-export default function Header({ showMembers = false }: HeaderProps) {
+export default function Header({
+  showMembers = false,
+  showEvents = true,
+  showBlogs = true,
+  showCommunity = true,
+  showLeadership = true,
+}: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -26,10 +36,10 @@ export default function Header({ showMembers = false }: HeaderProps) {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Community", href: "/community" },
-    { name: "Leadership", href: "/leadership" },
-    { name: "Events", href: "/events" },
-    { name: "Blogs", href: "/blogs" },
+    ...(showCommunity ? [{ name: "Community", href: "/community" }] : []),
+    ...(showLeadership ? [{ name: "Leadership", href: "/leadership" }] : []),
+    ...(showEvents ? [{ name: "Events", href: "/events" }] : []),
+    ...(showBlogs ? [{ name: "Blogs", href: "/blogs" }] : []),
     ...(showMembers ? [{ name: "Members", href: "/members" }] : []),
     { name: "Contact", href: "/contact" },
   ];

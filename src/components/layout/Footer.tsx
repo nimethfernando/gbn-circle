@@ -3,19 +3,36 @@ import Image from "next/image";
 
 interface FooterProps {
     showMembers?: boolean;
+    showEvents?: boolean;
+    showBlogs?: boolean;
+    showCommunity?: boolean;
+    showLeadership?: boolean;
+    showInstagram?: boolean;
+    instagramUrl?: string;
     showLinkedIn?: boolean;
+    linkedInUrl?: string;
 }
 
-export default function Footer({ showMembers = false, showLinkedIn = false }: FooterProps) {
+export default function Footer({
+    showMembers = false,
+    showEvents = true,
+    showBlogs = true,
+    showCommunity = true,
+    showLeadership = true,
+    showInstagram = true,
+    instagramUrl = "https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr",
+    showLinkedIn = false,
+    linkedInUrl = "https://www.linkedin.com/company/gbn-circle/",
+}: FooterProps) {
     const currentYear = new Date().getFullYear();
 
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "About", href: "/about" },
-        { name: "Community", href: "/community" },
-        { name: "Leadership", href: "/leadership" },
-        { name: "Events", href: "/events" },
-        { name: "Blogs", href: "/blogs" },
+        ...(showCommunity ? [{ name: "Community", href: "/community" }] : []),
+        ...(showLeadership ? [{ name: "Leadership", href: "/leadership" }] : []),
+        ...(showEvents ? [{ name: "Events", href: "/events" }] : []),
+        ...(showBlogs ? [{ name: "Blogs", href: "/blogs" }] : []),
         ...(showMembers ? [{ name: "Members", href: "/members" }] : []),
         { name: "Contact", href: "/contact" },
     ];
@@ -83,27 +100,29 @@ export default function Footer({ showMembers = false, showLinkedIn = false }: Fo
                         </ul>
 
                         <h4 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Social</h4>
-                        <div className="flex space-x-4 items-center">
-                            <a
-                                href="https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
-                            >
-                                <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">IG</span> Instagram
-                            </a>
+                        <div className="flex space-x-4 items-center flex-wrap gap-y-2">
+                            {showInstagram && (
+                                <a
+                                    href={instagramUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
+                                >
+                                    <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">IG</span> Instagram
+                                </a>
+                            )}
+                            {showInstagram && showLinkedIn && (
+                                <span className="text-gray-600">|</span>
+                            )}
                             {showLinkedIn && (
-                                <>
-                                    <span className="text-gray-600">|</span>
-                                    <a
-                                        href="https://www.linkedin.com/company/gbn-circle/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
-                                    >
-                                        <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">LI</span> LinkedIn
-                                    </a>
-                                </>
+                                <a
+                                    href={linkedInUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
+                                >
+                                    <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">LI</span> LinkedIn
+                                </a>
                             )}
                         </div>
                     </div>

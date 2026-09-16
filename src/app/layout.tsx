@@ -38,13 +38,29 @@ export default async function RootLayout({
         className="bg-[#070b19] text-white flex flex-col min-h-screen selection:bg-[#c5a059] selection:text-black font-sans"
       >
         {/* Persistent Sticky Header */}
-        <Header showMembers={visibility.showMemberNav} />
+        <Header
+          showMembers={visibility.showMemberNav}
+          showEvents={visibility.showEventsNav}
+          showBlogs={visibility.showBlogsNav}
+          showCommunity={visibility.showCommunityNav}
+          showLeadership={visibility.showLeadershipNav}
+        />
 
         {/* Dynamic Page Content */}
         <div className="flex-1">{children}</div>
 
         {/* Persistent Global Footer */}
-        <Footer showMembers={visibility.showMemberNav} showLinkedIn={visibility.showLinkedIn} />
+        <Footer
+          showMembers={visibility.showMemberNav}
+          showEvents={visibility.showEventsNav}
+          showBlogs={visibility.showBlogsNav}
+          showCommunity={visibility.showCommunityNav}
+          showLeadership={visibility.showLeadershipNav}
+          showInstagram={visibility.showInstagram}
+          instagramUrl={visibility.instagramUrl}
+          showLinkedIn={visibility.showLinkedIn}
+          linkedInUrl={visibility.linkedInUrl}
+        />
       </body>
     </html>
   );
