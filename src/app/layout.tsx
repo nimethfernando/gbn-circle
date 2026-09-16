@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -20,6 +20,13 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "GBN Circle — Global Business Network",
   description: "Connect • Collaborate • Grow",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export const dynamic = 'force-dynamic';

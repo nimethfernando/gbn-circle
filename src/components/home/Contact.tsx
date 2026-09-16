@@ -10,6 +10,7 @@ export default function Contact() {
     email: '',
     phone: '',
     companyName: '',
+    tier: 'GBN Circle',
     subject: '',
     message: '',
   });
@@ -18,7 +19,7 @@ export default function Contact() {
   const [status, setStatus] = useState<{ success?: boolean; message?: string } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -37,8 +38,10 @@ export default function Contact() {
           email: formData.email,
           phone: formData.phone || null,
           companyName: formData.companyName || null,
-          interest: formData.subject || 'General Inquiry',
-          message: formData.message,
+          interest: formData.tier || 'GBN Circle',
+          message: formData.subject
+            ? `[Subject: ${formData.subject}]\n\n${formData.message}`
+            : formData.message,
         }),
       });
 
@@ -54,6 +57,7 @@ export default function Contact() {
           email: '',
           phone: '',
           companyName: '',
+          tier: 'GBN Circle',
           subject: '',
           message: '',
         });
@@ -267,8 +271,32 @@ export default function Contact() {
                 </div>
 
                 <div>
+                  <label className="block text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1.5 flex items-center justify-between">
+                    <span>Applying For / Network Tier *</span>
+                    <span className="text-[9px] text-[#c5a059] font-normal normal-case">Select community tier</span>
+                  </label>
+                  <select
+                    required
+                    name="tier"
+                    value={formData.tier}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-sm border border-white/10 bg-gbn-navy text-white focus:outline-none focus:border-gbn-gold transition-colors font-light text-sm cursor-pointer"
+                  >
+                    <option value="GBN Circle" className="bg-[#070b19] text-white">
+                      GBN Circle — For businesses with ₹20 Lakh+ annual turnover
+                    </option>
+                    <option value="GBN Elite" className="bg-[#070b19] text-[#e5c158]">
+                      GBN Elite — For businesses with ₹5 Crore+ annual turnover
+                    </option>
+                    <option value="General Inquiry" className="bg-[#070b19] text-slate-300">
+                      General Inquiry / Strategic Collaboration
+                    </option>
+                  </select>
+                </div>
+
+                <div>
                   <label className="block text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">
-                    Subject / Area of Interest
+                    Subject / Specific Inquiry (Optional)
                   </label>
                   <input
                     type="text"
@@ -276,7 +304,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     className="w-full px-4 py-3 rounded-sm border border-white/10 bg-gbn-navy text-white focus:outline-none focus:border-gbn-gold transition-colors font-light text-sm"
-                    placeholder="e.g. Executive Membership, Partnership, Inquiry"
+                    placeholder="e.g. Chapter Membership, Guest Visit, Cross-Border Expansion"
                   />
                 </div>
 

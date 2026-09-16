@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Save lead to SQLite
+    // 1. Save lead to MySQL database
     const submission = await prisma.contactSubmission.create({
       data: {
         fullName,
@@ -32,12 +32,12 @@ export async function POST(req: NextRequest) {
         phone: phone || null,
         companyName: companyName || null,
         designation: designation || null,
-        interest: interest || 'General Inquiry',
+        interest: interest || 'GBN Circle',
         message,
       },
     });
 
-    // 2. Dispatch notification email to GBN Circle admin team (if SMTP is configured)
+    // 2. Dispatch notification email to GBN Circle admin team (if SMTP credentials configured)
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       try {
         const transporter = nodemailer.createTransport({
@@ -50,28 +50,31 @@ export async function POST(req: NextRequest) {
 
         await transporter.sendMail({
           from: `"GBN Platform Alert" <${process.env.EMAIL_USER}>`,
-          to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-          subject: `[New Lead] Inquiry from ${fullName} (${interest || 'General'})`,
+          to: process.env.ADMIN_EMAIL || 'gbncircle@gmail.com',
+          subject: `[New Lead - ${interest || 'GBN Circle'}] Application from ${fullName}`,
           html: `
-            <div style="background-color: #070b19; color: #ffffff; padding: 24px; font-family: sans-serif; max-width: 600px; margin: 0 auto; border-radius: 8px;">
-              <h2 style="color: #c5a059; margin-top: 0;">New Contact Inquiry Received</h2>
-              <p>A new potential member or partner reached out through the GBN Circle platform.</p>
+            <div style="background-color: #070b19; color: #ffffff; padding: 24px; font-family: sans-serif; max-width: 600px; margin: 0 auto; border-radius: 8px; border: 1px solid #1e293b;">
+              <h2 style="color: #c5a059; margin-top: 0;">New Contact &amp; Application Received</h2>
+              <p>A new potential member or executive has submitted an inquiry through the GBN Circle platform.</p>
               <hr style="border: none; border-top: 1px solid #1e293b; margin: 16px 0;" />
-              <p><strong>Name:</strong> ${fullName}</p>
+              <p><strong>Applying For / Tier:</strong> <span style="color: #c5a059; font-weight: bold; font-size: 16px;">${interest || 'GBN Circle'}</span></p>
+              <p><strong>Full Name:</strong> ${fullName}</p>
               <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #c5a059;">${email}</a></p>
               <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-              <p><strong>Company:</strong> ${companyName || 'Not provided'}</p>
+              <p><strong>Company / Business:</strong> ${companyName || 'Not provided'}</p>
               <p><strong>Designation:</strong> ${designation || 'Not provided'}</p>
-              <p><strong>Area of Interest:</strong> ${interest || 'General Inquiry'}</p>
               <hr style="border: none; border-top: 1px solid #1e293b; margin: 16px 0;" />
               <p><strong>Message:</strong></p>
-              <p style="background: #0f172a; padding: 12px; border-radius: 6px; color: #cbd5e1; white-space: pre-wrap;">${message}</p>
+              <p style="background: #0f172a; padding: 12px; border-radius: 6px; color: #cbd5e1; white-space: pre-wrap; border: 1px solid #1e293b;">${message}</p>
+              <p style="color: #64748b; font-size: 11px; margin-top: 20px;">You can also view and manage all inquiries directly in the GBN Admin Portal under Inquiries &amp; Leads.</p>
             </div>
           `,
         });
       } catch (mailError) {
         console.error('Lead notification email failed to dispatch:', mailError);
       }
+    } else {
+      console.log('Lead saved to database successfully. Note: EMAIL_USER and EMAIL_PASS environment variables are not configured, so direct email forwarding was skipped.');
     }
 
     return NextResponse.json(

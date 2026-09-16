@@ -309,9 +309,19 @@ export default function AdminInquiriesPage() {
                     </td>
 
                     <td className="py-3.5 px-4 whitespace-nowrap">
-                      <span className="px-2.5 py-1 rounded text-[10px] font-semibold bg-slate-950 border border-slate-800 text-[#c5a059]">
-                        {inq.interest || 'General'}
-                      </span>
+                      {inq.interest === 'GBN Elite' ? (
+                        <span className="px-2.5 py-1 rounded text-[10px] font-bold bg-[#c5a059]/20 border border-[#c5a059] text-[#e5c158] inline-flex items-center gap-1">
+                          ★ GBN Elite
+                        </span>
+                      ) : inq.interest === 'GBN Circle' ? (
+                        <span className="px-2.5 py-1 rounded text-[10px] font-bold bg-blue-950/70 border border-blue-600 text-blue-300 inline-flex items-center gap-1">
+                          ● GBN Circle
+                        </span>
+                      ) : (
+                        <span className="px-2.5 py-1 rounded text-[10px] font-semibold bg-slate-950 border border-slate-800 text-slate-300">
+                          {inq.interest || 'General'}
+                        </span>
+                      )}
                     </td>
 
                     <td className="py-3.5 px-4 max-w-xs">
@@ -434,10 +444,22 @@ export default function AdminInquiriesPage() {
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Interest Area</span>
-                <span className="text-slate-200 font-medium">
-                  {activeInquiry.interest || 'General Inquiry'}
-                </span>
+                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Applying For Platform</span>
+                <div className="mt-1">
+                  {activeInquiry.interest === 'GBN Elite' ? (
+                    <span className="px-2.5 py-1 rounded text-[11px] font-bold bg-[#c5a059]/20 border border-[#c5a059] text-[#e5c158] inline-flex items-center gap-1">
+                      ★ GBN Elite (₹5Cr+ Turnover)
+                    </span>
+                  ) : activeInquiry.interest === 'GBN Circle' ? (
+                    <span className="px-2.5 py-1 rounded text-[11px] font-bold bg-blue-950/70 border border-blue-600 text-blue-300 inline-flex items-center gap-1">
+                      ● GBN Circle (₹20L+ Turnover)
+                    </span>
+                  ) : (
+                    <span className="px-2.5 py-1 rounded text-[11px] font-semibold bg-slate-900 border border-slate-700 text-slate-300">
+                      {activeInquiry.interest || 'General Inquiry'}
+                    </span>
+                  )}
+                </div>
               </div>
               <div>
                 <span className="text-slate-400 block text-[10px] uppercase font-semibold">Date Submitted</span>

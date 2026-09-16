@@ -46,13 +46,13 @@ export default function Header({
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 w-full max-w-[100vw] z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-[#070b19]/95 backdrop-blur-md shadow-lg py-3 border-b border-white/5"
           : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center max-w-7xl">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 shrink-0 mr-4">
           <Image
@@ -124,7 +124,7 @@ export default function Header({
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-[#070b19] shadow-2xl py-5 px-6 flex flex-col space-y-4 lg:hidden border-t border-white/10">
+        <div className="absolute top-full left-0 right-0 w-full max-w-[100vw] bg-[#070b19] shadow-2xl py-5 px-6 flex flex-col space-y-4 lg:hidden border-t border-white/10 box-border overflow-hidden">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/"
