@@ -335,7 +335,42 @@ html:not(.dark) .text-slate-500 {
 
 html.light .text-slate-400,
 html:not(.dark) .text-slate-400 {
-  color: #475569 !important;
+  color: #334155 !important;
+}
+
+html.light .text-gray-300,
+html.light .text-slate-300,
+html:not(.dark) .text-gray-300,
+html:not(.dark) .text-slate-300 {
+  color: #1e293b !important;
+}
+
+html.light .text-gray-400,
+html:not(.dark) .text-gray-400 {
+  color: #334155 !important;
+}
+
+/* Light Theme Card & Box Backgrounds (prevent murky grey boxes) */
+html.light .bg-slate-900\/40,
+html.light .bg-slate-900\/50,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/90,
+html:not(.dark) .bg-slate-900\/40,
+html:not(.dark) .bg-slate-900\/50,
+html:not(.dark) .bg-slate-950\/80,
+html:not(.dark) .bg-slate-950\/90 {
+  background-color: #ffffff;
+  border-color: rgba(11, 22, 44, 0.1);
+}
+
+/* Ensure outline buttons are crisp and dark on light theme */
+html.light a.border-white\/20,
+html.light button.border-white\/20,
+html:not(.dark) a.border-white\/20,
+html:not(.dark) button.border-white\/20 {
+  border-color: rgba(11, 22, 44, 0.25) !important;
+  color: #030712 !important;
+  background-color: #ffffff;
 }
 
 /* Ensure font-light body text is not faint / washed out on white */
@@ -343,3 +378,4 @@ html.light .font-light,
 html:not(.dark) .font-light {
   font-weight: 400 !important;
 }
+
