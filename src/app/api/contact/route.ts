@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Save lead to MySQL database
+    // 1. Save lead to database
     const submission = await prisma.contactSubmission.create({
       data: {
         fullName,
@@ -57,8 +57,8 @@ export async function POST(req: NextRequest) {
               <h2 style="color: #c5a059; margin-top: 0;">New Contact &amp; Application Received</h2>
               <p>A new potential member or executive has submitted an inquiry through the GBN Circle platform.</p>
               <hr style="border: none; border-top: 1px solid #1e293b; margin: 16px 0;" />
-              <p><strong>Applying For / Tier:</strong> <span style="color: #c5a059; font-weight: bold; font-size: 16px;">${interest || 'GBN Circle'}</span></p>
               <p><strong>Full Name:</strong> ${fullName}</p>
+              <p><strong>Applying For / Tier:</strong> <span style="color: #c5a059; font-weight: bold; font-size: 16px;">${interest || 'GBN Circle'}</span></p>
               <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #c5a059;">${email}</a></p>
               <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
               <p><strong>Company / Business:</strong> ${companyName || 'Not provided'}</p>

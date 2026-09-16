@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export interface LeaderItem {
     name: string;
@@ -40,47 +43,54 @@ const defaultLeaders: LeaderItem[] = [
 ];
 
 export default function Leadership({ data, leaders: propLeaders }: LeadershipProps) {
+    const { t, language } = useLanguage();
+    const isGeorgian = language === 'ka';
+
     const leadersList = (propLeaders && propLeaders.length > 0 ? propLeaders : defaultLeaders).map((leader, idx) => ({
         name: leader.name || defaultLeaders[idx]?.name || "Leader",
         role: leader.role || defaultLeaders[idx]?.role || "",
         image: leader.image || defaultLeaders[idx]?.image || "/vision-wide-Dafp-BMf.jpg",
     }));
 
-    const badge = data?.badge || "Leadership";
-    const rawHeading = data?.heading || "Meet the Leadership Behind GBN Circle";
-    const description =
-        data?.description ||
-        "GBN Circle is built on a simple belief: meaningful connections can create meaningful possibilities.";
-    const btnText = data?.btnText || "Meet Our Leadership";
+    const badge = isGeorgian ? t.leadership.badge : (data?.badge || t.leadership.badge);
+    const rawHeading = isGeorgian
+        ? `${t.leadership.heading} ${t.leadership.headingGold}`
+        : (data?.heading || "Meet the Leadership Behind GBN Circle");
+    const description = isGeorgian
+        ? t.leadership.desc
+        : (data?.description || t.leadership.desc);
+    const btnText = isGeorgian ? t.leadership.btn : (data?.btnText || t.leadership.btn);
     const btnLink = data?.btnLink || "/leadership";
 
-    // Split heading nicely if it contains "Behind GBN Circle" to maintain luxury gold gradient
     let headingPart1 = rawHeading;
     let headingPart2 = "";
-    if (rawHeading.includes("Behind GBN Circle")) {
+    if (isGeorgian) {
+        headingPart1 = t.leadership.heading;
+        headingPart2 = t.leadership.headingGold;
+    } else if (rawHeading.includes("Behind GBN Circle")) {
         const parts = rawHeading.split("Behind GBN Circle");
         headingPart1 = parts[0].trim();
         headingPart2 = "Behind GBN Circle";
     }
 
     return (
-        <section className="py-24 bg-gbn-navy text-white relative">
+        <section className="py-24 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white relative transition-colors duration-300">
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
                 <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
                     <div className="flex items-center justify-center gap-4 mb-6">
-                        <div className="h-px w-8 bg-gbn-gold rounded-full"></div>
-                        <p className="text-gbn-gold uppercase tracking-[0.2em] text-xs font-semibold">
+                        <div className="h-px w-8 bg-[#c5a059] rounded-full"></div>
+                        <p className="text-[#a88235] dark:text-gbn-gold uppercase tracking-[0.2em] text-xs font-semibold">
                             {badge}
                         </p>
-                        <div className="h-px w-8 bg-gbn-gold rounded-full"></div>
+                        <div className="h-px w-8 bg-[#c5a059] rounded-full"></div>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-slate-900 dark:text-white mb-6">
                         {headingPart1}
                         {headingPart2 ? (
                             <span className="text-gradient-gold block mt-2">{headingPart2}</span>
                         ) : null}
                     </h2>
-                    <p className="text-lg text-gray-300 font-light leading-relaxed">
+                    <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 font-light leading-relaxed">
                         {description}
                     </p>
                 </div>
@@ -88,7 +98,7 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
                 <div className="grid md:grid-cols-3 gap-8 mb-16">
                     {leadersList.map((leader, idx) => (
                         <div key={idx} className="group cursor-pointer">
-                            <div className="w-full aspect-[4/5] rounded-sm border border-white/5 premium-shadow mb-6 relative overflow-hidden bg-[#070b19]">
+                            <div className="w-full aspect-[4/5] rounded-sm border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none mb-6 relative overflow-hidden bg-slate-200 dark:bg-[#070b19]">
                                 <Image
                                     src={leader.image}
                                     alt={leader.name}
@@ -96,12 +106,12 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
                                     unoptimized={leader.image?.startsWith('data:') || leader.image?.startsWith('http')}
                                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gbn-navy/30 group-hover:bg-transparent transition-colors duration-700"></div>
+                                <div className="absolute inset-0 bg-black/10 dark:bg-gbn-navy/30 group-hover:bg-transparent transition-colors duration-700"></div>
                             </div>
-                            <h3 className="text-2xl font-serif text-white mb-1 group-hover:text-gbn-gold transition-colors">
+                            <h3 className="text-xl font-serif text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-gbn-gold transition-colors mb-1 font-semibold">
                                 {leader.name}
                             </h3>
-                            <p className="text-gray-400 font-light text-sm uppercase tracking-wider mb-4">
+                            <p className="text-xs uppercase tracking-widest text-[#a88235] dark:text-gbn-gold font-medium">
                                 {leader.role}
                             </p>
                         </div>
@@ -111,7 +121,7 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
                 <div className="text-center">
                     <Link
                         href={btnLink}
-                        className="inline-flex bg-transparent border border-white/20 text-white text-[10px] tracking-widest font-bold px-8 py-4 rounded-sm transition-all hover:border-gbn-gold hover:text-gbn-gold uppercase"
+                        className="inline-block bg-white dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-800 dark:text-white text-xs tracking-widest font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none"
                     >
                         {btnText}
                     </Link>

@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ContactFormProps {
   submitBtnText?: string;
 }
 
 export default function ContactForm({ submitBtnText }: ContactFormProps) {
+  const { t } = useLanguage();
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -52,7 +55,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
       if (json.success) {
         setStatus({
           success: true,
-          message: json.message || 'Your message has been sent successfully.',
+          message: json.message || t.contact.success,
         });
         setFormData({
           fullName: '',
@@ -66,13 +69,13 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
       } else {
         setStatus({
           success: false,
-          message: json.message || 'Failed to submit message. Please try again.',
+          message: json.message || t.contact.error,
         });
       }
     } catch {
       setStatus({
         success: false,
-        message: 'A network error occurred. Please try again later.',
+        message: t.contact.networkError,
       });
     } finally {
       setLoading(false);
@@ -80,21 +83,23 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
   };
 
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-6 sm:p-8 backdrop-blur-sm">
-      <h2 className="text-xl font-bold text-white font-serif mb-6">Contact Form</h2>
+    <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-6 sm:p-8 backdrop-blur-sm shadow-xl dark:shadow-none transition-colors duration-300">
+      <h2 className="text-xl font-bold text-slate-900 dark:text-white font-serif mb-6">
+        {t.contact.formTitle}
+      </h2>
 
       {status && (
         <div
           className={`p-4 rounded-lg mb-6 text-xs flex items-center gap-2 border ${
             status.success
-              ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
-              : 'bg-red-950/40 border-red-500/30 text-red-300'
+              ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
+              : 'bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-500/30 text-red-800 dark:text-red-300'
           }`}
         >
           {status.success ? (
-            <CheckCircle2 size={16} className="shrink-0 text-emerald-400" />
+            <CheckCircle2 size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
           ) : (
-            <AlertCircle size={16} className="shrink-0 text-red-400" />
+            <AlertCircle size={16} className="shrink-0 text-red-600 dark:text-red-400" />
           )}
           <span>{status.message}</span>
         </div>
@@ -103,8 +108,8 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
       <form onSubmit={handleSubmit} className="space-y-4 text-xs">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
-              Full Name *
+            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+              {t.contact.fullName}
             </label>
             <input
               required
@@ -112,13 +117,13 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
-              placeholder="Enter your full name"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
+              placeholder={t.contact.fullNamePlaceholder}
             />
           </div>
           <div>
-            <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
-              Email *
+            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+              {t.contact.email}
             </label>
             <input
               required
@@ -126,82 +131,84 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
-              placeholder="name@company.com"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
+              placeholder={t.contact.emailPlaceholder}
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
-              Phone
+            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+              {t.contact.phone}
             </label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
-              placeholder="+91 9783577773"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
+              placeholder={t.contact.phonePlaceholder}
             />
           </div>
           <div>
-            <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
-              Company / Business
+            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+              {t.contact.company}
             </label>
             <input
               type="text"
               name="companyName"
               value={formData.companyName}
               onChange={handleChange}
-              className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
-              placeholder="Company or Business Name"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
+              placeholder={t.contact.companyPlaceholder}
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5 flex items-center justify-between">
-            <span>Applying For / Network Tier *</span>
-            <span className="text-[9px] text-[#c5a059] font-normal normal-case">Select community tier</span>
+          <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5 flex items-center justify-between">
+            <span>{t.contact.tier}</span>
+            <span className="text-[9px] text-[#a88235] dark:text-[#c5a059] font-normal normal-case">
+              {t.contact.tierHint}
+            </span>
           </label>
           <select
             required
             name="tier"
             value={formData.tier}
             onChange={handleChange}
-            className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors cursor-pointer"
+            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors cursor-pointer"
           >
-            <option value="GBN Circle" className="bg-[#070b19] text-white">
-              GBN Circle — For businesses with ₹20 Lakh+ annual turnover
+            <option value="GBN Circle" className="bg-white dark:bg-[#070b19] text-slate-900 dark:text-white">
+              {t.contact.tierCircle}
             </option>
-            <option value="GBN Elite" className="bg-[#070b19] text-[#e5c158]">
-              GBN Elite — For businesses with ₹5 Crore+ annual turnover
+            <option value="GBN Elite" className="bg-white dark:bg-[#070b19] text-[#a88235] dark:text-[#e5c158]">
+              {t.contact.tierElite}
             </option>
-            <option value="General Inquiry" className="bg-[#070b19] text-slate-300">
-              General Inquiry / Strategic Collaboration
+            <option value="General Inquiry" className="bg-white dark:bg-[#070b19] text-slate-600 dark:text-slate-300">
+              {t.contact.tierGeneral}
             </option>
           </select>
         </div>
 
         <div>
-          <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
-            Subject / Specific Inquiry (Optional)
+          <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+            {t.contact.subject}
           </label>
           <input
             type="text"
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
-            placeholder="e.g. Chapter Membership, Guest Visit, Cross-Border Expansion"
+            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors"
+            placeholder={t.contact.subjectPlaceholder}
           />
         </div>
 
         <div>
-          <label className="block text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
-            Message *
+          <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+            {t.contact.message}
           </label>
           <textarea
             required
@@ -209,8 +216,8 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-white text-sm focus:border-[#c5a059] outline-none transition-colors resize-none"
-            placeholder="Write your message or inquiry here..."
+            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded p-3 text-slate-900 dark:text-white text-sm focus:border-[#c5a059] outline-none transition-colors resize-none"
+            placeholder={t.contact.messagePlaceholder}
           ></textarea>
         </div>
 
@@ -220,7 +227,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
           className="w-full py-3.5 bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black font-bold uppercase rounded text-xs tracking-widest hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg cursor-pointer"
         >
           {loading && <Loader2 size={16} className="animate-spin" />}
-          {loading ? 'Contacting...' : submitBtnText || 'Contact GBN Circle'}
+          {loading ? t.contact.submitting : submitBtnText || t.contact.submitBtn}
         </button>
       </form>
     </div>

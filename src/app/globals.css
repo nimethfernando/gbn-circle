@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-gbn-navy: #0B162C;
   --color-gbn-navy-light: #152A55;
@@ -15,11 +17,37 @@
   --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
 
   --color-gbn-text-muted: #4B5563;
+
+  --color-theme-bg: var(--background);
+  --color-theme-text: var(--foreground);
+  --color-theme-card: var(--card-bg);
+  --color-theme-border: var(--card-border);
+  --color-theme-alt: var(--section-alt);
+  --color-theme-muted: var(--text-muted);
+  --color-theme-header: var(--header-bg);
+  --color-theme-header-border: var(--header-border);
 }
 
 :root {
-  --background: #050a14;
+  --background: #f8f9fa;
+  --foreground: #0b162c;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --section-alt: #f1f5f9;
+  --text-muted: #64748b;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-border: rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  --background: #070b19;
   --foreground: #ffffff;
+  --card-bg: #0d1629;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --section-alt: #0b162c;
+  --text-muted: #94a3b8;
+  --header-bg: rgba(7, 11, 25, 0.95);
+  --header-border: rgba(255, 255, 255, 0.08);
 }
 
 html {
@@ -105,39 +133,49 @@ html {
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes pulseGold {
 
   0%,
   100% {
-    opacity: 0.1;
-    transform: scale(1);
+    opacity: 0.2;
+    transform: scale(0.98);
   }
 
   50% {
-    opacity: 0.3;
-    transform: scale(1.1);
+    opacity: 0.6;
+    transform: scale(1.02);
   }
 }
 
 @keyframes slowZoom {
-  from {
+  0% {
     transform: scale(1);
   }
 
-  to {
+  100% {
     transform: scale(1.1);
+  }
+}
+
+@keyframes drawLine {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -152,16 +190,6 @@ html {
 
   100% {
     left: 100%;
-  }
-}
-
-@keyframes drawLine {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 2rem;
   }
 }
 
@@ -226,4 +254,28 @@ html {
       rgba(255, 255, 255, 0) 100%);
   transform: skewX(-25deg);
   animation: shine 4s infinite;
+}
+
+/* Light Theme Universal Polish & Fallbacks */
+html.light .bg-gbn-navy {
+  background-color: #ffffff;
+}
+
+html.light .bg-gbn-navy-light\/40,
+html.light .bg-gbn-navy-light\/50,
+html.light .bg-gbn-navy-light\/60,
+html.light .bg-gbn-navy-light\/70,
+html.light .bg-gbn-navy-light {
+  background-color: #f8f9fa;
+}
+
+html.light .bg-\[\#070b19\] {
+  background-color: #f8f9fa;
+}
+
+html.light .border-white\/5,
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/20 {
+  border-color: rgba(11, 22, 44, 0.08);
 }

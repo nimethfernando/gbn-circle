@@ -1,67 +1,63 @@
+"use client";
+
 import { Video, Coffee, Presentation, Target, Puzzle, Lightbulb } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function InsideGBN() {
-    const experiences = [
-        {
-            title: "ONLINE CONNECT",
-            desc: "Connect virtually with fellow members.",
-            icon: <Video size={32} strokeWidth={1.5} />,
-        },
-        {
-            title: "PHYSICAL MEET",
-            desc: "Meet and interact with the community in person.",
-            icon: <Coffee size={32} strokeWidth={1.5} />,
-        },
-        {
-            title: "BUSINESS PRESENTATIONS",
-            desc: "Present your business, expertise and offerings.",
-            icon: <Presentation size={32} strokeWidth={1.5} />,
-        },
-        {
-            title: "NETWORKING",
-            desc: "Discover people, ideas and business possibilities.",
-            icon: <Target size={32} strokeWidth={1.5} />,
-        },
-        {
-            title: "COLLABORATION",
-            desc: "Explore referrals, partnerships and opportunities.",
-            icon: <Puzzle size={32} strokeWidth={1.5} />,
-        },
-        {
-            title: "KNOWLEDGE EXCHANGE",
-            desc: "Learn from the experience and expertise of the community.",
-            icon: <Lightbulb size={32} strokeWidth={1.5} />,
-        },
-    ];
+  const { t } = useLanguage();
 
-    return (
-        <section className="py-24 bg-gbn-navy text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gbn-gold opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gbn-navy-light opacity-50 blur-[150px] rounded-full pointer-events-none"></div>
+  const icons = [
+    <Video key="1" size={30} strokeWidth={1.5} />,
+    <Coffee key="2" size={30} strokeWidth={1.5} />,
+    <Presentation key="3" size={30} strokeWidth={1.5} />,
+    <Target key="4" size={30} strokeWidth={1.5} />,
+    <Puzzle key="5" size={30} strokeWidth={1.5} />,
+    <Lightbulb key="6" size={30} strokeWidth={1.5} />,
+  ];
 
-            <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
-                <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
-                    <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
-                        It&apos;s More Than a Meeting. <span className="text-gradient-gold block mt-2">It&apos;s a Business Experience.</span>
-                    </h2>
-                    <p className="text-lg text-gray-300 leading-relaxed text-balance font-light">
-                        GBN Circle creates regular opportunities for members to meet, introduce themselves, present their businesses, exchange ideas and discover opportunities for collaboration.
-                    </p>
-                </div>
+  const experiences = t.insideGbn.experiences.map((exp, idx) => ({
+    title: exp.title,
+    desc: exp.desc,
+    icon: icons[idx % icons.length],
+  }));
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {experiences.map((exp, idx) => (
-                        <div
-                            key={idx}
-                            className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-all duration-500 backdrop-blur-md group hover:-translate-y-1 premium-shadow"
-                        >
-                            <div className="text-gbn-gold mb-6 group-hover:scale-110 transition-transform duration-500">{exp.icon}</div>
-                            <h3 className="text-sm font-bold tracking-[0.2em] uppercase mb-3 text-white">{exp.title}</h3>
-                            <p className="text-gray-400 font-light leading-relaxed">{exp.desc}</p>
-                        </div>
-                    ))}
-                </div>
+  return (
+    <section className="py-24 bg-white dark:bg-gbn-navy text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#c5a059] opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 dark:bg-gbn-navy-light opacity-50 blur-[150px] rounded-full pointer-events-none"></div>
+
+      <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-slate-900 dark:text-white mb-6">
+            {t.insideGbn.heading}{" "}
+            <span className="text-gradient-gold block mt-2">
+              {t.insideGbn.headingHighlight}
+            </span>
+          </h2>
+          <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed text-balance font-light">
+            {t.insideGbn.desc}
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {experiences.map((exp, idx) => (
+            <div
+              key={idx}
+              className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-8 rounded-2xl hover:bg-white dark:hover:bg-white/10 hover:border-[#c5a059]/40 transition-all duration-500 backdrop-blur-md group hover:-translate-y-1 shadow-sm dark:shadow-none"
+            >
+              <div className="text-[#a88235] dark:text-gbn-gold mb-6 group-hover:scale-110 transition-transform duration-500">
+                {exp.icon}
+              </div>
+              <h3 className="text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-3 text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-gbn-gold transition-colors">
+                {exp.title}
+              </h3>
+              <p className="text-slate-600 dark:text-gray-400 font-light text-sm leading-relaxed">
+                {exp.desc}
+              </p>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
