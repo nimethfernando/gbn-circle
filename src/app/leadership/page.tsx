@@ -64,11 +64,26 @@ export default async function LeadershipPage() {
   const leadershipProfiles =
     content?.leaders && content.leaders.length > 0
       ? content.leaders.map((leader, i) => ({
-          ...leader,
+          name: leader.name || defaultProfiles[i]?.name || 'Leader',
+          role: leader.role || defaultProfiles[i]?.role || 'Executive',
+          statement: leader.statement || defaultProfiles[i]?.statement || '',
           image: leader.image || defaultProfiles[i]?.image || '/vision-wide-Dafp-BMf.jpg',
-          focus: leader.focus || defaultProfiles[i]?.focus || [],
+          focus:
+            leader.focus && leader.focus.length > 0
+              ? leader.focus
+              : defaultProfiles[i]?.focus || ['Vision & Strategy', 'Community Development', 'Long-Term Growth'],
+          linkedinUrl: leader.linkedinUrl ?? defaultProfiles[i]?.linkedinUrl ?? null,
         }))
       : defaultProfiles;
+
+  const gridColsClass =
+    leadershipProfiles.length === 1
+      ? 'grid-cols-1 max-w-lg mx-auto'
+      : leadershipProfiles.length === 2
+      ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'
+      : leadershipProfiles.length === 4
+      ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
 
   const defaultPrinciples = [
     {
@@ -167,7 +182,7 @@ export default async function LeadershipPage() {
       {/* 3, 4, 5. LEADERSHIP PROFILES (3 CARDS IN ONE ROW ON DESKTOP) */}
       <section className="py-24 border-b border-[#1e293b]/60">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={`grid ${gridColsClass} gap-8`}>
             {leadershipProfiles.map((leader, index) => (
               <div
                 key={index}

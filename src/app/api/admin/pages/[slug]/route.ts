@@ -158,6 +158,9 @@ export async function PUT(
             name: homeLeader.name ?? existing.name ?? '',
             role: homeLeader.role ?? existing.role ?? '',
             image: homeLeader.image ?? existing.image ?? '',
+            statement: homeLeader.statement ?? existing.statement ?? '',
+            focus: homeLeader.focus ?? existing.focus ?? [],
+            linkedinUrl: homeLeader.linkedinUrl ?? existing.linkedinUrl ?? null,
           };
         });
 
@@ -184,14 +187,28 @@ export async function PUT(
         const homeRecord = await prisma.pageContent.findUnique({
           where: { slug: 'home' },
         });
-        if (homeRecord?.data) {
-          const homeData = JSON.parse(homeRecord.data) as HomePageContent;
-          homeData.leaders = payload.leaders as HomePageContent['leaders'];
-          await prisma.pageContent.update({
-            where: { slug: 'home' },
-            data: { data: JSON.stringify(homeData) },
-          });
-        }
+        const baseHomeData: HomePageContent = homeRecord?.data
+          ? (JSON.parse(homeRecord.data) as HomePageContent)
+          : ({ ...DEFAULT_PAGE_CONTENTS.home } as HomePageContent);
+
+        baseHomeData.leaders = payload.leaders.map((leader) => ({
+          name: leader.name || '',
+          role: leader.role || '',
+          statement: leader.statement || '',
+          image: leader.image || '',
+          focus: leader.focus || [],
+          linkedinUrl: leader.linkedinUrl || null,
+        }));
+
+        await prisma.pageContent.upsert({
+          where: { slug: 'home' },
+          update: { data: JSON.stringify(baseHomeData) },
+          create: {
+            slug: 'home',
+            title: 'Home Page',
+            data: JSON.stringify(baseHomeData),
+          },
+        });
       } catch (homeSyncErr) {
         console.warn('Failed to sync leaders to home page:', homeSyncErr);
       }
@@ -199,9 +216,9 @@ export async function PUT(
 
     try {
       revalidatePath('/', 'layout');
-      revalidatePath(pageDef.path);
-      if (slug === 'home') revalidatePath('/leadership');
-      if (slug === 'leadership') revalidatePath('/');
+      revalidatePath('/');
+      revalidatePath('/leadership');
+      if (pageDef.path) revalidatePath(pageDef.path);
     } catch (revalErr) {
       console.warn('Revalidation warning:', revalErr);
     }

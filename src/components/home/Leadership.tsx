@@ -48,9 +48,18 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
 
     const leadersList = (propLeaders && propLeaders.length > 0 ? propLeaders : defaultLeaders).map((leader, idx) => ({
         name: leader.name || defaultLeaders[idx]?.name || "Leader",
-        role: leader.role || defaultLeaders[idx]?.role || "",
+        role: leader.role || defaultLeaders[idx]?.role || "Executive",
         image: leader.image || defaultLeaders[idx]?.image || "/vision-wide-Dafp-BMf.jpg",
     }));
+
+    const gridColsClass =
+        leadersList.length === 1
+            ? "grid-cols-1 max-w-sm mx-auto"
+            : leadersList.length === 2
+            ? "grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto"
+            : leadersList.length === 4
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
 
     const badge = isGeorgian ? t.leadership.badge : (data?.badge || t.leadership.badge);
     const rawHeading = isGeorgian
@@ -95,7 +104,7 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8 mb-16">
+                <div className={`grid ${gridColsClass} gap-8 mb-16`}>
                     {leadersList.map((leader, idx) => (
                         <div key={idx} className="group cursor-pointer">
                             <div className="w-full aspect-[4/5] rounded-sm border border-slate-200 dark:border-white/5 shadow-sm dark:shadow-none mb-6 relative overflow-hidden bg-slate-200 dark:bg-[#070b19]">

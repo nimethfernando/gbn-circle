@@ -18,6 +18,9 @@ import {
   Upload,
   ImageIcon,
   Trash2,
+  Plus,
+  ChevronUp,
+  ChevronDown,
 } from 'lucide-react';
 
 export default function AdminPageEditor() {
@@ -188,6 +191,56 @@ export default function AdminPageEditor() {
       return {
         ...prev,
         [arrayKey]: arr,
+      };
+    });
+  };
+
+  const addLeader = () => {
+    setContent((prev: any) => ({
+      ...prev,
+      leaders: [
+        ...(prev?.leaders || []),
+        {
+          name: '',
+          role: 'Co-Founder',
+          statement: '',
+          image: '/vision-wide-Dafp-BMf.jpg',
+          focus: ['Vision & Strategy', 'Community Development', 'Long-Term Growth'],
+          linkedinUrl: '',
+        },
+      ],
+    }));
+  };
+
+  const removeLeader = (index: number) => {
+    if (!content?.leaders || content.leaders.length <= 1) {
+      alert('You must keep at least one leader profile.');
+      return;
+    }
+    const leaderName = content.leaders[index]?.name || `Leader #${index + 1}`;
+    if (!window.confirm(`Are you sure you want to remove ${leaderName}?`)) return;
+
+    setContent((prev: any) => {
+      const arr = [...(prev?.leaders || [])];
+      arr.splice(index, 1);
+      return {
+        ...prev,
+        leaders: arr,
+      };
+    });
+  };
+
+  const moveLeader = (index: number, direction: 'up' | 'down') => {
+    setContent((prev: any) => {
+      const arr = [...(prev?.leaders || [])];
+      const targetIdx = direction === 'up' ? index - 1 : index + 1;
+      if (targetIdx < 0 || targetIdx >= arr.length) return prev;
+      const temp = arr[index];
+      arr[index] = arr[targetIdx];
+      arr[targetIdx] = temp;
+      return {
+        ...prev,
+        leaders: arr,
       };
     });
   };
@@ -1201,35 +1254,83 @@ export default function AdminPageEditor() {
 
                 {/* Team Portraits & Members Preview/Edit */}
                 <div className="pt-6 border-t border-slate-800/80">
-                  <div className="mb-4">
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] flex items-center gap-2">
-                      <span>Leadership Members &amp; Portrait Photos</span>
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Members and photos configured here are displayed on both the Home page leadership section and the Leadership page. Any photo uploaded or changed here updates the live site upon saving.
-                    </p>
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div>
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] flex items-center gap-2">
+                        <span>Leadership Members &amp; Portrait Photos</span>
+                        <span className="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">
+                          {content.leaders?.length || 0}
+                        </span>
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-1">
+                        Members and photos configured here are displayed on both the Home page leadership section and the Leadership page. Any photo uploaded or changed here updates the live site upon saving.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={addLeader}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#c5a059] text-black hover:bg-[#d5af66] transition-all shadow-md shadow-[#c5a059]/10"
+                    >
+                      <Plus size={14} />
+                      <span>Add Founder / Leader</span>
+                    </button>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {(content.leaders || []).map((leader: any, idx: number) => (
-                      <div key={idx} className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
-                        <div>
-                          <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Full Name</label>
-                          <input
-                            type="text"
-                            value={leader.name || ''}
-                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'name', e.target.value)}
-                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-sm font-bold text-white focus:border-[#c5a059] outline-none"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-1">Role Title</label>
-                          <input
-                            type="text"
-                            value={leader.role || ''}
-                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'role', e.target.value)}
-                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-[#e5c158] focus:border-[#c5a059] outline-none"
-                          />
+                      <div key={idx} className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3 relative flex flex-col justify-between">
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-1">
+                            <span className="text-xs font-bold font-mono text-[#c5a059]">
+                              Leader #{idx + 1}
+                            </span>
+                            <div className="flex items-center gap-1">
+                              <button
+                                type="button"
+                                disabled={idx === 0}
+                                onClick={() => moveLeader(idx, 'up')}
+                                className="p-1 text-slate-400 hover:text-white disabled:opacity-20 disabled:hover:text-slate-400 rounded hover:bg-slate-800 transition-colors"
+                                title="Move Left / Up"
+                              >
+                                <ChevronUp size={14} />
+                              </button>
+                              <button
+                                type="button"
+                                disabled={idx === (content.leaders?.length || 0) - 1}
+                                onClick={() => moveLeader(idx, 'down')}
+                                className="p-1 text-slate-400 hover:text-white disabled:opacity-20 disabled:hover:text-slate-400 rounded hover:bg-slate-800 transition-colors"
+                                title="Move Right / Down"
+                              >
+                                <ChevronDown size={14} />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => removeLeader(idx)}
+                                className="p-1 text-slate-500 hover:text-rose-400 rounded hover:bg-rose-950/40 transition-colors ml-1"
+                                title="Delete leader"
+                              >
+                                <Trash2 size={14} />
+                              </button>
+                            </div>
+                          </div>
+                          <div>
+                            <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Full Name</label>
+                            <input
+                              type="text"
+                              value={leader.name || ''}
+                              onChange={(e) => updateDirectArrayItem('leaders', idx, 'name', e.target.value)}
+                              className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-sm font-bold text-white focus:border-[#c5a059] outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-1">Role Title</label>
+                            <input
+                              type="text"
+                              value={leader.role || ''}
+                              onChange={(e) => updateDirectArrayItem('leaders', idx, 'role', e.target.value)}
+                              className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-[#e5c158] focus:border-[#c5a059] outline-none"
+                            />
+                          </div>
                         </div>
 
                         {/* Portrait Photo Upload & Preview */}
@@ -1741,68 +1842,183 @@ export default function AdminPageEditor() {
 
               {/* Profiles */}
               <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
-                <div className="flex items-center justify-between mb-6 border-b border-slate-800 pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-slate-800 pb-3">
                   <div className="flex items-center gap-2.5">
                     <Layers size={18} className="text-[#c5a059]" />
                     <h2 className="text-lg font-bold font-serif text-white">2. Leadership Profiles</h2>
+                    <span className="text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">
+                      {content.leaders?.length || 0}
+                    </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setContent((prev: any) => ({ ...prev, showLinkedIn: !prev?.showLinkedIn }))}
-                    className={`text-[10px] font-bold px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
-                      content.showLinkedIn
-                        ? 'bg-emerald-950 border-emerald-600 text-emerald-300'
-                        : 'bg-slate-800 border-slate-700 text-slate-400'
-                    }`}
-                  >
-                    <span>LinkedIn on Cards:</span>
-                    <span>{content.showLinkedIn ? '● Visible' : '○ Hidden'}</span>
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setContent((prev: any) => ({ ...prev, showLinkedIn: !prev?.showLinkedIn }))}
+                      className={`text-[10px] font-bold px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
+                        content.showLinkedIn
+                          ? 'bg-emerald-950 border-emerald-600 text-emerald-300'
+                          : 'bg-slate-800 border-slate-700 text-slate-400'
+                      }`}
+                    >
+                      <span>LinkedIn on Cards:</span>
+                      <span>{content.showLinkedIn ? '● Visible' : '○ Hidden'}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={addLeader}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#c5a059] text-black hover:bg-[#d5af66] transition-all shadow-md shadow-[#c5a059]/10"
+                    >
+                      <Plus size={14} />
+                      <span>Add Founder / Leader</span>
+                    </button>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {content.leaders?.map((leader: any, idx: number) => (
-                    <div key={idx} className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
-                      <div>
-                        <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Full Name</label>
-                        <input
-                          type="text"
-                          value={leader.name || ''}
-                          onChange={(e) => updateDirectArrayItem('leaders', idx, 'name', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-sm font-bold text-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-1">Role Title</label>
-                        <input
-                          type="text"
-                          value={leader.role || ''}
-                          onChange={(e) => updateDirectArrayItem('leaders', idx, 'role', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-[#e5c158]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Bio / Statement</label>
-                        <textarea
-                          rows={4}
-                          value={leader.statement || ''}
-                          onChange={(e) => updateDirectArrayItem('leaders', idx, 'statement', e.target.value)}
-                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 leading-relaxed"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">LinkedIn URL (Optional)</label>
-                        <input
-                          type="text"
-                          value={leader.linkedinUrl || ''}
-                          onChange={(e) => updateDirectArrayItem('leaders', idx, 'linkedinUrl', e.target.value)}
-                          placeholder="https://linkedin.com/in/profile"
-                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 font-mono"
-                        />
+                    <div key={idx} className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3 relative flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-1">
+                          <span className="text-xs font-bold font-mono text-[#c5a059]">
+                            Leader #{idx + 1}
+                          </span>
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              disabled={idx === 0}
+                              onClick={() => moveLeader(idx, 'up')}
+                              className="p-1 text-slate-400 hover:text-white disabled:opacity-20 disabled:hover:text-slate-400 rounded hover:bg-slate-800 transition-colors"
+                              title="Move Left / Up"
+                            >
+                              <ChevronUp size={14} />
+                            </button>
+                            <button
+                              type="button"
+                              disabled={idx === (content.leaders?.length || 0) - 1}
+                              onClick={() => moveLeader(idx, 'down')}
+                              className="p-1 text-slate-400 hover:text-white disabled:opacity-20 disabled:hover:text-slate-400 rounded hover:bg-slate-800 transition-colors"
+                              title="Move Right / Down"
+                            >
+                              <ChevronDown size={14} />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => removeLeader(idx)}
+                              className="p-1 text-slate-500 hover:text-rose-400 rounded hover:bg-rose-950/40 transition-colors ml-1"
+                              title="Delete leader"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Full Name</label>
+                          <input
+                            type="text"
+                            value={leader.name || ''}
+                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'name', e.target.value)}
+                            placeholder="e.g. Elena Rostova"
+                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-sm font-bold text-white focus:border-[#c5a059] outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-1">Role Title</label>
+                          <input
+                            type="text"
+                            value={leader.role || ''}
+                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'role', e.target.value)}
+                            placeholder="e.g. Co-Founder / Managing Director"
+                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-[#e5c158] focus:border-[#c5a059] outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Bio / Statement</label>
+                          <textarea
+                            rows={4}
+                            value={leader.statement || ''}
+                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'statement', e.target.value)}
+                            placeholder="Executive bio or leadership vision statement..."
+                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 leading-relaxed focus:border-[#c5a059] outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1">LinkedIn URL (Optional)</label>
+                          <input
+                            type="text"
+                            value={leader.linkedinUrl || ''}
+                            onChange={(e) => updateDirectArrayItem('leaders', idx, 'linkedinUrl', e.target.value)}
+                            placeholder="https://linkedin.com/in/profile"
+                            className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 font-mono focus:border-[#c5a059] outline-none"
+                          />
+                        </div>
+
+                        {/* Focus Areas Tag Manager */}
+                        <div>
+                          <label className="block text-[10px] uppercase font-bold text-slate-400 mb-1.5">
+                            Leadership Focus Areas
+                          </label>
+                          <div className="flex flex-wrap gap-1.5 mb-2 min-h-[24px]">
+                            {(leader.focus || []).map((f: string, fIdx: number) => (
+                              <span
+                                key={fIdx}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#c5a059]/15 text-[#e6ca85] border border-[#c5a059]/30 text-[11px]"
+                              >
+                                <span>{f}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const nextFocus = [...(leader.focus || [])];
+                                    nextFocus.splice(fIdx, 1);
+                                    updateDirectArrayItem('leaders', idx, 'focus', nextFocus);
+                                  }}
+                                  className="text-[#e6ca85]/70 hover:text-rose-400 ml-0.5"
+                                  title="Remove focus area"
+                                >
+                                  ×
+                                </button>
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              id={`new-focus-${idx}`}
+                              placeholder="Add tag (e.g. Growth)"
+                              className="flex-1 bg-slate-900 border border-slate-800 rounded px-2.5 py-1 text-xs text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-[#c5a059]"
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  const input = e.currentTarget;
+                                  const val = input.value.trim();
+                                  if (val) {
+                                    const nextFocus = [...(leader.focus || []), val];
+                                    updateDirectArrayItem('leaders', idx, 'focus', nextFocus);
+                                    input.value = '';
+                                  }
+                                }
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const input = document.getElementById(`new-focus-${idx}`) as HTMLInputElement | null;
+                                if (input && input.value.trim()) {
+                                  const nextFocus = [...(leader.focus || []), input.value.trim()];
+                                  updateDirectArrayItem('leaders', idx, 'focus', nextFocus);
+                                  input.value = '';
+                                }
+                              }}
+                              className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded font-medium transition-colors cursor-pointer"
+                            >
+                              + Add
+                            </button>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Photo Upload & Preview Widget */}
-                      <div className="pt-2 border-t border-slate-800/80">
+                      <div className="pt-3 border-t border-slate-800/80 mt-3">
                         <label className="block text-[10px] uppercase font-bold text-[#c5a059] mb-2 flex items-center justify-between">
                           <span>Portrait Photo</span>
                           {leader.image && (
