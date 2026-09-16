@@ -690,7 +690,7 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
       georgiaOffice: "17 Ioane Shavteli St, Tbilisi, Georgia",
       indiaOffice:
         "3rd floor, 243, Seva Sadan Marg, Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004",
-      instagramUrl: "https://www.instagram.com/gbncircle/",
+      instagramUrl: "https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr",
       linkedInUrl: "https://www.linkedin.com/company/gbn-circle/",
     },
     form: {

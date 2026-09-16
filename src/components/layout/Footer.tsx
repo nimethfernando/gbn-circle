@@ -79,7 +79,12 @@ export default function Footer() {
 
                         <h4 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Social</h4>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium">
+                            <a
+                                href="https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
+                            >
                                 <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">IG</span> Instagram
                             </a>
                             <span className="text-gray-600">|</span>

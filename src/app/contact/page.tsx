@@ -26,7 +26,7 @@ export default async function ContactPage() {
     content?.channels?.indiaOffice ||
     '3rd floor, 243, Seva Sadan Marg, Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004';
 
-  const instagram = content?.channels?.instagramUrl || 'https://www.instagram.com/gbncircle/';
+  const instagram = content?.channels?.instagramUrl || 'https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr';
   const linkedin = content?.channels?.linkedInUrl || 'https://www.linkedin.com/company/gbn-circle/';
 
   return (
