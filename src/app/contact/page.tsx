@@ -27,7 +27,7 @@ export default async function ContactPage() {
     '3rd floor, 243, Seva Sadan Marg, Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004';
 
   const instagram = content?.channels?.instagramUrl || 'https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr';
-  const linkedin = content?.channels?.linkedInUrl || 'https://www.linkedin.com/company/gbn-circle/';
+  // const linkedin = content?.channels?.linkedInUrl || 'https://www.linkedin.com/company/gbn-circle/';
 
   return (
     <div className="min-h-screen bg-[#070b19] text-white pt-32 pb-24 px-4 sm:px-6 lg:px-8">
@@ -136,14 +136,6 @@ export default async function ContactPage() {
                     className="px-4 py-2 rounded border border-slate-800 bg-slate-950/60 hover:border-[#c5a059] text-slate-300 hover:text-white text-xs font-semibold tracking-wider transition-colors flex items-center gap-2"
                   >
                     <span className="text-[10px] text-[#c5a059] font-bold">IG</span> Instagram
-                  </Link>
-                  <Link
-                    href={linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 rounded border border-slate-800 bg-slate-950/60 hover:border-[#c5a059] text-slate-300 hover:text-white text-xs font-semibold tracking-wider transition-colors flex items-center gap-2"
-                  >
-                    <span className="text-[10px] text-[#c5a059] font-bold">LI</span> LinkedIn
                   </Link>
                 </div>
               </div>
