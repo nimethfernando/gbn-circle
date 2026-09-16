@@ -11,6 +11,9 @@ export interface HomePageContent {
     primaryBtnLink: string;
     secondaryBtnText: string;
     secondaryBtnLink: string;
+    showBrochureBtn?: boolean;
+    brochureBtnText?: string;
+    brochureUrl?: string;
   };
   whatIsGbn: {
     badge: string;
@@ -128,6 +131,11 @@ export interface HomePageContent {
     showBlogsNav?: boolean;
     showCommunityNav?: boolean;
     showLeadershipNav?: boolean;
+
+    // Brochure Download Button & Link
+    showBrochureBtn?: boolean;
+    brochureBtnText?: string;
+    brochureUrl?: string;
   };
 }
 
@@ -267,6 +275,9 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
       primaryBtnLink: "/community",
       secondaryBtnText: "Explore the Community",
       secondaryBtnLink: "/community",
+      showBrochureBtn: false,
+      brochureBtnText: "Download Brochure",
+      brochureUrl: "/brochure.pdf",
     },
     whatIsGbn: {
       badge: "What is GBN Circle?",
@@ -530,6 +541,10 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
       showBlogsNav: true,
       showCommunityNav: true,
       showLeadershipNav: true,
+
+      showBrochureBtn: false,
+      brochureBtnText: "Download Brochure",
+      brochureUrl: "/brochure.pdf",
     },
   },
 

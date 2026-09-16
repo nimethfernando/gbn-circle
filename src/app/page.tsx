@@ -37,9 +37,16 @@ export default async function Home() {
       ? leadershipContent.leaders
       : content?.leaders;
 
+  const heroData = {
+    ...content.hero,
+    showBrochureBtn: vis?.showBrochureBtn ?? content.hero?.showBrochureBtn ?? false,
+    brochureBtnText: vis?.brochureBtnText || content.hero?.brochureBtnText,
+    brochureUrl: vis?.brochureUrl || content.hero?.brochureUrl || '/brochure.pdf',
+  };
+
   return (
     <main className="flex-1 w-full flex flex-col">
-      <Hero data={content.hero} />
+      <Hero data={heroData} />
       <WhatIsGBN data={content.whatIsGbn} />
       <WhoIsGBNFor data={content.whoIsGbnFor} />
       <InsideGBN />

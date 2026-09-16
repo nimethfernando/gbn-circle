@@ -11,6 +11,7 @@ export const en = {
     admin: "Admin",
     adminPortal: "Admin Portal",
     joinGbn: "Join GBN Circle",
+    brochure: "Brochure",
   },
   theme: {
     switchToLight: "Switch to Light Mode",
@@ -29,6 +30,7 @@ export const en = {
       "GBN Circle is a global business network for entrepreneurs, professionals and business leaders seeking meaningful connections, collaboration and new opportunities.",
     primaryBtn: "Join GBN Circle",
     secondaryBtn: "Explore the Community",
+    brochureBtn: "Download Brochure",
   },
   whatIsGbn: {
     badge: "What is GBN Circle?",

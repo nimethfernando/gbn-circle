@@ -7,13 +7,16 @@ import fs from 'fs/promises';
 export const runtime = 'nodejs';
 
 // Max file size: 8MB
-const MAX_FILE_SIZE = 8 * 1024 * 1024;
+// Max file size: 25MB for PDFs, 12MB for images
+const MAX_IMAGE_SIZE = 12 * 1024 * 1024;
+const MAX_PDF_SIZE = 25 * 1024 * 1024;
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg',
   'image/png',
   'image/webp',
   'image/gif',
   'image/svg+xml',
+  'application/pdf',
 ]);
 
 export async function POST(req: NextRequest) {
@@ -42,17 +45,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: 'Invalid file format. Please upload a JPG, PNG, WEBP, GIF, or SVG image.',
+          message: 'Invalid file format. Please upload a PDF, JPG, PNG, WEBP, GIF, or SVG file.',
         },
         { status: 400 }
       );
     }
 
-    if (file.size > MAX_FILE_SIZE) {
+    const isPdf = file.type === 'application/pdf';
+    const maxSize = isPdf ? MAX_PDF_SIZE : MAX_IMAGE_SIZE;
+
+    if (file.size > maxSize) {
       return NextResponse.json(
         {
           success: false,
-          message: 'File size exceeds limit (maximum allowed size is 8MB).',
+          message: `File size exceeds limit (maximum allowed size is ${isPdf ? '25MB' : '12MB'}).`,
         },
         { status: 400 }
       );
@@ -72,9 +78,9 @@ export async function POST(req: NextRequest) {
       await fs.mkdir(uploadDir, { recursive: true });
 
       // Sanitize filename & generate unique name
-      const originalExt = path.extname(file.name || '') || '.jpg';
+      const originalExt = path.extname(file.name || '') || (isPdf ? '.pdf' : '.jpg');
       const baseName = path
-        .basename(file.name || 'portrait', originalExt)
+        .basename(file.name || (isPdf ? 'brochure' : 'portrait'), originalExt)
         .replace(/[^a-zA-Z0-9_-]/g, '_')
         .slice(0, 40);
       const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 10000)}`;

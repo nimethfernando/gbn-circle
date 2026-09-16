@@ -14,6 +14,9 @@ interface FooterProps {
     instagramUrl?: string;
     showLinkedIn?: boolean;
     linkedInUrl?: string;
+    showBrochure?: boolean;
+    brochureUrl?: string;
+    brochureBtnText?: string;
 }
 
 export default function Footer({
@@ -26,6 +29,9 @@ export default function Footer({
     instagramUrl = "https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr",
     showLinkedIn = false,
     linkedInUrl = "https://www.linkedin.com/company/gbn-circle/",
+    showBrochure = false,
+    brochureUrl = "/brochure.pdf",
+    brochureBtnText = "Download Brochure",
 }: FooterProps) {
     const { t } = useLanguage();
     const currentYear = new Date().getFullYear();
@@ -38,6 +44,7 @@ export default function Footer({
         ...(showEvents ? [{ name: t.nav.events, href: "/events" }] : []),
         ...(showBlogs ? [{ name: t.nav.blogs, href: "/blogs" }] : []),
         ...(showMembers ? [{ name: t.nav.members, href: "/members" }] : []),
+        ...(showBrochure && brochureUrl ? [{ name: brochureBtnText || t.hero.brochureBtn, href: brochureUrl, isDownload: true }] : []),
         { name: t.nav.contact, href: "/contact" },
     ];
 
@@ -75,10 +82,23 @@ export default function Footer({
                         </h4>
                         <ul className="space-y-3">
                             {navLinks.map((link) => (
-                                <li key={link.href}>
-                                    <Link href={link.href} className="text-slate-800 dark:text-gray-400 hover:text-[#c5a059] dark:hover:text-gbn-gold transition-colors font-medium">
-                                        {link.name}
-                                    </Link>
+                                <li key={link.name}>
+                                    {'isDownload' in link && link.isDownload ? (
+                                        <a
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            download
+                                            className="text-slate-800 dark:text-gray-400 hover:text-[#c5a059] dark:hover:text-gbn-gold transition-colors font-medium flex items-center gap-1.5"
+                                        >
+                                            <span>{link.name}</span>
+                                            <span className="text-[9px] text-[#c5a059] dark:text-gbn-gold font-mono uppercase font-bold">↓ PDF</span>
+                                        </a>
+                                    ) : (
+                                        <Link href={link.href} className="text-slate-800 dark:text-gray-400 hover:text-[#c5a059] dark:hover:text-gbn-gold transition-colors font-medium">
+                                            {link.name}
+                                        </Link>
+                                    )}
                                 </li>
                             ))}
                         </ul>

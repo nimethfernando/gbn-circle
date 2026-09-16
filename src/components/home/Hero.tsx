@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Download } from "lucide-react";
 import { HomePageContent } from "@/lib/defaultPageContent";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -20,6 +21,10 @@ export default function Hero({ data }: HeroProps = {}) {
   const primaryBtnLink = data?.primaryBtnLink || "/community";
   const secondaryBtnText = isGeorgian ? t.hero.secondaryBtn : (data?.secondaryBtnText || t.hero.secondaryBtn);
   const secondaryBtnLink = data?.secondaryBtnLink || "/community";
+
+  const showBrochureBtn = Boolean(data?.showBrochureBtn);
+  const brochureUrl = data?.brochureUrl || "/brochure.pdf";
+  const brochureBtnText = isGeorgian ? t.hero.brochureBtn : (data?.brochureBtnText || t.hero.brochureBtn);
 
   return (
     <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-start pt-28 pb-16 overflow-hidden text-left bg-slate-50 dark:bg-gbn-navy transition-colors duration-300">
@@ -54,19 +59,32 @@ export default function Hero({ data }: HeroProps = {}) {
             {subtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 animate-fade-in-up delay-300">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4 sm:gap-6 animate-fade-in-up delay-300">
             <Link
               href={primaryBtnLink}
-              className="w-full sm:w-auto bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:scale-105 flex items-center justify-center uppercase hover-shine shadow-md"
+              className="w-full sm:w-auto bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:scale-105 flex items-center justify-center uppercase hover-shine shadow-md text-center"
             >
               {primaryBtnText}
             </Link>
             <Link
               href={secondaryBtnLink}
-              className="w-full sm:w-auto bg-white/80 dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-950 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none"
+              className="w-full sm:w-auto bg-white/80 dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-950 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none text-center"
             >
               {secondaryBtnText}
             </Link>
+            {showBrochureBtn && brochureUrl && (
+              <a
+                href={brochureUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="w-full sm:w-auto bg-[#c5a059]/15 hover:bg-[#c5a059]/25 border border-[#c5a059]/50 text-[#a88235] dark:text-[#f3d38c] hover:text-[#806020] dark:hover:text-white text-xs tracking-[0.15em] font-bold px-7 py-4 rounded-sm transition-all flex items-center justify-center gap-2 uppercase shadow-sm dark:shadow-none text-center group cursor-pointer"
+                title={brochureBtnText}
+              >
+                <Download size={15} className="text-[#a88235] dark:text-[#f3d38c] group-hover:scale-110 transition-transform" />
+                <span>{brochureBtnText}</span>
+              </a>
+            )}
           </div>
         </div>
       </div>

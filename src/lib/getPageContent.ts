@@ -86,6 +86,11 @@ export interface SiteVisibilitySettings {
   showBlogsNav: boolean;
   showCommunityNav: boolean;
   showLeadershipNav: boolean;
+
+  // Brochure Download
+  showBrochureBtn: boolean;
+  brochureBtnText?: string;
+  brochureUrl?: string;
 }
 
 export async function getSiteVisibility(): Promise<SiteVisibilitySettings> {
@@ -113,6 +118,10 @@ export async function getSiteVisibility(): Promise<SiteVisibilitySettings> {
       showBlogsNav: vis?.showBlogsNav ?? fallback.showBlogsNav ?? true,
       showCommunityNav: vis?.showCommunityNav ?? fallback.showCommunityNav ?? true,
       showLeadershipNav: vis?.showLeadershipNav ?? fallback.showLeadershipNav ?? true,
+
+      showBrochureBtn: vis?.showBrochureBtn ?? fallback.showBrochureBtn ?? false,
+      brochureBtnText: vis?.brochureBtnText || fallback.brochureBtnText || "Download Brochure",
+      brochureUrl: vis?.brochureUrl || fallback.brochureUrl || "/brochure.pdf",
     };
   } catch {
     return {
@@ -135,6 +144,10 @@ export async function getSiteVisibility(): Promise<SiteVisibilitySettings> {
       showBlogsNav: true,
       showCommunityNav: true,
       showLeadershipNav: true,
+
+      showBrochureBtn: false,
+      brochureBtnText: "Download Brochure",
+      brochureUrl: "/brochure.pdf",
     };
   }
 }

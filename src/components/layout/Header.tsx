@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X, Sun, Moon, Globe } from "lucide-react";
+import { Menu, X, Sun, Moon, Globe, Download } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,6 +14,9 @@ interface HeaderProps {
   showBlogs?: boolean;
   showCommunity?: boolean;
   showLeadership?: boolean;
+  showBrochure?: boolean;
+  brochureUrl?: string;
+  brochureBtnText?: string;
 }
 
 export default function Header({
@@ -22,6 +25,9 @@ export default function Header({
   showBlogs = true,
   showCommunity = true,
   showLeadership = true,
+  showBrochure = false,
+  brochureUrl = "/brochure.pdf",
+  brochureBtnText = "Download Brochure",
 }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -238,6 +244,19 @@ export default function Header({
           })}
 
           <div className="pt-2 flex flex-col gap-3">
+            {showBrochure && brochureUrl && (
+              <a
+                href={brochureUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="inline-flex items-center justify-center gap-2 py-2.5 bg-[#c5a059]/15 border border-[#c5a059]/40 text-[#a88235] dark:text-[#f3d38c] text-xs font-bold uppercase rounded tracking-wider transition-all hover:bg-[#c5a059]/25"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Download size={14} />
+                <span>{brochureBtnText || t.hero.brochureBtn}</span>
+              </a>
+            )}
             <Link
               href="/admin/events"
               className="text-center py-2.5 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-300 text-xs font-semibold uppercase rounded"

@@ -21,6 +21,8 @@ import {
   Plus,
   ChevronUp,
   ChevronDown,
+  FileText,
+  Download,
 } from 'lucide-react';
 
 export default function AdminPageEditor() {
@@ -41,6 +43,8 @@ export default function AdminPageEditor() {
   } | null>(null);
   const [uploadingLeaderIdx, setUploadingLeaderIdx] = useState<number | null>(null);
   const [uploadError, setUploadError] = useState<{ [idx: number]: string }>({});
+  const [uploadingBrochure, setUploadingBrochure] = useState(false);
+  const [brochureUploadError, setBrochureUploadError] = useState<string | null>(null);
 
   const fetchPageData = useCallback(async () => {
     try {
@@ -243,6 +247,44 @@ export default function AdminPageEditor() {
         leaders: arr,
       };
     });
+  };
+
+  const handleBrochureUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setBrochureUploadError(null);
+    if (file.size > 25 * 1024 * 1024) {
+      setBrochureUploadError('File exceeds 25MB limit. Please choose a smaller PDF.');
+      return;
+    }
+
+    try {
+      setUploadingBrochure(true);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success && data.url) {
+        updateNestedField('visibility', 'brochureUrl', data.url);
+        updateNestedField('hero', 'brochureUrl', data.url);
+        setStatusMessage({
+          type: 'success',
+          text: 'Brochure PDF uploaded successfully! Remember to click "Save Changes".',
+        });
+      } else {
+        setBrochureUploadError(data.message || 'Failed to upload brochure PDF');
+      }
+    } catch {
+      setBrochureUploadError('Network error while uploading brochure');
+    } finally {
+      setUploadingBrochure(false);
+    }
   };
 
   const compressImageForUpload = (
@@ -569,10 +611,147 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
 
-                {/* --- 2. MEMBERS & COMMUNITY VISIBILITY --- */}
+                {/* --- 2. BROCHURE DOWNLOAD BUTTON & FILE LINK --- */}
                 <div>
                   <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
-                    <span>2. Member Community &amp; Navigation</span>
+                    <FileText size={16} />
+                    <span>2. Brochure Download Button &amp; File Link</span>
+                  </h3>
+                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-[#c5a059]/15 border border-[#c5a059]/30 flex items-center justify-center text-[#e6ca85]">
+                          <Download size={16} />
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold uppercase tracking-wider text-white block">
+                            Brochure Download Button
+                          </span>
+                          <span className="text-[11px] text-slate-400">
+                            Display the &quot;Download Brochure&quot; button in the Hero section and navigation
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border ${
+                            Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn)
+                              ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                              : 'bg-slate-900 text-slate-400 border border-slate-700'
+                          }`}
+                        >
+                          {Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn)
+                            ? '● Visible on Site'
+                            : '○ Hidden from Site'}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const current = Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn);
+                            updateNestedField('visibility', 'showBrochureBtn', !current);
+                            updateNestedField('hero', 'showBrochureBtn', !current);
+                          }}
+                          className={`py-1.5 px-3.5 rounded-lg text-xs font-bold transition-all ${
+                            Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn)
+                              ? 'bg-slate-800 hover:bg-rose-950 hover:text-rose-300 text-slate-300 border border-slate-700'
+                              : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                          }`}
+                        >
+                          {Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn)
+                            ? 'Hide Button'
+                            : 'Unhide Button'}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                          Button Text
+                        </label>
+                        <input
+                          type="text"
+                          value={content.visibility?.brochureBtnText ?? content.hero?.brochureBtnText ?? 'Download Brochure'}
+                          onChange={(e) => {
+                            updateNestedField('visibility', 'brochureBtnText', e.target.value);
+                            updateNestedField('hero', 'brochureBtnText', e.target.value);
+                          }}
+                          placeholder="Download Brochure"
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:border-[#c5a059] outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                          Brochure Link / PDF URL
+                        </label>
+                        <input
+                          type="text"
+                          value={content.visibility?.brochureUrl ?? content.hero?.brochureUrl ?? ''}
+                          onChange={(e) => {
+                            updateNestedField('visibility', 'brochureUrl', e.target.value);
+                            updateNestedField('hero', 'brochureUrl', e.target.value);
+                          }}
+                          placeholder="/uploads/... or https://..."
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:border-[#c5a059] outline-none font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    {/* PDF Uploader Widget */}
+                    <div className="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <span className="text-[11px] font-semibold text-[#c5a059] uppercase tracking-wider block">
+                          Upload Brochure PDF File
+                        </span>
+                        <p className="text-[11px] text-slate-400">
+                          Upload a PDF directly from your computer (up to 25MB). It will automatically populate the link above.
+                        </p>
+                        {brochureUploadError && (
+                          <p className="text-[11px] text-rose-400 font-medium mt-1">
+                            {brochureUploadError}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <input
+                          type="file"
+                          id="admin-brochure-pdf-upload"
+                          accept="application/pdf"
+                          className="hidden"
+                          onChange={handleBrochureUpload}
+                          disabled={uploadingBrochure}
+                        />
+                        <label
+                          htmlFor="admin-brochure-pdf-upload"
+                          className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold cursor-pointer transition-all border ${
+                            uploadingBrochure
+                              ? 'bg-slate-800 text-slate-500 border-slate-700 cursor-not-allowed'
+                              : 'bg-[#c5a059]/15 text-[#e6ca85] border-[#c5a059]/40 hover:bg-[#c5a059]/25 hover:border-[#c5a059]'
+                          }`}
+                        >
+                          {uploadingBrochure ? (
+                            <>
+                              <Loader2 size={14} className="animate-spin" />
+                              <span>Uploading PDF...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Upload size={14} />
+                              <span>Upload PDF File</span>
+                            </>
+                          )}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* --- 3. MEMBERS & COMMUNITY VISIBILITY --- */}
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
+                    <span>3. Member Community &amp; Navigation</span>
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {/* Toggle: Member Community Section */}
@@ -649,10 +828,10 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
 
-                {/* --- 3. HOMEPAGE KEY SECTIONS --- */}
+                {/* --- 4. HOMEPAGE KEY SECTIONS --- */}
                 <div>
                   <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
-                    <span>3. Homepage Key Sections</span>
+                    <span>4. Homepage Key Sections</span>
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {/* Events Section */}
@@ -777,10 +956,10 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
 
-                {/* --- 4. NAVIGATION MENU TOGGLES --- */}
+                {/* --- 5. NAVIGATION MENU TOGGLES --- */}
                 <div>
                   <h3 className="text-sm font-bold uppercase tracking-wider text-[#c5a059] mb-3 flex items-center gap-2">
-                    <span>4. Navigation Menu Items (Header Navbar &amp; Footer)</span>
+                    <span>5. Navigation Menu Items (Header Navbar &amp; Footer)</span>
                   </h3>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {/* Events Nav */}
@@ -932,6 +1111,92 @@ export default function AdminPageEditor() {
                       onChange={(e) => updateNestedField('hero', 'primaryBtnLink', e.target.value)}
                       className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Secondary Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={content.hero?.secondaryBtnText || ''}
+                      onChange={(e) => updateNestedField('hero', 'secondaryBtnText', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Secondary Button Link
+                    </label>
+                    <input
+                      type="text"
+                      value={content.hero?.secondaryBtnLink || ''}
+                      onChange={(e) => updateNestedField('hero', 'secondaryBtnLink', e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  {/* Brochure Button in Hero */}
+                  <div className="sm:col-span-2 pt-4 border-t border-slate-800/80">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <FileText size={16} className="text-[#c5a059]" />
+                        <label className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                          Brochure Download Button
+                        </label>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const current = Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn);
+                          updateNestedField('visibility', 'showBrochureBtn', !current);
+                          updateNestedField('hero', 'showBrochureBtn', !current);
+                        }}
+                        className={`text-[10px] font-bold px-3 py-1 rounded-full border transition-all flex items-center gap-1.5 ${
+                          Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn)
+                            ? 'bg-emerald-950 border-emerald-600 text-emerald-300'
+                            : 'bg-slate-800 border-slate-700 text-slate-400'
+                        }`}
+                      >
+                        <span>Brochure Button:</span>
+                        <span>{Boolean(content.visibility?.showBrochureBtn ?? content.hero?.showBrochureBtn) ? '● Visible' : '○ Hidden'}</span>
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                          Brochure Button Text
+                        </label>
+                        <input
+                          type="text"
+                          value={content.hero?.brochureBtnText ?? content.visibility?.brochureBtnText ?? 'Download Brochure'}
+                          onChange={(e) => {
+                            updateNestedField('hero', 'brochureBtnText', e.target.value);
+                            updateNestedField('visibility', 'brochureBtnText', e.target.value);
+                          }}
+                          placeholder="Download Brochure"
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:border-[#c5a059] outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                          Brochure Link / PDF URL
+                        </label>
+                        <input
+                          type="text"
+                          value={content.hero?.brochureUrl ?? content.visibility?.brochureUrl ?? ''}
+                          onChange={(e) => {
+                            updateNestedField('hero', 'brochureUrl', e.target.value);
+                            updateNestedField('visibility', 'brochureUrl', e.target.value);
+                          }}
+                          placeholder="/uploads/... or https://..."
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:border-[#c5a059] outline-none font-mono"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

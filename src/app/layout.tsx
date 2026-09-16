@@ -84,6 +84,9 @@ export default async function RootLayout({
             showBlogs={visibility.showBlogsNav}
             showCommunity={visibility.showCommunityNav}
             showLeadership={visibility.showLeadershipNav}
+            showBrochure={visibility.showBrochureBtn}
+            brochureUrl={visibility.brochureUrl}
+            brochureBtnText={visibility.brochureBtnText}
           />
 
           {/* Dynamic Page Content */}
@@ -100,6 +103,9 @@ export default async function RootLayout({
             instagramUrl={visibility.instagramUrl}
             showLinkedIn={visibility.showLinkedIn}
             linkedInUrl={visibility.linkedInUrl}
+            showBrochure={visibility.showBrochureBtn}
+            brochureUrl={visibility.brochureUrl}
+            brochureBtnText={visibility.brochureBtnText}
           />
         </AppProviders>
       </body>

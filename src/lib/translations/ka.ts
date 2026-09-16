@@ -13,6 +13,7 @@ export const ka: TranslationsType = {
     admin: "ადმინი",
     adminPortal: "ადმინ პორტალი",
     joinGbn: "შემოუერთდით GBN-ს",
+    brochure: "ბროშურა",
   },
   theme: {
     switchToLight: "ღია თემაზე გადართვა",
@@ -31,6 +32,7 @@ export const ka: TranslationsType = {
       "GBN Circle არის გლობალური ბიზნეს ქსელი მეწარმეებისთვის, პროფესიონალებისთვის და ბიზნეს ლიდერებისთვის, რომლებიც ეძებენ მნიშვნელოვან კავშირებს, თანამშრომლობასა და ახალ შესაძლებლობებს.",
     primaryBtn: "შემოუერთდით GBN Circle-ს",
     secondaryBtn: "გაეცანით საზოგადოებას",
+    brochureBtn: "ბროშურის ჩამოტვირთვა",
   },
   whatIsGbn: {
     badge: "რა არის GBN Circle?",
