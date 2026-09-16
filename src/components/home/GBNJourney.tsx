@@ -37,7 +37,7 @@ export default function GBNJourney() {
                       (idx >= 3
                         ? "text-[#a88235] dark:text-gbn-gold"
                         : "text-slate-900 dark:text-white")
-                    : "scale-100 font-medium text-slate-400 dark:text-gray-500 opacity-50"
+                    : "scale-100 font-medium text-slate-600 dark:text-gray-500 opacity-70"
                 }`}
               >
                 <span className="text-xl md:text-2xl tracking-[0.2em] uppercase">
@@ -47,7 +47,7 @@ export default function GBNJourney() {
 
               {/* Arrow */}
               {idx < stepTitles.length - 1 && (
-                <div className="text-slate-300 dark:text-gray-700 md:rotate-0 rotate-90 my-2 md:my-0">
+                <div className="text-slate-500 dark:text-gray-700 md:rotate-0 rotate-90 my-2 md:my-0">
                   <svg
                     width="24"
                     height="24"
@@ -67,7 +67,7 @@ export default function GBNJourney() {
           ))}
         </div>
 
-        <p className="text-lg md:text-2xl text-slate-600 dark:text-gray-400 max-w-3xl mx-auto italic font-serif font-light">
+        <p className="text-lg md:text-2xl text-slate-900 dark:text-gray-400 max-w-3xl mx-auto italic font-serif font-normal">
           &ldquo;{t.journey.quote}&rdquo;
         </p>
       </div>

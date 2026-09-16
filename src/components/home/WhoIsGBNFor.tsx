@@ -53,7 +53,7 @@ export default function WhoIsGBNFor({ data }: WhoIsGBNForProps = {}) {
             {heading}
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 font-light leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg text-slate-900 dark:text-gray-300 font-normal leading-relaxed max-w-2xl">
             {intro}
           </p>
         </div>
@@ -66,14 +66,11 @@ export default function WhoIsGBNFor({ data }: WhoIsGBNForProps = {}) {
               className="p-6 bg-white dark:bg-gbn-navy-light/40 border border-slate-200 dark:border-white/5 rounded-sm hover:border-[#c5a059]/50 hover:bg-white dark:hover:bg-gbn-navy-light/70 transition-all duration-300 flex flex-col justify-between group shadow-sm dark:shadow-none"
             >
               <div>
-                <span className="text-[10px] font-bold text-[#a88235] dark:text-gbn-gold tracking-widest uppercase mb-2 block">
-                  0{idx + 1}
-                </span>
                 <h3 className="text-lg font-serif text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-gbn-gold transition-colors mb-2">
                   {card.title}
                 </h3>
               </div>
-              <p className="text-slate-600 dark:text-gray-400 font-light text-xs leading-relaxed mt-2">
+              <p className="text-slate-800 dark:text-gray-400 font-normal text-xs leading-relaxed mt-2">
                 {card.desc}
               </p>
             </div>
@@ -91,7 +88,7 @@ export default function WhoIsGBNFor({ data }: WhoIsGBNForProps = {}) {
                 <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-1">
                   GBN Circle
                 </h4>
-                <p className="text-xs text-slate-600 dark:text-gray-300 font-light leading-relaxed">
+                <p className="text-xs text-slate-800 dark:text-gray-300 font-normal leading-relaxed">
                   {circleEligibility}
                 </p>
               </div>
@@ -105,7 +102,7 @@ export default function WhoIsGBNFor({ data }: WhoIsGBNForProps = {}) {
                 <h4 className="text-sm font-bold uppercase tracking-wider text-[#a88235] dark:text-[#e5c158] mb-1">
                   GBN Elite
                 </h4>
-                <p className="text-xs text-slate-600 dark:text-gray-300 font-light leading-relaxed">
+                <p className="text-xs text-slate-800 dark:text-gray-300 font-normal leading-relaxed">
                   {eliteEligibility}
                 </p>
               </div>

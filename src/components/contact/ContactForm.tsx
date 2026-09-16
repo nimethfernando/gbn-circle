@@ -108,7 +108,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
       <form onSubmit={handleSubmit} className="space-y-4 text-xs">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+            <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
               {t.contact.fullName}
             </label>
             <input
@@ -122,7 +122,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
             />
           </div>
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+            <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
               {t.contact.email}
             </label>
             <input
@@ -139,7 +139,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+            <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
               {t.contact.phone}
             </label>
             <input
@@ -152,7 +152,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
             />
           </div>
           <div>
-            <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+            <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
               {t.contact.company}
             </label>
             <input
@@ -167,9 +167,9 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
         </div>
 
         <div>
-          <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5 flex items-center justify-between">
+          <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5 flex items-center justify-between">
             <span>{t.contact.tier}</span>
-            <span className="text-[9px] text-[#a88235] dark:text-[#c5a059] font-normal normal-case">
+            <span className="text-[9px] text-[#a88235] dark:text-[#c5a059] font-medium normal-case">
               {t.contact.tierHint}
             </span>
           </label>
@@ -186,14 +186,14 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
             <option value="GBN Elite" className="bg-white dark:bg-[#070b19] text-[#a88235] dark:text-[#e5c158]">
               {t.contact.tierElite}
             </option>
-            <option value="General Inquiry" className="bg-white dark:bg-[#070b19] text-slate-600 dark:text-slate-300">
+            <option value="General Inquiry" className="bg-white dark:bg-[#070b19] text-slate-900 dark:text-slate-300">
               {t.contact.tierGeneral}
             </option>
           </select>
         </div>
 
         <div>
-          <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+          <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
             {t.contact.subject}
           </label>
           <input
@@ -207,7 +207,7 @@ export default function ContactForm({ submitBtnText }: ContactFormProps) {
         </div>
 
         <div>
-          <label className="block text-slate-600 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
+          <label className="block text-slate-950 dark:text-slate-400 uppercase tracking-widest text-[10px] font-bold mb-1.5">
             {t.contact.message}
           </label>
           <textarea

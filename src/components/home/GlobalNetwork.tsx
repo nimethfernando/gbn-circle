@@ -24,7 +24,7 @@ export default function GlobalNetwork() {
               {t.globalNetwork.headingHighlight}
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-slate-900 dark:text-gray-300 leading-relaxed font-normal">
             {t.globalNetwork.desc}
           </p>
         </div>

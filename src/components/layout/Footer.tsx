@@ -63,7 +63,7 @@ export default function Footer({
                                 </span>
                             </div>
                         </Link>
-                        <p className="text-slate-600 dark:text-gray-400 max-w-xs font-light">
+                        <p className="text-slate-800 dark:text-gray-400 max-w-xs font-normal">
                             {t.footer.tagline}
                         </p>
                     </div>
@@ -76,7 +76,7 @@ export default function Footer({
                         <ul className="space-y-3">
                             {navLinks.map((link) => (
                                 <li key={link.href}>
-                                    <Link href={link.href} className="text-slate-600 dark:text-gray-400 hover:text-[#c5a059] dark:hover:text-gbn-gold transition-colors font-medium">
+                                    <Link href={link.href} className="text-slate-800 dark:text-gray-400 hover:text-[#c5a059] dark:hover:text-gbn-gold transition-colors font-medium">
                                         {link.name}
                                     </Link>
                                 </li>
@@ -89,7 +89,7 @@ export default function Footer({
                         <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-6 uppercase tracking-wider text-sm">
                             {t.footer.contact}
                         </h4>
-                        <ul className="space-y-3 mb-6 text-slate-600 dark:text-gray-400 font-medium">
+                        <ul className="space-y-3 mb-6 text-slate-800 dark:text-gray-400 font-medium">
                             <li><a href="mailto:gbncircle@gmail.com" className="hover:text-slate-900 dark:hover:text-white transition-colors">gbncircle@gmail.com</a></li>
                             <li><a href="tel:+919783577773" className="hover:text-slate-900 dark:hover:text-white transition-colors">+91 9783577773</a></li>
                             <li><a href="https://www.gbncircle.com" className="hover:text-slate-900 dark:hover:text-white transition-colors">www.gbncircle.com</a></li>
@@ -98,7 +98,7 @@ export default function Footer({
                         <h4 className="text-[11px] font-bold text-[#a88235] dark:text-gbn-gold mb-3 uppercase tracking-wider">
                             {t.footer.offices}
                         </h4>
-                        <ul className="space-y-4 mb-8 text-slate-600 dark:text-gray-400 font-light text-sm">
+                        <ul className="space-y-4 mb-8 text-slate-800 dark:text-gray-400 font-normal text-sm">
                             <li>
                                 <strong className="block text-slate-900 dark:text-white font-medium text-xs mb-1 uppercase tracking-wider">
                                     {t.footer.georgiaOffice}
@@ -120,7 +120,7 @@ export default function Footer({
                                     href={instagramUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
+                                    className="text-slate-800 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
                                 >
                                     <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">IG</span> Instagram
                                 </a>
@@ -133,7 +133,7 @@ export default function Footer({
                                     href={linkedInUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
+                                    className="text-slate-800 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
                                 >
                                     <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">LI</span> LinkedIn
                                 </a>
@@ -144,7 +144,7 @@ export default function Footer({
                 </div>
 
                 {/* Bottom */}
-                <div className="pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 dark:text-gray-500">
+                <div className="pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-slate-700 dark:text-gray-500 font-medium">
                     <p>© {currentYear} GBN Circle. {t.footer.rights}</p>
                     <p className="mt-2 md:mt-0">A Ditya Group Initiative</p>
                 </div>

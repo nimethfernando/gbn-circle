@@ -16,7 +16,7 @@ export default function Inspiration() {
           {t.inspiration.heading}
         </h2>
 
-        <p className="text-lg md:text-2xl font-light text-slate-700 dark:text-gray-300 leading-relaxed mb-12">
+        <p className="text-lg md:text-2xl font-normal text-slate-900 dark:text-gray-300 leading-relaxed mb-12">
           {t.inspiration.quote}
         </p>
 

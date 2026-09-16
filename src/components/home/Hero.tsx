@@ -50,7 +50,7 @@ export default function Hero({ data }: HeroProps = {}) {
             <span className="text-gradient-gold">{headingLine2}</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-slate-700 dark:text-gray-300 font-light mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200">
+          <p className="text-base sm:text-lg md:text-xl text-slate-900 dark:text-gray-300 font-normal mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200">
             {subtitle}
           </p>
 
@@ -63,7 +63,7 @@ export default function Hero({ data }: HeroProps = {}) {
             </Link>
             <Link
               href={secondaryBtnLink}
-              className="w-full sm:w-auto bg-white/80 dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-800 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none"
+              className="w-full sm:w-auto bg-white/80 dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-950 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none"
             >
               {secondaryBtnText}
             </Link>

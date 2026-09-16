@@ -65,7 +65,7 @@ export default function ThreePrinciples({ data }: ThreePrinciplesProps = {}) {
               <h3 className="text-xl tracking-[0.2em] uppercase font-bold text-[#a88235] dark:text-gbn-gold mb-4 group-hover:scale-105 transition-transform duration-500 origin-left">
                 {p.title}
               </h3>
-              <p className="text-slate-600 dark:text-gray-400 font-light leading-relaxed text-sm">
+              <p className="text-slate-800 dark:text-gray-400 font-normal leading-relaxed text-sm">
                 {p.desc}
               </p>
             </div>

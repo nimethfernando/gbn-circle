@@ -34,7 +34,7 @@ export default function InsideGBN() {
               {t.insideGbn.headingHighlight}
             </span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed text-balance font-light">
+          <p className="text-base sm:text-lg text-slate-900 dark:text-gray-300 leading-relaxed text-balance font-normal">
             {t.insideGbn.desc}
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function InsideGBN() {
               <h3 className="text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-3 text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-gbn-gold transition-colors">
                 {exp.title}
               </h3>
-              <p className="text-slate-600 dark:text-gray-400 font-light text-sm leading-relaxed">
+              <p className="text-slate-800 dark:text-gray-400 font-normal text-sm leading-relaxed">
                 {exp.desc}
               </p>
             </div>

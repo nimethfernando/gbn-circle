@@ -44,7 +44,7 @@ export default async function ContactPage() {
           <h1 className="text-4xl sm:text-5xl font-bold font-serif mt-5 text-slate-900 dark:text-white">
             {content?.hero?.heading || "Let's Connect & Grow Together"}
           </h1>
-          <p className="text-slate-600 dark:text-slate-300 mt-4 text-base leading-relaxed font-light">
+          <p className="text-slate-900 dark:text-slate-300 mt-4 text-base leading-relaxed font-normal">
             {content?.hero?.subtitle ||
               'GBN Circle se judne, membership ke baare mein jaanne, partnership ya kisi business enquiry ke liye humse contact karein.'}
           </p>
@@ -59,31 +59,31 @@ export default async function ContactPage() {
               <div className="space-y-6 text-sm">
                 <a
                   href={`mailto:${email}`}
-                  className="flex items-center group text-slate-700 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
+                  className="flex items-center group text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
                 >
                   <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-center mr-4 text-[#c5a059] group-hover:border-[#c5a059] transition-colors shrink-0">
                     <Mail size={18} />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 block">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-700 block">
                       Email
                     </span>
-                    <span className="text-sm font-medium text-slate-900 dark:text-white">{email}</span>
+                    <span className="text-sm font-medium text-slate-950 dark:text-white">{email}</span>
                   </div>
                 </a>
 
                 <a
                   href={`tel:${phone.replace(/\s+/g, '')}`}
-                  className="flex items-center group text-slate-700 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
+                  className="flex items-center group text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
                 >
                   <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-center mr-4 text-[#c5a059] group-hover:border-[#c5a059] transition-colors shrink-0">
                     <Phone size={18} />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 block">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-700 block">
                       Phone
                     </span>
-                    <span className="text-sm font-medium text-slate-900 dark:text-white">{phone}</span>
+                    <span className="text-sm font-medium text-slate-950 dark:text-white">{phone}</span>
                   </div>
                 </a>
 
@@ -91,45 +91,45 @@ export default async function ContactPage() {
                   href={websiteUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center group text-slate-700 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
+                  className="flex items-center group text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
                 >
                   <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-center mr-4 text-[#c5a059] group-hover:border-[#c5a059] transition-colors shrink-0">
                     <Globe size={18} />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 block">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-700 block">
                       Website
                     </span>
-                    <span className="text-sm font-medium text-slate-900 dark:text-white">{website}</span>
+                    <span className="text-sm font-medium text-slate-950 dark:text-white">{website}</span>
                   </div>
                 </a>
               </div>
 
               {/* Offices */}
-              <div className="pt-8 mt-8 border-t border-slate-200 dark:border-slate-800/80 space-y-4 text-xs text-slate-600 dark:text-slate-300">
+              <div className="pt-8 mt-8 border-t border-slate-200 dark:border-slate-800/80 space-y-4 text-xs text-slate-900 dark:text-slate-300">
                 <div className="flex items-start">
                   <MapPin size={16} className="mr-3 text-[#c5a059] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-slate-900 dark:text-white font-medium text-xs mb-0.5 uppercase tracking-wider">
+                    <strong className="block text-slate-950 dark:text-white font-medium text-xs mb-0.5 uppercase tracking-wider">
                       Georgia Office
                     </strong>
-                    <span className="text-slate-500 dark:text-slate-400 leading-relaxed">{georgiaOffice}</span>
+                    <span className="text-slate-800 dark:text-slate-400 font-normal leading-relaxed">{georgiaOffice}</span>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <MapPin size={16} className="mr-3 text-[#c5a059] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-slate-900 dark:text-white font-medium text-xs mb-0.5 uppercase tracking-wider">
+                    <strong className="block text-slate-950 dark:text-white font-medium text-xs mb-0.5 uppercase tracking-wider">
                       India Office
                     </strong>
-                    <span className="text-slate-500 dark:text-slate-400 leading-relaxed">{indiaOffice}</span>
+                    <span className="text-slate-800 dark:text-slate-400 font-normal leading-relaxed">{indiaOffice}</span>
                   </div>
                 </div>
               </div>
 
               {/* Social Links (PRD Page 46) */}
               <div className="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800/80">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 block mb-3">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-slate-700 block mb-3">
                   Social Links
                 </span>
                 <div className="flex items-center space-x-3">

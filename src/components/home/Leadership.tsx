@@ -90,7 +90,7 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
                             <span className="text-gradient-gold block mt-2">{headingPart2}</span>
                         ) : null}
                     </h2>
-                    <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 font-light leading-relaxed">
+                    <p className="text-base sm:text-lg text-slate-900 dark:text-gray-300 font-normal leading-relaxed">
                         {description}
                     </p>
                 </div>
@@ -121,7 +121,7 @@ export default function Leadership({ data, leaders: propLeaders }: LeadershipPro
                 <div className="text-center">
                     <Link
                         href={btnLink}
-                        className="inline-block bg-white dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-800 dark:text-white text-xs tracking-widest font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none"
+                        className="inline-block bg-white dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-950 dark:text-white text-xs tracking-widest font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none"
                     >
                         {btnText}
                     </Link>

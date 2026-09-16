@@ -67,7 +67,7 @@ export default function FinalCTA({ data }: FinalCTAProps = {}) {
           <h2 className="text-3xl sm:text-5xl font-serif text-slate-900 dark:text-white mb-5 leading-tight font-bold">
             {heading}
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-900 dark:text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto">
             {subtitle}
           </p>
         </div>
@@ -76,16 +76,16 @@ export default function FinalCTA({ data }: FinalCTAProps = {}) {
         <div className="border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-[#0a1020]/90 backdrop-blur-md overflow-hidden shadow-xl dark:shadow-2xl">
           {/* Table Header */}
           <div className="grid grid-cols-12 bg-slate-50 dark:bg-slate-950/95 border-b border-slate-200 dark:border-slate-800 py-6 px-4 sm:px-8 items-center">
-            <div className="col-span-5 sm:col-span-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            <div className="col-span-5 sm:col-span-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-950 dark:text-slate-300">
               {isGeorgian ? "შეფასების კრიტერიუმები" : "Evaluation Criteria"}
             </div>
 
             {/* GBN Circle Column Header */}
             <div className="col-span-3 sm:col-span-4 text-center px-2">
-              <span className="inline-block text-xs sm:text-sm uppercase font-bold tracking-wider px-3.5 py-1.5 rounded-md bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm">
+              <span className="inline-block text-xs sm:text-sm uppercase font-bold tracking-wider px-3.5 py-1.5 rounded-md bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-950 dark:text-slate-200 shadow-sm">
                 GBN Circle
               </span>
-              <p className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-2 tracking-wide font-sans">
+              <p className="text-base sm:text-lg font-bold text-slate-950 dark:text-white mt-2 tracking-wide font-sans">
                 ₹20L+ {isGeorgian ? "ბრუნვა" : "Cohort"}
               </p>
             </div>
@@ -115,7 +115,7 @@ export default function FinalCTA({ data }: FinalCTAProps = {}) {
                 }`}
               >
                 {/* Feature Label */}
-                <div className="col-span-5 sm:col-span-4 font-semibold text-slate-800 dark:text-slate-100 text-xs sm:text-sm md:text-base pr-2">
+                <div className="col-span-5 sm:col-span-4 font-semibold text-slate-950 dark:text-slate-100 text-xs sm:text-sm md:text-base pr-2">
                   {row.feature}
                 </div>
 
@@ -127,14 +127,14 @@ export default function FinalCTA({ data }: FinalCTAProps = {}) {
                         <Check size={16} strokeWidth={2.5} />
                       </span>
                     ) : (
-                      <span className="inline-flex items-center justify-center text-slate-400 dark:text-slate-500 font-bold">
+                      <span className="inline-flex items-center justify-center text-slate-500 dark:text-slate-500 font-bold">
                         <Minus size={18} strokeWidth={2.5} />
                       </span>
                     )
                   ) : (
                     <span
                       className={`text-xs sm:text-sm md:text-base ${
-                        row.isHighlight ? 'text-slate-900 dark:text-white font-bold' : 'text-slate-700 dark:text-slate-200 font-medium'
+                        row.isHighlight ? 'text-slate-950 dark:text-white font-bold' : 'text-slate-900 dark:text-slate-200 font-medium'
                       }`}
                     >
                       {row.circle}
@@ -174,7 +174,7 @@ export default function FinalCTA({ data }: FinalCTAProps = {}) {
               <span className="text-xs sm:text-sm uppercase tracking-wider text-slate-900 dark:text-slate-300 font-bold block">
                 {isGeorgian ? "შემდეგი ნაბიჯები" : "Next Steps"}
               </span>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-light mt-0.5">
+              <p className="text-xs sm:text-sm text-slate-900 dark:text-slate-300 font-normal mt-0.5">
                 {isGeorgian ? "აირჩიეთ თქვენი დონე განაცხადისთვის." : "Select your qualifying tier to apply."}
               </p>
             </div>

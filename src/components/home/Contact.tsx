@@ -103,30 +103,30 @@ export default function Contact() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-slate-900 dark:text-white mb-6">
               {t.contact.heading}
             </h2>
-            <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 font-light mb-10 leading-relaxed max-w-lg">
+            <p className="text-base sm:text-lg text-slate-900 dark:text-gray-300 font-normal mb-10 leading-relaxed max-w-lg">
               {t.contact.desc}
             </p>
 
             <div className="space-y-6 mb-10">
               <a href="mailto:gbncircle@gmail.com" className="flex items-center group">
-                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-700 dark:text-white bg-white dark:bg-transparent shadow-sm">
+                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-900 dark:text-white bg-white dark:bg-transparent shadow-sm">
                   <Mail size={18} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase font-bold text-slate-500">Email</p>
-                  <p className="font-light text-slate-800 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
+                  <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">Email</p>
+                  <p className="font-normal text-slate-950 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
                     gbncircle@gmail.com
                   </p>
                 </div>
               </a>
 
               <a href="tel:+919783577773" className="flex items-center group">
-                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-700 dark:text-white bg-white dark:bg-transparent shadow-sm">
+                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-900 dark:text-white bg-white dark:bg-transparent shadow-sm">
                   <Phone size={18} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase font-bold text-slate-500">Phone</p>
-                  <p className="font-light text-slate-800 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
+                  <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">Phone</p>
+                  <p className="font-normal text-slate-950 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
                     +91 9783577773
                   </p>
                 </div>
@@ -138,12 +138,12 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="flex items-center group"
               >
-                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-700 dark:text-white bg-white dark:bg-transparent shadow-sm shrink-0">
+                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-900 dark:text-white bg-white dark:bg-transparent shadow-sm shrink-0">
                   <Globe size={18} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase font-bold text-slate-500">Website</p>
-                  <p className="font-light text-slate-800 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
+                  <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">Website</p>
+                  <p className="font-normal text-slate-950 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
                     www.gbncircle.com
                   </p>
                 </div>
@@ -155,18 +155,18 @@ export default function Contact() {
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-[10px] tracking-widest uppercase font-bold text-slate-500">
+                    <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">
                       {t.footer.georgiaOffice}
                     </p>
-                    <p className="font-light text-slate-800 dark:text-gray-300 text-sm">
+                    <p className="font-normal text-slate-950 dark:text-gray-300 text-sm">
                       {t.footer.georgiaAddress}
                     </p>
                   </div>
                   <div>
-                    <p className="text-[10px] tracking-widest uppercase font-bold text-slate-500">
+                    <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">
                       {t.footer.indiaOffice}
                     </p>
-                    <p className="font-light text-slate-800 dark:text-gray-300 text-sm leading-relaxed">
+                    <p className="font-normal text-slate-950 dark:text-gray-300 text-sm leading-relaxed">
                       {t.footer.indiaAddress}
                     </p>
                   </div>
@@ -202,7 +202,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1">
+                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1">
                       {t.contact.fullName}
                     </label>
                     <input
@@ -211,12 +211,12 @@ export default function Contact() {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light text-sm"
+                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal text-sm"
                       placeholder={t.contact.fullNamePlaceholder}
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1">
+                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1">
                       {t.contact.email}
                     </label>
                     <input
@@ -225,7 +225,7 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light text-sm"
+                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal text-sm"
                       placeholder={t.contact.emailPlaceholder}
                     />
                   </div>
@@ -233,7 +233,7 @@ export default function Contact() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1">
+                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1">
                       {t.contact.phone}
                     </label>
                     <input
@@ -241,12 +241,12 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light text-sm"
+                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal text-sm"
                       placeholder={t.contact.phonePlaceholder}
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1">
+                    <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1">
                       {t.contact.company}
                     </label>
                     <input
@@ -254,16 +254,16 @@ export default function Contact() {
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light text-sm"
+                      className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal text-sm"
                       placeholder={t.contact.companyPlaceholder}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1.5 flex items-center justify-between">
+                  <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1.5 flex items-center justify-between">
                     <span>{t.contact.tier}</span>
-                    <span className="text-[9px] text-[#a88235] dark:text-[#c5a059] font-normal normal-case">
+                    <span className="text-[9px] text-[#a88235] dark:text-[#c5a059] font-medium normal-case">
                       {t.contact.tierHint}
                     </span>
                   </label>
@@ -272,7 +272,7 @@ export default function Contact() {
                     name="tier"
                     value={formData.tier}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light text-sm cursor-pointer"
+                    className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal text-sm cursor-pointer"
                   >
                     <option value="GBN Circle" className="bg-white dark:bg-[#070b19] text-slate-900 dark:text-white">
                       {t.contact.tierCircle}
@@ -280,14 +280,14 @@ export default function Contact() {
                     <option value="GBN Elite" className="bg-white dark:bg-[#070b19] text-[#a88235] dark:text-[#e5c158]">
                       {t.contact.tierElite}
                     </option>
-                    <option value="General Inquiry" className="bg-white dark:bg-[#070b19] text-slate-600 dark:text-slate-300">
+                    <option value="General Inquiry" className="bg-white dark:bg-[#070b19] text-slate-900 dark:text-slate-300">
                       {t.contact.tierGeneral}
                     </option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1">
+                  <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1">
                     {t.contact.subject}
                   </label>
                   <input
@@ -295,13 +295,13 @@ export default function Contact() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light text-sm"
+                    className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal text-sm"
                     placeholder={t.contact.subjectPlaceholder}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-600 dark:text-gray-400 mb-1">
+                  <label className="block text-[10px] uppercase tracking-widest font-bold text-slate-950 dark:text-gray-400 mb-1">
                     {t.contact.message}
                   </label>
                   <textarea
@@ -310,7 +310,7 @@ export default function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-light resize-none text-sm"
+                    className="w-full px-4 py-3 rounded-sm border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-gbn-navy text-slate-900 dark:text-white focus:outline-none focus:border-[#c5a059] dark:focus:border-gbn-gold transition-colors font-normal resize-none text-sm"
                     placeholder={t.contact.messagePlaceholder}
                   ></textarea>
                 </div>

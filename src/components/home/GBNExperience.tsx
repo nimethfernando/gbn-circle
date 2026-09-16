@@ -86,7 +86,7 @@ export default function GBNExperience({ data }: GBNExperienceProps = {}) {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-slate-900 dark:text-white mb-4">
             {heading}
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 dark:text-gray-400 font-light max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-900 dark:text-gray-400 font-normal max-w-2xl mx-auto">
             {subtitle}
           </p>
         </div>
@@ -96,10 +96,10 @@ export default function GBNExperience({ data }: GBNExperienceProps = {}) {
           <div className="bg-slate-50 dark:bg-gbn-navy-light/40 border border-slate-200 dark:border-white/5 rounded-sm p-8 md:p-12 relative overflow-hidden flex flex-col shadow-sm dark:shadow-none group">
             <div className="mb-8">
               <h3 className="text-2xl sm:text-3xl font-serif text-slate-900 dark:text-white mb-2">{circleTitle}</h3>
-              <p className="text-[10px] uppercase font-bold tracking-widest text-slate-600 dark:text-gray-400 mb-6 border border-slate-300 dark:border-white/10 inline-block px-3 py-1">
+              <p className="text-[10px] uppercase font-bold tracking-widest text-slate-900 dark:text-gray-400 mb-6 border border-slate-300 dark:border-white/10 inline-block px-3 py-1">
                 {circleBadge}
               </p>
-              <p className="text-slate-600 dark:text-gray-300 font-light leading-relaxed">
+              <p className="text-slate-800 dark:text-gray-300 font-normal leading-relaxed">
                 {circleDesc}
               </p>
             </div>
@@ -110,9 +110,9 @@ export default function GBNExperience({ data }: GBNExperienceProps = {}) {
               </h4>
               <ul className="space-y-3 mb-8 text-sm">
                 {circleFeatures.map((feat: string, idx: number) => (
-                  <li key={idx} className="flex items-start text-slate-600 dark:text-gray-400">
+                  <li key={idx} className="flex items-start text-slate-800 dark:text-gray-400">
                     <Check className="w-4 h-4 text-[#a88235] dark:text-gray-400 mr-3 shrink-0 mt-0.5" />
-                    <span className="font-light">{feat}</span>
+                    <span className="font-normal">{feat}</span>
                   </li>
                 ))}
               </ul>
@@ -121,7 +121,7 @@ export default function GBNExperience({ data }: GBNExperienceProps = {}) {
             <div className="mt-auto pt-6 border-t border-slate-200 dark:border-white/5">
               <Link
                 href={circleBtnLink}
-                className="w-full bg-transparent border border-slate-300 dark:border-white/20 text-slate-800 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase flex items-center justify-center"
+                className="w-full bg-transparent border border-slate-300 dark:border-white/20 text-slate-950 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase flex items-center justify-center"
               >
                 {circleBtnText}
               </Link>
@@ -139,7 +139,7 @@ export default function GBNExperience({ data }: GBNExperienceProps = {}) {
               <p className="text-[10px] uppercase font-bold tracking-widest text-[#a88235] dark:text-gbn-gold mb-6 border border-[#c5a059]/40 dark:border-gbn-gold/30 inline-block px-3 py-1">
                 {eliteBadge}
               </p>
-              <p className="text-slate-600 dark:text-gray-300 font-light leading-relaxed">
+              <p className="text-slate-800 dark:text-gray-300 font-normal leading-relaxed">
                 {eliteDesc}
               </p>
             </div>
@@ -150,9 +150,9 @@ export default function GBNExperience({ data }: GBNExperienceProps = {}) {
               </h4>
               <ul className="space-y-3 mb-8 text-sm">
                 {eliteFeatures.map((feat: string, idx: number) => (
-                  <li key={idx} className="flex items-start text-slate-700 dark:text-gray-300">
+                  <li key={idx} className="flex items-start text-slate-900 dark:text-gray-300">
                     <Check className="w-4 h-4 text-[#c5a059] mr-3 shrink-0 mt-0.5" />
-                    <span className="font-light">{feat}</span>
+                    <span className="font-normal">{feat}</span>
                   </li>
                 ))}
               </ul>

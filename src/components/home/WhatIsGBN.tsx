@@ -60,7 +60,7 @@ export default function WhatIsGBN({ data }: WhatIsGBNProps = {}) {
             {heading}
           </h2>
 
-          <div className="space-y-4 text-base sm:text-lg text-slate-600 dark:text-gray-300 font-light leading-relaxed max-w-2xl">
+          <div className="space-y-4 text-base sm:text-lg text-slate-900 dark:text-gray-300 font-normal leading-relaxed max-w-2xl">
             <p>{description}</p>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function WhatIsGBN({ data }: WhatIsGBNProps = {}) {
               <h3 className="text-sm uppercase tracking-wider font-bold text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-gbn-gold mb-3 transition-colors">
                 {point.title}
               </h3>
-              <p className="text-slate-600 dark:text-gray-400 font-light text-sm leading-relaxed">
+              <p className="text-slate-800 dark:text-gray-400 font-normal text-sm leading-relaxed">
                 {point.description}
               </p>
             </div>
