@@ -30,11 +30,11 @@
 
 :root {
   --background: #f8f9fa;
-  --foreground: #0b162c;
+  --foreground: #030712;
   --card-bg: #ffffff;
   --card-border: rgba(0, 0, 0, 0.08);
   --section-alt: #f1f5f9;
-  --text-muted: #64748b;
+  --text-muted: #1e293b;
   --header-bg: rgba(255, 255, 255, 0.95);
   --header-border: rgba(0, 0, 0, 0.06);
 }
@@ -257,7 +257,8 @@ html {
 }
 
 /* Light Theme Universal Polish & Fallbacks */
-html.light .bg-gbn-navy {
+html.light .bg-gbn-navy,
+html:not(.dark) .bg-gbn-navy {
   background-color: #ffffff;
 }
 
@@ -265,17 +266,80 @@ html.light .bg-gbn-navy-light\/40,
 html.light .bg-gbn-navy-light\/50,
 html.light .bg-gbn-navy-light\/60,
 html.light .bg-gbn-navy-light\/70,
-html.light .bg-gbn-navy-light {
+html.light .bg-gbn-navy-light,
+html:not(.dark) .bg-gbn-navy-light\/40,
+html:not(.dark) .bg-gbn-navy-light\/50,
+html:not(.dark) .bg-gbn-navy-light\/60,
+html:not(.dark) .bg-gbn-navy-light\/70,
+html:not(.dark) .bg-gbn-navy-light {
   background-color: #f8f9fa;
 }
 
-html.light .bg-\[\#070b19\] {
+html.light .bg-\[\#070b19\],
+html:not(.dark) .bg-\[\#070b19\] {
   background-color: #f8f9fa;
 }
 
 html.light .border-white\/5,
 html.light .border-white\/10,
 html.light .border-white\/15,
-html.light .border-white\/20 {
+html.light .border-white\/20,
+html:not(.dark) .border-white\/5,
+html:not(.dark) .border-white\/10,
+html:not(.dark) .border-white\/15,
+html:not(.dark) .border-white\/20 {
   border-color: rgba(11, 22, 44, 0.08);
+}
+
+/* Light Theme High-Contrast Darker Typography */
+html.light,
+html:not(.dark) {
+  color: #030712;
+}
+
+html.light body,
+html:not(.dark) body {
+  color: #030712;
+}
+
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6,
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6 {
+  color: #030712;
+}
+
+/* Darken slate and gray font colors in light theme */
+html.light .text-slate-600,
+html:not(.dark) .text-slate-600 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-700,
+html:not(.dark) .text-slate-700 {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-500,
+html:not(.dark) .text-slate-500 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400,
+html:not(.dark) .text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Ensure font-light body text is not faint / washed out on white */
+html.light .font-light,
+html:not(.dark) .font-light {
+  font-weight: 400 !important;
 }
