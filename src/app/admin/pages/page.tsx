@@ -192,6 +192,29 @@ export default function AdminPagesOverview() {
         </div>
       )}
 
+      {/* Quick Visibility Controls Banner */}
+      <div className="mb-8 p-5 bg-gradient-to-r from-slate-900 to-[#121c38] border border-[#c5a059]/40 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg">
+        <div className="flex items-start gap-3">
+          <div className="p-2.5 bg-[#c5a059]/10 rounded-xl border border-[#c5a059]/30 text-[#c5a059] shrink-0">
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+              Feature &amp; Section Visibility Controls
+            </h3>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Easily show or hide the <strong>Member Community Section</strong>, <strong>Members Navigation</strong>, and <strong>LinkedIn Icons/Links</strong> directly without editing code.
+            </p>
+          </div>
+        </div>
+        <Link
+          href="/admin/pages/home"
+          className="px-4 py-2 bg-[#c5a059] hover:bg-[#d8b26a] text-black text-xs font-bold rounded-lg transition-colors shrink-0 shadow-md flex items-center gap-1.5"
+        >
+          Open Visibility Toggles &rarr;
+        </Link>
+      </div>
+
       {/* Pages Grid */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">

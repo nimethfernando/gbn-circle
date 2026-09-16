@@ -8,7 +8,7 @@ import GlobalNetwork from "@/components/home/GlobalNetwork";
 import Events from "@/components/home/Events";
 import Leadership from "@/components/home/Leadership";
 import Inspiration from "@/components/home/Inspiration";
-// import MemberCommunity from "@/components/home/MemberCommunity";
+import MemberCommunity from "@/components/home/MemberCommunity";
 import GBNJourney from "@/components/home/GBNJourney";
 import FinalCTA from "@/components/home/FinalCTA";
 import Contact from "@/components/home/Contact";
@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const content = await getPageContent('home');
+  const showMemberSection = Boolean(content?.visibility?.showMemberSection);
 
   return (
     <main className="flex-1 w-full flex flex-col">
@@ -31,7 +32,7 @@ export default async function Home() {
       <Events />
       <Leadership />
       <Inspiration />
-      {/* <MemberCommunity /> - Hidden as requested */}
+      {showMemberSection && <MemberCommunity />}
       <GBNJourney />
       {/* TESTIMONIALS & VERIFIED IMPACT sections omitted for now, as per PRD "hide this section completely if not available" */}
       <FinalCTA data={content.finalCta} />

@@ -400,6 +400,133 @@ export default function AdminPageEditor() {
           {/* ======================= HOME PAGE EDITOR ======================= */}
           {slug === 'home' && (
             <>
+              {/* Feature Visibility Controls (No-Code Toggles) */}
+              <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border-2 border-[#c5a059]/40 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-6">
+                  <div>
+                    <div className="flex items-center gap-2 text-[#c5a059]">
+                      <Sparkles size={20} />
+                      <h2 className="text-xl font-bold font-serif text-white">
+                        Feature Visibility Controls (No-Code Toggles)
+                      </h2>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Turn sections and navigation elements ON or OFF without touching any code. Click &quot;Save Changes&quot; below to apply to the live site.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  {/* Toggle 1: Member Community Section */}
+                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                          Member Community Section
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                            content.visibility?.showMemberSection
+                              ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                              : 'bg-slate-900 text-slate-400 border border-slate-700'
+                          }`}
+                        >
+                          {content.visibility?.showMemberSection ? 'Visible' : 'Hidden'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        Show the &quot;Member Community&quot; showcase section on the homepage.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateNestedField('visibility', 'showMemberSection', !content.visibility?.showMemberSection)
+                      }
+                      className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                        content.visibility?.showMemberSection
+                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                      }`}
+                    >
+                      {content.visibility?.showMemberSection ? 'Hide from Homepage' : 'Unhide on Homepage'}
+                    </button>
+                  </div>
+
+                  {/* Toggle 2: Members in Navigation */}
+                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                          &quot;Members&quot; Menu Item
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                            content.visibility?.showMemberNav
+                              ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                              : 'bg-slate-900 text-slate-400 border border-slate-700'
+                          }`}
+                        >
+                          {content.visibility?.showMemberNav ? 'Visible' : 'Hidden'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        Show &quot;Members&quot; in top Header navigation and bottom Footer navigation.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateNestedField('visibility', 'showMemberNav', !content.visibility?.showMemberNav)
+                      }
+                      className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                        content.visibility?.showMemberNav
+                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                      }`}
+                    >
+                      {content.visibility?.showMemberNav ? 'Hide from Navigation' : 'Unhide in Navigation'}
+                    </button>
+                  </div>
+
+                  {/* Toggle 3: Global LinkedIn */}
+                  <div className="bg-slate-950/80 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                          LinkedIn Icon &amp; Links
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                            content.visibility?.showLinkedIn
+                              ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                              : 'bg-slate-900 text-slate-400 border border-slate-700'
+                          }`}
+                        >
+                          {content.visibility?.showLinkedIn ? 'Visible' : 'Hidden'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        Show LinkedIn icon in Footer, Contact page, and Leadership team cards.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateNestedField('visibility', 'showLinkedIn', !content.visibility?.showLinkedIn)
+                      }
+                      className={`w-full py-2.5 px-4 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                        content.visibility?.showLinkedIn
+                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/30'
+                          : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                      }`}
+                    >
+                      {content.visibility?.showLinkedIn ? 'Hide Site-Wide' : 'Unhide Site-Wide'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               {/* Section: Hero */}
               <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div className="flex items-center gap-2.5 mb-6 border-b border-slate-800 pb-3">
@@ -1130,9 +1257,23 @@ export default function AdminPageEditor() {
 
               {/* Profiles */}
               <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
-                <div className="flex items-center gap-2.5 mb-6 border-b border-slate-800 pb-3">
-                  <Layers size={18} className="text-[#c5a059]" />
-                  <h2 className="text-lg font-bold font-serif text-white">2. Leadership Profiles</h2>
+                <div className="flex items-center justify-between mb-6 border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <Layers size={18} className="text-[#c5a059]" />
+                    <h2 className="text-lg font-bold font-serif text-white">2. Leadership Profiles</h2>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setContent((prev: any) => ({ ...prev, showLinkedIn: !prev?.showLinkedIn }))}
+                    className={`text-[10px] font-bold px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
+                      content.showLinkedIn
+                        ? 'bg-emerald-950 border-emerald-600 text-emerald-300'
+                        : 'bg-slate-800 border-slate-700 text-slate-400'
+                    }`}
+                  >
+                    <span>LinkedIn on Cards:</span>
+                    <span>{content.showLinkedIn ? '● Visible' : '○ Hidden'}</span>
+                  </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1487,9 +1628,24 @@ export default function AdminPageEditor() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
-                      LinkedIn Profile URL
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                        LinkedIn Profile URL
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateNestedField('channels', 'showLinkedIn', !content.channels?.showLinkedIn)
+                        }
+                        className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition-all ${
+                          content.channels?.showLinkedIn
+                            ? 'bg-emerald-950 border-emerald-600 text-emerald-300'
+                            : 'bg-slate-800 border-slate-700 text-slate-400'
+                        }`}
+                      >
+                        {content.channels?.showLinkedIn ? '● Visible on Page' : '○ Hidden on Page'}
+                      </button>
+                    </div>
                     <input
                       type="text"
                       value={content.channels?.linkedInUrl || ''}

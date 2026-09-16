@@ -6,7 +6,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function Header() {
+interface HeaderProps {
+  showMembers?: boolean;
+}
+
+export default function Header({ showMembers = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -26,6 +30,7 @@ export default function Header() {
     { name: "Leadership", href: "/leadership" },
     { name: "Events", href: "/events" },
     { name: "Blogs", href: "/blogs" },
+    ...(showMembers ? [{ name: "Members", href: "/members" }] : []),
     { name: "Contact", href: "/contact" },
   ];
 

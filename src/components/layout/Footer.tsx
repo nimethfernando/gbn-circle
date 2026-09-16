@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Footer() {
+interface FooterProps {
+    showMembers?: boolean;
+    showLinkedIn?: boolean;
+}
+
+export default function Footer({ showMembers = false, showLinkedIn = false }: FooterProps) {
     const currentYear = new Date().getFullYear();
 
     const navLinks = [
@@ -11,6 +16,7 @@ export default function Footer() {
         { name: "Leadership", href: "/leadership" },
         { name: "Events", href: "/events" },
         { name: "Blogs", href: "/blogs" },
+        ...(showMembers ? [{ name: "Members", href: "/members" }] : []),
         { name: "Contact", href: "/contact" },
     ];
 
@@ -77,7 +83,7 @@ export default function Footer() {
                         </ul>
 
                         <h4 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Social</h4>
-                        <div className="flex space-x-4">
+                        <div className="flex space-x-4 items-center">
                             <a
                                 href="https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr"
                                 target="_blank"
@@ -86,6 +92,19 @@ export default function Footer() {
                             >
                                 <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">IG</span> Instagram
                             </a>
+                            {showLinkedIn && (
+                                <>
+                                    <span className="text-gray-600">|</span>
+                                    <a
+                                        href="https://www.linkedin.com/company/gbn-circle/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium"
+                                    >
+                                        <span className="font-bold border border-current rounded-full w-5 h-5 flex items-center justify-center text-[10px]">LI</span> LinkedIn
+                                    </a>
+                                </>
+                            )}
                         </div>
                     </div>
 

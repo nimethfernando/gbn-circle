@@ -61,3 +61,26 @@ export async function getPageContent<K extends keyof PageContentMap>(
     return fallback;
   }
 }
+
+export interface SiteVisibilitySettings {
+  showMemberSection: boolean;
+  showMemberNav: boolean;
+  showLinkedIn: boolean;
+}
+
+export async function getSiteVisibility(): Promise<SiteVisibilitySettings> {
+  try {
+    const homeContent = await getPageContent('home');
+    return {
+      showMemberSection: Boolean(homeContent?.visibility?.showMemberSection),
+      showMemberNav: Boolean(homeContent?.visibility?.showMemberNav),
+      showLinkedIn: Boolean(homeContent?.visibility?.showLinkedIn),
+    };
+  } catch {
+    return {
+      showMemberSection: false,
+      showMemberNav: false,
+      showLinkedIn: false,
+    };
+  }
+}

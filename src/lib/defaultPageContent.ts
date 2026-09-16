@@ -96,6 +96,11 @@ export interface HomePageContent {
     eliteBtnLink: string;
     footnote: string;
   };
+  visibility?: {
+    showMemberSection?: boolean;
+    showMemberNav?: boolean;
+    showLinkedIn?: boolean;
+  };
 }
 
 export interface AboutPageContent {
@@ -188,6 +193,7 @@ export interface LeadershipPageContent {
     secondaryBtnText: string;
     secondaryBtnLink: string;
   };
+  showLinkedIn?: boolean;
 }
 
 export interface ContactPageContent {
@@ -204,6 +210,7 @@ export interface ContactPageContent {
     indiaOffice: string;
     instagramUrl: string;
     linkedInUrl: string;
+    showLinkedIn?: boolean;
   };
   form: {
     submitBtnText: string;
@@ -429,6 +436,11 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
       eliteBtnLink: "/contact",
       footnote:
         "* Full membership plans, regional chapter dues, and onboarding schedules are provided upon executive application review.",
+    },
+    visibility: {
+      showMemberSection: false,
+      showMemberNav: false,
+      showLinkedIn: false,
     },
   },
 
@@ -674,6 +686,7 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
       secondaryBtnText: "Explore the Community",
       secondaryBtnLink: "/community",
     },
+    showLinkedIn: false,
   },
 
   contact: {
@@ -692,6 +705,7 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
         "3rd floor, 243, Seva Sadan Marg, Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004",
       instagramUrl: "https://www.instagram.com/gbncircle?stkn=dTNpdGd1d3c2YjJ4&utm_source=qr",
       linkedInUrl: "https://www.linkedin.com/company/gbn-circle/",
+      showLinkedIn: false,
     },
     form: {
       submitBtnText: "Contact GBN Circle",

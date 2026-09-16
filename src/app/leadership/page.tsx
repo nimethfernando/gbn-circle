@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function LeadershipPage() {
   const content = await getPageContent('leadership');
+  const showLinkedIn = Boolean(content?.showLinkedIn);
 
   const defaultProfiles = [
     {
@@ -220,8 +221,8 @@ export default async function LeadershipPage() {
                     </ul>
                   </div>
 
-                  {/* Connect with Leader (LinkedIn hidden as of now) */}
-                  {/* {leader.linkedinUrl && (
+                  {/* Connect with Leader (Controlled via Admin CMS) */}
+                  {showLinkedIn && leader.linkedinUrl && (
                     <div className="pt-2 border-t border-[#1e293b]/60 flex items-center justify-between">
                       <span className="text-xs text-slate-400">Connect</span>
                       <a
@@ -239,7 +240,7 @@ export default async function LeadershipPage() {
                         </svg>
                       </a>
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
             ))}

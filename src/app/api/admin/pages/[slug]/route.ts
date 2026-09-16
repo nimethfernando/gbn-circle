@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
 import { verifyAdminToken } from '@/lib/auth';
@@ -109,6 +110,13 @@ export async function PUT(
       },
     });
 
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath(pageDef.path);
+    } catch (revalErr) {
+      console.warn('Revalidation warning:', revalErr);
+    }
+
     return NextResponse.json({
       success: true,
       message: `Content for ${pageDef.title} has been successfully updated.`,
@@ -151,6 +159,13 @@ export async function DELETE(
     await prisma.pageContent.deleteMany({
       where: { slug },
     });
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath(pageDef.path);
+    } catch (revalErr) {
+      console.warn('Revalidation warning:', revalErr);
+    }
 
     return NextResponse.json({
       success: true,
