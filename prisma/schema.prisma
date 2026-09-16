@@ -3,7 +3,33 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
+}
+
+model PageContent {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  data      String   @db.LongText    // Holds full page CMS JSON
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String   @db.Text
+  content     String   @db.LongText    // Full article body
+  takeaways   String?  @db.Text
+  image       String   @db.Text
+  category    String   @default("Networking & Trust")
+  readTime    String   @default("5 min read")
+  authorName  String   @default("GBN Executive Board")
+  authorRole  String   @default("Global Business Network Leadership")
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Event {
@@ -16,24 +42,24 @@ model Event {
   startTime            String
   endTime              String
   timezone             String           @default("IST")
-  image                String
-  shortDescription     String
-  fullDescription      String?
-  eligibility          String
+  image                String           @db.Text
+  shortDescription     String           @db.Text
+  fullDescription      String?          @db.LongText
+  eligibility          String           @db.Text
   allowVisitorRequests Boolean          @default(true)
   fee                  String           @default("Free")
   capacity             Int?
   venueName            String?
-  venueAddress         String?
+  venueAddress         String?          @db.Text
   venueCity            String?
   venueCountry         String?
-  privateMeetingLink   String?
+  privateMeetingLink   String?          @db.Text
   meetingId            String?
   passcode             String?
   speakerHost          String?
-  agenda               String?
-  whatToExpect         String?
-  additionalInfo       String?
+  agenda               String?          @db.Text
+  whatToExpect         String?          @db.Text
+  additionalInfo       String?          @db.Text
   supportContact       String?
   status               String           @default("PUBLISHED")
   createdAt            DateTime         @default(now())
@@ -55,8 +81,8 @@ model VisitorRequest {
   industry           String
   website            String?
   linkedIn           String?
-  whyAttend          String
-  collaborationGoals String
+  whyAttend          String   @db.Text
+  collaborationGoals String   @db.Text
   status             String   @default("PENDING")
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
@@ -70,26 +96,8 @@ model ContactSubmission {
   companyName String?
   designation String?
   interest    String?  @default("Membership")
-  message     String
+  message     String   @db.Text
   status      String   @default("NEW")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Blog {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String
-  content     String
-  takeaways   String?
-  image       String
-  category    String   @default("Networking & Trust")
-  readTime    String   @default("5 min read")
-  authorName  String   @default("GBN Executive Board")
-  authorRole  String   @default("Global Business Network Leadership")
-  published   Boolean  @default(true)
-  featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -109,12 +117,4 @@ model Member {
   linkedIn     String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-}
-
-model PageContent {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  title     String
-  data      String
-  updatedAt DateTime @updatedAt
 }

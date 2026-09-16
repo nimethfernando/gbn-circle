@@ -11,12 +11,14 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.0",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "clsx": "^2.1.1",
     "framer-motion": "^13.2.0",
     "jose": "^6.2.12",
     "lucide-react": "^1.42.0",
+    "mariadb": "^3.5.4",
     "next": "16.3.4",
     "nodemailer": "^10.0.1",
     "pg": "^8.13.0",
