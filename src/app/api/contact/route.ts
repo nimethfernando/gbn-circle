@@ -54,10 +54,11 @@ export async function POST(req: NextRequest) {
 
         // Send alert to Admin
         await transporter.sendMail({
-          from: `"GBN Circle Inquiries" <${process.env.EMAIL_USER}>`,
+          from: `"${fullName}" <${email}>`,
+          sender: process.env.EMAIL_USER,
           to: targetAdminEmail,
           replyTo: `"${fullName}" <${email}>`,
-          subject: `[New Inquiry - ${interest || 'GBN Circle'}] from ${fullName}`,
+          subject: `[Contact Form] ${fullName} (${email}) - ${interest || 'GBN Circle'}`,
           html: `
             <div style="background-color: #070b19; color: #ffffff; padding: 32px 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border-radius: 12px; border: 1px solid #1e293b;">
               <div style="border-bottom: 1px solid #1e293b; padding-bottom: 16px; margin-bottom: 24px;">
