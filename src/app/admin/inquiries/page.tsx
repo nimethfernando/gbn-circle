@@ -12,7 +12,9 @@ import {
   Archive,
   Trash2,
   MessageSquare,
+  KeyRound,
 } from 'lucide-react';
+import ChangePasswordModal from '@/components/admin/ChangePasswordModal';
 
 interface ContactSubmission {
   id: string;
@@ -37,6 +39,7 @@ export default function AdminInquiriesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeInquiry, setActiveInquiry] = useState<ContactSubmission | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -165,16 +168,26 @@ export default function AdminInquiriesPage() {
           </p>
         </div>
 
-        <button
-          onClick={handleLogout}
-          disabled={loggingOut}
-          className="self-start sm:self-center px-4 py-2 bg-slate-900 hover:bg-red-950/60 border border-slate-800 hover:border-red-600/50 text-slate-300 hover:text-red-300 text-xs font-semibold rounded-lg transition-all flex items-center gap-2 shadow-sm disabled:opacity-50"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
-          {loggingOut ? 'Signing out...' : 'Sign Out'}
-        </button>
+        <div className="flex items-center gap-2 self-start sm:self-center">
+          <button
+            onClick={() => setShowChangePassword(true)}
+            className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-[#c5a059]/40 text-slate-300 hover:text-white text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shadow-sm"
+          >
+            <KeyRound size={14} className="text-[#c5a059]" />
+            <span>Change Password</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className="px-3.5 py-2 bg-slate-900 hover:bg-red-950/60 border border-slate-800 hover:border-red-600/50 text-slate-300 hover:text-red-300 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-50"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            {loggingOut ? 'Signing out...' : 'Sign Out'}
+          </button>
+        </div>
       </div>
 
       {/* Admin Module Tabs */}
@@ -518,6 +531,11 @@ export default function AdminInquiriesPage() {
           </div>
         </div>
       )}
+
+      <ChangePasswordModal
+        isOpen={showChangePassword}
+        onClose={() => setShowChangePassword(false)}
+      />
     </div>
   );
 }

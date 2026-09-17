@@ -18,7 +18,9 @@ import {
   X,
   Loader2,
   ExternalLink,
+  KeyRound,
 } from 'lucide-react';
+import ChangePasswordModal from '@/components/admin/ChangePasswordModal';
 
 interface BlogArticle {
   id: string;
@@ -60,6 +62,7 @@ export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
   const [statusFilter, setStatusFilter] = useState('ALL');
@@ -367,9 +370,17 @@ export default function AdminBlogsPage() {
           </Link>
 
           <button
+            onClick={() => setShowChangePassword(true)}
+            className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-[#c5a059]/40 text-slate-300 hover:text-white text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shadow-sm"
+          >
+            <KeyRound size={14} className="text-[#c5a059]" />
+            <span>Change Password</span>
+          </button>
+
+          <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="px-4 py-2 bg-slate-900 hover:bg-red-950/60 border border-slate-800 hover:border-red-600/50 text-slate-300 hover:text-red-300 text-xs font-semibold rounded-lg transition-all flex items-center gap-2 shadow-sm disabled:opacity-50"
+            className="px-3.5 py-2 bg-slate-900 hover:bg-red-950/60 border border-slate-800 hover:border-red-600/50 text-slate-300 hover:text-red-300 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-50"
           >
             {loggingOut ? 'Signing out...' : 'Sign Out'}
           </button>
@@ -843,6 +854,11 @@ export default function AdminBlogsPage() {
           </div>
         </div>
       )}
+
+      <ChangePasswordModal
+        isOpen={showChangePassword}
+        onClose={() => setShowChangePassword(false)}
+      />
     </div>
   );
 }

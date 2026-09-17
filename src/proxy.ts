@@ -8,8 +8,8 @@ const SECRET_KEY = new TextEncoder().encode(
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow unauthenticated access to the login API
-  if (pathname === '/api/admin/login') {
+  // Allow unauthenticated access to the login and forgot-password APIs
+  if (pathname === '/api/admin/login' || pathname.startsWith('/api/admin/forgot-password')) {
     return NextResponse.next();
   }
 

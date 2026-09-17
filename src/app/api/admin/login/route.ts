@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSession } from '@/lib/auth';
+import { verifyAdminPassword } from '@/lib/adminSecurity';
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,9 +11,16 @@ export async function POST(req: NextRequest) {
       (process.env.ADMIN_EMAIL || '').trim().toLowerCase(),
       'gbncircle@gmail.com',
     ].filter(Boolean);
-    const validPassword = process.env.ADMIN_PASSWORD || 'supersecretadminpassword123';
 
-    if (!validEmails.includes(normalizedEmail) || password !== validPassword) {
+    if (!validEmails.includes(normalizedEmail)) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid administrative credentials' },
+        { status: 401 }
+      );
+    }
+
+    const isPasswordValid = await verifyAdminPassword(password);
+    if (!isPasswordValid) {
       return NextResponse.json(
         { success: false, message: 'Invalid administrative credentials' },
         { status: 401 }
