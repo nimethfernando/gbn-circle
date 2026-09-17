@@ -8,9 +8,7 @@ export async function POST(req: NextRequest) {
     const normalizedEmail = (email || '').trim().toLowerCase();
     const validEmails = [
       (process.env.ADMIN_EMAIL || '').trim().toLowerCase(),
-      (process.env.EMAIL_USER || '').trim().toLowerCase(),
       'gbncircle@gmail.com',
-      'admin@gbncircle.com',
     ].filter(Boolean);
     const validPassword = process.env.ADMIN_PASSWORD || 'supersecretadminpassword123';
 
