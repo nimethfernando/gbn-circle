@@ -13,7 +13,6 @@ import {
   ChevronRight,
   ExternalLink,
   ShieldCheck,
-  Sparkles,
   AlertCircle,
   ArrowDown,
 } from 'lucide-react';
@@ -225,8 +224,8 @@ export default function EventsPage() {
       <section className="relative overflow-hidden pt-32 pb-16 sm:pb-24 border-b border-slate-200 dark:border-white/5">
         <div className="absolute inset-0 bg-radial-gradient from-slate-200/60 dark:from-slate-900/60 via-slate-100/40 dark:via-[#070b19] to-slate-50 dark:to-[#070b19]"></div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 text-[#b38838] dark:text-[#c5a059] text-xs uppercase tracking-widest font-bold mb-6">
-            <Sparkles size={14} /> Executive Event Platform
+          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 text-[#b38838] dark:text-[#c5a059] text-xs uppercase tracking-widest font-bold mb-6">
+            Executive Event Platform
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-bold font-serif text-slate-900 dark:text-white tracking-tight leading-tight">
