@@ -49,8 +49,7 @@ export async function POST(req: NextRequest) {
           },
         });
 
-        const targetAdminEmail =
-          process.env.ADMIN_EMAIL || process.env.EMAIL_USER || 'gbncircle@gmail.com';
+        const targetAdminEmail = 'gbncircle@gmail.com';
 
         // Send alert to Admin
         await transporter.sendMail({
