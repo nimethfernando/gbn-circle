@@ -80,7 +80,9 @@ npm install
 Create a `.env` file in the root directory:
 ```env
 DATABASE_URL="your-database-connection-string"
-ADMIN_PASSWORD="your-admin-secure-password"
+ADMIN_JWT_SECRET="your-32-character-secret"
+EMAIL_USER="your-sender-email@gmail.com"
+EMAIL_PASS="your-app-password"
 ```
 
 ### Database Migration & Seeding:

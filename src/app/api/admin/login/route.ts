@@ -1,18 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSession } from '@/lib/auth';
-import { verifyAdminPassword } from '@/lib/adminSecurity';
+import { verifyAdminPassword, ADMIN_PRIMARY_EMAIL } from '@/lib/adminSecurity';
 
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
 
     const normalizedEmail = (email || '').trim().toLowerCase();
-    const validEmails = [
-      (process.env.ADMIN_EMAIL || '').trim().toLowerCase(),
-      'gbncircle@gmail.com',
-    ].filter(Boolean);
 
-    if (!validEmails.includes(normalizedEmail)) {
+    // Strictly enforce ADMIN_PRIMARY_EMAIL as the administrator email
+    if (normalizedEmail !== ADMIN_PRIMARY_EMAIL) {
       return NextResponse.json(
         { success: false, message: 'Invalid administrative credentials' },
         { status: 401 }

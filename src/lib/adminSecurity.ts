@@ -76,19 +76,17 @@ async function saveAdminSecurityRecord(data: AdminSecurityData): Promise<void> {
 }
 
 /**
- * Verify if the entered password matches either the custom hashed password or default fallback
+ * Verify if the entered password matches the database-stored hash
  */
 export async function verifyAdminPassword(password: string): Promise<boolean> {
   const record = await getAdminSecurityRecord();
 
-  // If a custom password has been saved to the database, verify against its hash
+  // Verify strictly against the database-stored hash
   if (record.passwordHash) {
     return verifyPassword(password, record.passwordHash);
   }
 
-  // Fallback to environment variable or standard initial default
-  const defaultPassword = process.env.ADMIN_PASSWORD || 'supersecretadminpassword123';
-  return password === defaultPassword;
+  return false;
 }
 
 /**

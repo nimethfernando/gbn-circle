@@ -7,12 +7,7 @@ export async function POST(req: NextRequest) {
     const { email } = await req.json();
     const normalizedEmail = (email || '').trim().toLowerCase();
 
-    const allowedAdminEmails = [
-      (process.env.ADMIN_EMAIL || '').trim().toLowerCase(),
-      ADMIN_PRIMARY_EMAIL,
-    ].filter(Boolean);
-
-    if (!allowedAdminEmails.includes(normalizedEmail)) {
+    if (normalizedEmail !== ADMIN_PRIMARY_EMAIL) {
       return NextResponse.json(
         { success: false, message: 'The provided email is not registered as an administrator.' },
         { status: 400 }
