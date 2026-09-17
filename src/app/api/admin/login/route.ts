@@ -6,10 +6,15 @@ export async function POST(req: NextRequest) {
     const { email, password } = await req.json();
 
     const normalizedEmail = (email || '').trim().toLowerCase();
-    const validEmail = (process.env.ADMIN_EMAIL || 'admin@gbncircle.com').trim().toLowerCase();
+    const validEmails = [
+      (process.env.ADMIN_EMAIL || '').trim().toLowerCase(),
+      (process.env.EMAIL_USER || '').trim().toLowerCase(),
+      'gbncircle@gmail.com',
+      'admin@gbncircle.com',
+    ].filter(Boolean);
     const validPassword = process.env.ADMIN_PASSWORD || 'supersecretadminpassword123';
 
-    if (normalizedEmail !== validEmail || password !== validPassword) {
+    if (!validEmails.includes(normalizedEmail) || password !== validPassword) {
       return NextResponse.json(
         { success: false, message: 'Invalid administrative credentials' },
         { status: 401 }
