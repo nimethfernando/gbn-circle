@@ -20,7 +20,7 @@ export default async function LeadershipPage() {
     {
       name: 'Amit Batra',
       role: 'Founder',
-      image: '/event-leadership-C1eE1_9Q.jpg', // Replace with approved authentic portrait
+      image: '/event-leadership-C1eE1_9Q.jpg',
       statement:
         'Amit Batra is the Founder of GBN Circle, driven by the vision of creating a trusted global business networking ecosystem where meaningful relationships create meaningful growth. His vision is to bring entrepreneurs, professionals and business leaders together in an environment where genuine conversations can lead to collaboration, opportunities and long-term relationships.',
       focus: [
@@ -29,12 +29,12 @@ export default async function LeadershipPage() {
         'Community Development',
         'Long-Term Growth',
       ],
-      linkedinUrl: '#', // Add official profile link when available
+      linkedinUrl: '#',
     },
     {
       name: 'Asha Bhasin',
       role: 'Co-Founder',
-      image: '/event-leadership-C1eE1_9Q (1).jpg', // Replace with approved authentic portrait
+      image: '/event-leadership-C1eE1_9Q (1).jpg',
       statement:
         'Asha Bhasin is part of the leadership team helping build the foundation, community and long-term growth of GBN Circle. Her role reflects the importance of building a strong and sustainable community — one where relationships, trust and collaboration remain at the heart of the GBN Circle experience.',
       focus: [
@@ -43,12 +43,12 @@ export default async function LeadershipPage() {
         'Community Development',
         'Long-Term Growth',
       ],
-      linkedinUrl: '#', // Add official profile link when available
+      linkedinUrl: '#',
     },
     {
       name: 'Ditya Batra',
       role: 'Chief Inspiration Officer',
-      image: '/vision-wide-Dafp-BMf.jpg', // Replace with approved professional portrait
+      image: '/vision-wide-Dafp-BMf.jpg',
       statement:
         'Ditya Batra is the inspiration behind GBN Circle and the vision of creating a community where people around the world can connect, collaborate and grow together. Her presence represents the human idea at the heart of GBN Circle — that when people come together with purpose, meaningful relationships can create new possibilities.',
       focus: [
@@ -99,12 +99,12 @@ export default async function LeadershipPage() {
     {
       title: 'Global Perspective',
       description:
-        'Think beyond geographical boundaries and build connections across markets and communities.',
+        'Think beyond borders to open new markets and international opportunities.',
     },
     {
-      title: 'Long-Term Growth',
+      title: 'Long-Term Vision',
       description:
-        'Create relationships and opportunities that continue beyond a single meeting.',
+        'Focus on sustainable growth, strong foundations and shared success.',
     },
   ];
 
@@ -115,17 +115,17 @@ export default async function LeadershipPage() {
 
   const defaultJourney = [
     {
-      stage: 'VISION',
+      stage: 'The Vision',
       description:
-        'A vision to bring people together through meaningful business relationships.',
+        'Recognizing the need for a global business network built on relationships rather than purely transactional networking.',
     },
     {
-      stage: 'COMMUNITY',
+      stage: 'Building the Foundation',
       description:
-        'Building a structured and trusted environment for entrepreneurs, professionals and business leaders.',
+        'Creating the structure, values and community standards that define GBN Circle today.',
     },
     {
-      stage: 'GLOBAL NETWORK',
+      stage: 'Expanding Globally',
       description:
         'Creating opportunities for people to connect, collaborate and grow beyond geographical boundaries.',
     },
@@ -137,42 +137,42 @@ export default async function LeadershipPage() {
       : defaultJourney;
 
   return (
-    <main className="min-h-screen bg-[#070b19] text-white selection:bg-[#c5a059] selection:text-black">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#070b19] text-slate-900 dark:text-white selection:bg-[#c5a059] selection:text-black transition-colors duration-200">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-32 pb-20 border-b border-[#1e293b]/60">
+      <section className="relative overflow-hidden pt-32 pb-20 border-b border-slate-200 dark:border-[#1e293b]/60">
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(197,160,89,0.12),transparent_70%)] animate-pulse duration-[8000ms]" />
 
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-          <span className="inline-block px-4 py-1.5 rounded-full border border-[#c5a059]/30 bg-[#c5a059]/10 text-[#e6ca85] text-xs font-semibold tracking-widest uppercase mb-6 transition-all duration-300">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-[#c5a059]/30 bg-[#c5a059]/10 text-[#b38838] dark:text-[#e6ca85] text-xs font-semibold tracking-widest uppercase mb-6 transition-all duration-300">
             {content?.hero?.badge || "Leadership"}
           </span>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
             {content?.hero?.heading || "The People Behind GBN Circle"}
           </h1>
-          <p className="text-base md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed mb-4">
+          <p className="text-base md:text-xl text-slate-700 dark:text-slate-300 font-normal dark:font-light max-w-3xl mx-auto leading-relaxed mb-4">
             {content?.hero?.subtitle ||
               "GBN Circle is built with a simple belief — meaningful relationships create meaningful growth."}
           </p>
-          <p className="text-[#c5a059] font-medium tracking-widest text-xs md:text-sm uppercase">
+          <p className="text-[#b38838] dark:text-[#c5a059] font-medium tracking-widest text-xs md:text-sm uppercase">
             Connect &bull; Collaborate &bull; Grow
           </p>
         </div>
       </section>
 
       {/* 2. LEADERSHIP INTRODUCTION */}
-      <section className="py-20 border-b border-[#1e293b]/60 bg-[#0a1020]">
+      <section className="py-20 border-b border-slate-200 dark:border-[#1e293b]/60 bg-slate-100/70 dark:bg-[#0a1020]">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
+          <span className="text-[#b38838] dark:text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
             {content?.intro?.badge || "Leadership With Purpose"}
           </span>
-          <h2 className="text-2xl md:text-3xl font-serif text-white mb-6">
+          <h2 className="text-2xl md:text-3xl font-serif text-slate-900 dark:text-white mb-6">
             {content?.intro?.heading || "Shaping a Business Community for Genuine Growth"}
           </h2>
-          <p className="text-slate-300 font-light text-base leading-relaxed mb-4">
+          <p className="text-slate-700 dark:text-slate-300 font-normal dark:font-light text-base leading-relaxed mb-4">
             {content?.intro?.p1 ||
               "GBN Circle is more than a networking platform. It is a community shaped by people who believe in the power of relationships, collaboration and shared growth."}
           </p>
-          <p className="text-slate-400 font-light text-sm leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 font-normal dark:font-light text-sm leading-relaxed">
             {content?.intro?.p2 ||
               "Our leadership brings together vision, community building and inspiration to create a business network designed for meaningful, long-term connections."}
           </p>
@@ -180,17 +180,17 @@ export default async function LeadershipPage() {
       </section>
 
       {/* 3, 4, 5. LEADERSHIP PROFILES (3 CARDS IN ONE ROW ON DESKTOP) */}
-      <section className="py-24 border-b border-[#1e293b]/60">
+      <section className="py-24 border-b border-slate-200 dark:border-[#1e293b]/60">
         <div className="max-w-7xl mx-auto px-6">
           <div className={`grid ${gridColsClass} gap-8`}>
             {leadershipProfiles.map((leader, index) => (
               <div
                 key={index}
-                className="rounded-2xl bg-gradient-to-b from-[#0d1629] to-[#090e1a] border border-[#1e293b] p-7 flex flex-col justify-between hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xl shadow-black/30 group"
+                className="rounded-2xl bg-white dark:bg-gradient-to-b dark:from-[#0d1629] dark:to-[#090e1a] border border-slate-200 dark:border-[#1e293b] p-7 flex flex-col justify-between hover:border-[#c5a059]/50 hover:-translate-y-1.5 transition-all duration-300 shadow-sm hover:shadow-md dark:shadow-xl dark:shadow-black/30 group"
               >
                 <div>
                   {/* Authentic Supplied Photo container */}
-                  <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden mb-6 bg-[#070b19] border border-[#1e293b]">
+                  <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden mb-6 bg-slate-100 dark:bg-[#070b19] border border-slate-200 dark:border-[#1e293b]">
                     <Image
                       src={leader.image}
                       alt={leader.name}
@@ -198,36 +198,36 @@ export default async function LeadershipPage() {
                       unoptimized={leader.image?.startsWith('data:') || leader.image?.startsWith('http')}
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-500 filter brightness-95"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090e1a] via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 dark:from-[#090e1a] via-transparent to-transparent opacity-60" />
                   </div>
 
                   {/* Header & Role */}
                   <div className="flex items-baseline justify-between mb-2">
-                    <h3 className="text-2xl font-serif text-white">
+                    <h3 className="text-2xl font-serif text-slate-900 dark:text-white">
                       {leader.name}
                     </h3>
                   </div>
-                  <p className="text-xs uppercase tracking-widest text-[#c5a059] font-medium mb-4">
+                  <p className="text-xs uppercase tracking-widest text-[#b38838] dark:text-[#c5a059] font-medium mb-4">
                     {leader.role}
                   </p>
 
                   {/* Role Statement */}
-                  <p className="text-slate-300 text-sm font-light leading-relaxed mb-6">
+                  <p className="text-slate-700 dark:text-slate-300 text-sm font-normal dark:font-light leading-relaxed mb-6">
                     {leader.statement}
                   </p>
                 </div>
 
                 {/* Focus Area & Social Links */}
                 <div>
-                  <div className="border-t border-[#1e293b] pt-5">
-                    <span className="text-[11px] uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+                  <div className="border-t border-slate-100 dark:border-[#1e293b] pt-5">
+                    <span className="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold block mb-3">
                       Leadership Focus
                     </span>
                     <ul className="space-y-1.5 mb-6">
                       {leader.focus.map((item: string, idx: number) => (
                         <li
                           key={idx}
-                          className="text-xs text-slate-300 flex items-center space-x-2"
+                          className="text-xs text-slate-700 dark:text-slate-300 flex items-center space-x-2"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059]" />
                           <span>{item}</span>
@@ -238,13 +238,13 @@ export default async function LeadershipPage() {
 
                   {/* Connect with Leader (Controlled via Admin CMS) */}
                   {showLinkedIn && leader.linkedinUrl && (
-                    <div className="pt-2 border-t border-[#1e293b]/60 flex items-center justify-between">
-                      <span className="text-xs text-slate-400">Connect</span>
+                    <div className="pt-2 border-t border-slate-100 dark:border-[#1e293b]/60 flex items-center justify-between">
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Connect</span>
                       <a
                         href={leader.linkedinUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs text-[#e6ca85] hover:text-[#ffd979] transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#b38838] dark:text-[#e6ca85] hover:text-[#d4af37] font-semibold transition-colors"
                       >
                         <span>LinkedIn</span>
                         <svg
@@ -264,16 +264,16 @@ export default async function LeadershipPage() {
       </section>
 
       {/* 6. LEADERSHIP PHILOSOPHY */}
-      <section className="py-24 bg-[#0a1020] border-b border-[#1e293b]/60">
+      <section className="py-24 bg-slate-100/70 dark:bg-[#0a1020] border-b border-slate-200 dark:border-[#1e293b]/60">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
+            <span className="text-[#b38838] dark:text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
               Leadership Philosophy
             </span>
-            <h2 className="text-2xl md:text-4xl font-serif text-white mb-4">
+            <h2 className="text-2xl md:text-4xl font-serif text-slate-900 dark:text-white mb-4">
               People First. Relationships Always.
             </h2>
-            <p className="text-slate-300 font-light text-sm md:text-base leading-relaxed">
+            <p className="text-slate-700 dark:text-slate-300 font-normal dark:font-light text-sm md:text-base leading-relaxed">
               At GBN Circle, leadership is not only about building a network. It is about creating an environment where people can build trust, exchange ideas, discover opportunities and grow together.
             </p>
           </div>
@@ -282,13 +282,13 @@ export default async function LeadershipPage() {
             {leadershipPrinciples.map((item: { title: string; description: string }, idx: number) => (
               <div
                 key={idx}
-                className="p-8 rounded-2xl bg-[#070b19] border border-[#1e293b] hover:border-[#c5a059]/40 hover:-translate-y-1 transition-all duration-300"
+                className="p-8 rounded-2xl bg-white dark:bg-[#070b19] border border-slate-200 dark:border-[#1e293b] hover:border-[#c5a059]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm dark:shadow-none"
               >
                 <div className="w-10 h-0.5 bg-[#c5a059] mb-5" />
-                <h3 className="text-lg md:text-xl font-serif text-white mb-2">
+                <h3 className="text-lg md:text-xl font-serif text-slate-900 dark:text-white mb-2">
                   {item.title}
                 </h3>
-                <p className="text-slate-300 font-light text-sm leading-relaxed">
+                <p className="text-slate-700 dark:text-slate-300 font-normal dark:font-light text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -298,13 +298,13 @@ export default async function LeadershipPage() {
       </section>
 
       {/* 7. OUR LEADERSHIP JOURNEY */}
-      <section className="py-24 border-b border-[#1e293b]/60">
+      <section className="py-24 border-b border-slate-200 dark:border-[#1e293b]/60">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
+            <span className="text-[#b38838] dark:text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
               Our Path
             </span>
-            <h2 className="text-2xl md:text-4xl font-serif text-white">
+            <h2 className="text-2xl md:text-4xl font-serif text-slate-900 dark:text-white">
               The Leadership Journey
             </h2>
           </div>
@@ -313,15 +313,15 @@ export default async function LeadershipPage() {
             {journeySteps.map((step: { stage: string; description: string }, idx: number) => (
               <div
                 key={idx}
-                className="p-8 rounded-2xl bg-[#0e172a]/60 border border-[#1e293b] text-center flex flex-col items-center relative"
+                className="p-8 rounded-2xl bg-white dark:bg-[#0e172a]/60 border border-slate-200 dark:border-[#1e293b] text-center flex flex-col items-center relative shadow-sm dark:shadow-none"
               >
-                <div className="w-12 h-12 rounded-full border border-[#c5a059]/40 bg-[#c5a059]/10 text-[#e6ca85] flex items-center justify-center font-serif text-base mb-6">
+                <div className="w-12 h-12 rounded-full border border-[#c5a059]/40 bg-[#c5a059]/10 text-[#b38838] dark:text-[#e6ca85] flex items-center justify-center font-serif text-base mb-6 font-bold">
                   {idx + 1}
                 </div>
-                <h3 className="text-base tracking-widest uppercase font-serif text-white mb-3">
+                <h3 className="text-base tracking-widest uppercase font-serif text-slate-900 dark:text-white mb-3">
                   {step.stage}
                 </h3>
-                <p className="text-slate-300 text-sm font-light leading-relaxed">
+                <p className="text-slate-700 dark:text-slate-300 text-sm font-normal dark:font-light leading-relaxed">
                   {step.description}
                 </p>
               </div>
@@ -331,72 +331,72 @@ export default async function LeadershipPage() {
       </section>
 
       {/* 8. OUR INSPIRATION */}
-      <section className="py-24 bg-[#0a1020] border-b border-[#1e293b]/60">
+      <section className="py-24 bg-slate-100/70 dark:bg-[#0a1020] border-b border-slate-200 dark:border-[#1e293b]/60">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
+          <span className="text-[#b38838] dark:text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
             Our Inspiration
           </span>
-          <h2 className="text-2xl md:text-4xl font-serif text-white mb-6">
+          <h2 className="text-2xl md:text-4xl font-serif text-slate-900 dark:text-white mb-6">
             Inspired by a Simple Idea
           </h2>
-          <p className="text-xl font-serif text-slate-200 mb-6">
+          <p className="text-xl font-serif text-slate-800 dark:text-slate-200 mb-6 font-medium">
             People grow when they connect.
           </p>
 
-          <div className="max-w-xl mx-auto border-y border-[#1e293b] py-6 space-y-2 mb-8 text-slate-300 font-light text-base italic">
+          <div className="max-w-xl mx-auto border-y border-slate-200 dark:border-[#1e293b] py-6 space-y-2 mb-8 text-slate-700 dark:text-slate-300 font-normal dark:font-light text-base italic">
             <p>A conversation can create an idea.</p>
             <p>A relationship can create trust.</p>
             <p>A connection can create an opportunity.</p>
           </div>
 
-          <p className="text-slate-300 font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-6">
+          <p className="text-slate-700 dark:text-slate-300 font-normal dark:font-light text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-6">
             GBN Circle was created around this simple belief — that bringing the right people together can create meaningful possibilities.
           </p>
 
-          <p className="text-[#c5a059] tracking-widest uppercase text-xs md:text-sm font-medium">
+          <p className="text-[#b38838] dark:text-[#c5a059] tracking-widest uppercase text-xs md:text-sm font-semibold">
             Connect &bull; Collaborate &bull; Grow
           </p>
         </div>
       </section>
 
       {/* 9. FINAL LEADERSHIP STATEMENT */}
-      <section className="py-24 border-b border-[#1e293b]/60">
+      <section className="py-24 border-b border-slate-200 dark:border-[#1e293b]/60">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-4xl font-serif text-white mb-6">
+          <h2 className="text-2xl md:text-4xl font-serif text-slate-900 dark:text-white mb-6">
             Building the Network. Shaping the Future.
           </h2>
-          <p className="text-slate-300 text-base md:text-lg font-light leading-relaxed mb-6">
+          <p className="text-slate-700 dark:text-slate-300 text-base md:text-lg font-normal dark:font-light leading-relaxed mb-6">
             GBN Circle is being built for people who believe that business growth is not only about transactions — it is about relationships, trust, collaboration and shared opportunity.
           </p>
-          <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base font-normal dark:font-light leading-relaxed">
             Together, our leadership is building a global business community where people can connect with purpose, collaborate with confidence and grow together.
           </p>
         </div>
       </section>
 
       {/* 10. FINAL CTA */}
-      <section className="py-24 text-center bg-[#070b19]">
+      <section className="py-24 text-center bg-slate-50 dark:bg-[#070b19]">
         <div className="max-w-3xl mx-auto px-6">
-          <span className="text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
+          <span className="text-[#b38838] dark:text-[#c5a059] text-xs font-semibold tracking-widest uppercase block mb-3">
             {content?.finalCta?.badge || "Get Involved"}
           </span>
-          <h2 className="text-2xl md:text-4xl font-serif text-white mb-6">
+          <h2 className="text-2xl md:text-4xl font-serif text-slate-900 dark:text-white mb-6">
             {content?.finalCta?.heading || "Be Part of the GBN Circle"}
           </h2>
-          <p className="text-slate-300 text-base md:text-lg font-light leading-relaxed mb-10 max-w-2xl mx-auto">
+          <p className="text-slate-700 dark:text-slate-300 text-base md:text-lg font-normal dark:font-light leading-relaxed mb-10 max-w-2xl mx-auto">
             {content?.finalCta?.subtitle ||
               "Connect with a community built around meaningful business relationships, collaboration and long-term growth."}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href={content?.finalCta?.primaryBtnLink || "/community"}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-md bg-[#c5a059] text-black font-semibold text-sm hover:bg-[#d4af37] hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-[#c5a059]/10"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-md bg-[#c5a059] text-black font-semibold text-sm hover:bg-[#d4af37] hover:scale-105 active:scale-95 transition-all duration-200 shadow-md shadow-[#c5a059]/10"
             >
               {content?.finalCta?.primaryBtnText || "Join GBN Circle"}
             </Link>
             <Link
               href={content?.finalCta?.secondaryBtnLink || "/community"}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-md border border-[#c5a059]/50 text-[#e6ca85] hover:bg-[#c5a059]/10 hover:border-[#c5a059] hover:scale-105 active:scale-95 text-sm font-medium transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-md border border-slate-300 dark:border-[#c5a059]/50 text-slate-800 dark:text-[#e6ca85] bg-white dark:bg-transparent hover:bg-slate-100 dark:hover:bg-[#c5a059]/10 hover:border-[#c5a059] hover:scale-105 active:scale-95 text-sm font-medium transition-all duration-200 shadow-sm dark:shadow-none"
             >
               {content?.finalCta?.secondaryBtnText || "Explore the Community"}
             </Link>

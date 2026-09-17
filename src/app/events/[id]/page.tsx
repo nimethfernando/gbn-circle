@@ -86,12 +86,12 @@ export default async function EventDetailPage({
 
   if (!event) {
     return (
-      <div className="min-h-screen bg-[#070b19] text-white pt-32 pb-20 flex flex-col items-center justify-center px-4 text-center">
-        <div className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 mb-6">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#070b19] text-slate-900 dark:text-white pt-32 pb-20 flex flex-col items-center justify-center px-4 text-center transition-colors">
+        <div className="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-400 mb-6 font-bold text-xl">
           !
         </div>
-        <h1 className="text-3xl font-serif font-bold text-white mb-3">Event Not Found</h1>
-        <p className="text-slate-400 text-sm max-w-md mb-8">
+        <h1 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-3">Event Not Found</h1>
+        <p className="text-slate-600 dark:text-slate-400 text-sm max-w-md mb-8">
           The requested session is either no longer available, draft-restricted, or does not exist on our executive calendar.
         </p>
         <Link
@@ -106,4 +106,3 @@ export default async function EventDetailPage({
 
   return <EventDetailView event={event} />;
 }
-

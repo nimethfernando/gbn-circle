@@ -220,24 +220,24 @@ export default function EventsPage() {
     : [];
 
   return (
-    <div className="min-h-screen bg-[#070b19] text-white pb-24">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070b19] text-slate-900 dark:text-white pb-24 transition-colors duration-200">
       {/* Hero Section per PRD Sec. 2 */}
-      <section className="relative overflow-hidden pt-32 pb-16 sm:pb-24 border-b border-white/5">
-        <div className="absolute inset-0 bg-radial-gradient from-slate-900/60 via-[#070b19] to-[#070b19]"></div>
+      <section className="relative overflow-hidden pt-32 pb-16 sm:pb-24 border-b border-slate-200 dark:border-white/5">
+        <div className="absolute inset-0 bg-radial-gradient from-slate-200/60 dark:from-slate-900/60 via-slate-100/40 dark:via-[#070b19] to-slate-50 dark:to-[#070b19]"></div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 text-[#c5a059] text-xs uppercase tracking-widest font-bold mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 text-[#b38838] dark:text-[#c5a059] text-xs uppercase tracking-widest font-bold mb-6">
             <Sparkles size={14} /> Executive Event Platform
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-bold font-serif text-white tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-6xl font-bold font-serif text-slate-900 dark:text-white tracking-tight leading-tight">
             GBN CIRCLE EVENTS
           </h1>
 
-          <p className="text-xl sm:text-2xl font-serif text-[#c5a059] mt-3 font-light">
+          <p className="text-xl sm:text-2xl font-serif text-[#b38838] dark:text-[#c5a059] mt-3 font-medium">
             Connect. Meet. Collaborate.
           </p>
 
-          <p className="text-slate-300 max-w-2xl mx-auto mt-5 text-sm sm:text-base leading-relaxed font-light">
+          <p className="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mt-5 text-sm sm:text-base leading-relaxed font-normal dark:font-light">
             Discover upcoming GBN Circle experiences, business conversations and networking opportunities designed to build meaningful professional relationships.
           </p>
 
@@ -254,17 +254,17 @@ export default function EventsPage() {
 
       {/* Control Bar: View Toggle & Filters */}
       <section id="events-directory" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-800">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800">
           {/* Format Tabs */}
-          <div className="flex items-center gap-2 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-2 bg-slate-200/80 dark:bg-slate-950/80 p-1.5 rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm dark:shadow-none">
             {(['ALL', 'ONLINE', 'PHYSICAL'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                   activeTab === tab
-                    ? 'bg-[#c5a059] text-black shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#c5a059] text-black shadow-md font-bold'
+                    : 'text-slate-700 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white'
                 }`}
               >
                 {tab === 'ALL' ? 'All Sessions' : tab === 'ONLINE' ? 'Virtual Meets' : 'In-Person Summits'}
@@ -273,13 +273,13 @@ export default function EventsPage() {
           </div>
 
           {/* View Mode Toggle (List vs Calendar per Sec. 26) */}
-          <div className="flex items-center gap-2 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-2 bg-slate-200/80 dark:bg-slate-950/80 p-1.5 rounded-xl border border-slate-300 dark:border-slate-800 shadow-sm dark:shadow-none">
             <button
               onClick={() => setViewMode('LIST')}
               className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                 viewMode === 'LIST'
-                  ? 'bg-slate-800 text-[#c5a059] border border-[#c5a059]/40'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white dark:bg-slate-800 text-[#b38838] dark:text-[#c5a059] border border-slate-300 dark:border-[#c5a059]/40 shadow-sm'
+                  : 'text-slate-700 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white'
               }`}
             >
               <List size={14} /> List View
@@ -288,8 +288,8 @@ export default function EventsPage() {
               onClick={() => setViewMode('CALENDAR')}
               className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                 viewMode === 'CALENDAR'
-                  ? 'bg-slate-800 text-[#c5a059] border border-[#c5a059]/40'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white dark:bg-slate-800 text-[#b38838] dark:text-[#c5a059] border border-slate-300 dark:border-[#c5a059]/40 shadow-sm'
+                  : 'text-slate-700 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white'
               }`}
             >
               <CalendarIcon size={14} /> Calendar View
@@ -313,19 +313,19 @@ export default function EventsPage() {
             <div>
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <span className="text-[#c5a059] text-[11px] uppercase font-bold tracking-widest">
+                  <span className="text-[#b38838] dark:text-[#c5a059] text-[11px] uppercase font-bold tracking-widest">
                     Live Schedule
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 dark:text-white mt-1">
                     Upcoming Sessions ({upcomingEvents.length})
                   </h2>
                 </div>
               </div>
 
               {upcomingEvents.length === 0 ? (
-                <div className="text-center py-16 bg-slate-900/30 border border-dashed border-slate-800 rounded-2xl">
-                  <CalendarIcon size={36} className="mx-auto text-slate-600 mb-3" />
-                  <p className="text-slate-400 text-sm">No upcoming sessions currently scheduled.</p>
+                <div className="text-center py-16 bg-white dark:bg-slate-900/30 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl">
+                  <CalendarIcon size={36} className="mx-auto text-slate-400 mb-3" />
+                  <p className="text-slate-700 dark:text-slate-400 text-sm font-medium">No upcoming sessions currently scheduled.</p>
                   <p className="text-slate-500 text-xs mt-1">Check back shortly or explore past concluded sessions below.</p>
                 </div>
               ) : (
@@ -333,24 +333,24 @@ export default function EventsPage() {
                   {upcomingEvents.map((evt) => (
                     <div
                       key={evt.id}
-                      className="bg-slate-900/60 border border-slate-800 hover:border-[#c5a059]/50 rounded-2xl overflow-hidden flex flex-col transition-all duration-300 group shadow-lg hover:shadow-[#c5a059]/5"
+                      className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 hover:border-[#c5a059]/60 dark:hover:border-[#c5a059]/50 rounded-2xl overflow-hidden flex flex-col transition-all duration-300 group shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-[#c5a059]/5"
                     >
                       {/* Event Image */}
-                      <div className="relative h-52 w-full bg-slate-950 overflow-hidden">
+                      <div className="relative h-52 w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
                         <Image
                           src={evt.image || '/event-networking-BdmXOEy2 (1).jpg'}
                           alt={evt.title}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
 
                         <div className="absolute top-4 left-4 flex gap-2">
                           <span
                             className={`text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded shadow-md ${
                               evt.tier === 'GBN Elite'
                                 ? 'bg-[#c5a059] text-black font-extrabold'
-                                : 'bg-blue-950/90 text-blue-300 border border-blue-800/50'
+                                : 'bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-950/90 dark:text-blue-300 dark:border-blue-800/50'
                             }`}
                           >
                             {evt.tier}
@@ -360,12 +360,12 @@ export default function EventsPage() {
                             {evt.format}
                           </span>
                           {evt.status === 'CANCELLED' && (
-                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-red-950/90 text-red-300 border border-red-700/80">
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-red-100 text-red-800 border border-red-200 dark:bg-red-950/90 dark:text-red-300 dark:border-red-700/80">
                               Cancelled
                             </span>
                           )}
                           {(evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED') && (
-                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-950/90 text-amber-300 border border-amber-700/80">
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200 dark:bg-amber-950/90 dark:text-amber-300 dark:border-amber-700/80">
                               Access Closed
                             </span>
                           )}
@@ -375,7 +375,7 @@ export default function EventsPage() {
                       {/* Event Meta */}
                       <div className="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                          <div className="text-xs text-[#c5a059] font-medium tracking-wide flex items-center gap-1.5">
+                          <div className="text-xs text-[#b38838] dark:text-[#c5a059] font-semibold tracking-wide flex items-center gap-1.5">
                             <Clock size={12} />
                             {new Date(evt.date).toLocaleDateString('en-US', {
                               month: 'short',
@@ -385,51 +385,51 @@ export default function EventsPage() {
                             &bull; {evt.startTime} - {evt.endTime} ({evt.timezone})
                           </div>
 
-                          <h3 className="text-lg font-bold font-serif text-white mt-2 group-hover:text-[#c5a059] transition-colors leading-snug">
+                          <h3 className="text-lg font-bold font-serif text-slate-900 dark:text-white mt-2 group-hover:text-[#b38838] dark:group-hover:text-[#c5a059] transition-colors leading-snug">
                             {evt.title}
                           </h3>
 
-                          <p className="text-slate-400 text-xs mt-2.5 line-clamp-3 leading-relaxed">
+                          <p className="text-slate-600 dark:text-slate-400 text-xs mt-2.5 line-clamp-3 leading-relaxed font-normal dark:font-light">
                             {evt.shortDescription}
                           </p>
 
-                          <div className="mt-4 pt-4 border-t border-slate-800/80 space-y-2 text-xs">
+                          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80 space-y-2 text-xs">
                             <div className="flex justify-between">
-                              <span className="text-slate-500">Eligibility:</span>
-                              <span className="text-slate-300 font-medium text-right truncate max-w-[170px]" title={evt.eligibility}>
+                              <span className="text-slate-500 dark:text-slate-400">Eligibility:</span>
+                              <span className="text-slate-800 dark:text-slate-300 font-medium text-right truncate max-w-[170px]" title={evt.eligibility}>
                                 {evt.eligibility}
                               </span>
                             </div>
                             {evt.venueName && (
                               <div className="flex justify-between">
-                                <span className="text-slate-500">Venue:</span>
-                                <span className="text-slate-300 text-right truncate max-w-[170px]">
+                                <span className="text-slate-500 dark:text-slate-400">Venue:</span>
+                                <span className="text-slate-800 dark:text-slate-300 text-right truncate max-w-[170px]">
                                   {evt.venueName}, {evt.venueCity}
                                 </span>
                               </div>
                             )}
                             <div className="flex justify-between">
-                              <span className="text-slate-500">Access Fee:</span>
-                              <span className="text-[#c5a059] font-semibold">{evt.fee}</span>
+                              <span className="text-slate-500 dark:text-slate-400">Access Fee:</span>
+                              <span className="text-[#b38838] dark:text-[#c5a059] font-bold">{evt.fee}</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="mt-6 pt-4 border-t border-slate-800 flex items-center gap-3">
+                        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
                           <Link
                             href={`/events/${evt.id}`}
-                            className="flex-1 py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold text-xs tracking-wider uppercase rounded-lg text-center transition-colors flex items-center justify-center gap-1.5"
+                            className="flex-1 py-2.5 px-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 hover:text-slate-950 dark:text-slate-200 dark:hover:text-white font-semibold text-xs tracking-wider uppercase rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-slate-200 dark:border-transparent"
                           >
                             Details <ExternalLink size={12} />
                           </Link>
 
                           {evt.status === 'CANCELLED' ? (
-                            <span className="flex-1 py-2.5 px-2 bg-red-950/60 border border-red-800/60 text-red-300 font-bold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
+                            <span className="flex-1 py-2.5 px-2 bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/60 text-red-800 dark:text-red-300 font-bold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
                               Cancelled
                             </span>
                           ) : evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED' ? (
-                            <span className="flex-1 py-2.5 px-2 bg-amber-950/60 border border-amber-800/60 text-amber-300 font-bold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
+                            <span className="flex-1 py-2.5 px-2 bg-amber-100 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/60 text-amber-800 dark:text-amber-300 font-bold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
                               Access Closed
                             </span>
                           ) : evt.allowVisitorRequests ? (
@@ -443,7 +443,7 @@ export default function EventsPage() {
                               Request Pass
                             </button>
                           ) : (
-                            <span className="flex-1 py-2.5 px-2 bg-slate-900 border border-slate-800 text-slate-500 font-semibold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
+                            <span className="flex-1 py-2.5 px-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 font-semibold text-[11px] uppercase tracking-wider rounded-lg text-center cursor-not-allowed">
                               Members Only
                             </span>
                           )}
@@ -457,15 +457,15 @@ export default function EventsPage() {
 
             {/* Past Events Section (PRD Sec. 3 & 25) */}
             {pastEvents.length > 0 && (
-              <div className="pt-8 border-t border-slate-800/80">
+              <div className="pt-8 border-t border-slate-200 dark:border-slate-800/80">
                 <div className="mb-8">
-                  <span className="text-slate-500 text-[11px] uppercase font-bold tracking-widest">
+                  <span className="text-slate-500 dark:text-slate-400 text-[11px] uppercase font-bold tracking-widest">
                     Archive & Past Meets
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-300 mt-1">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 dark:text-slate-300 mt-1">
                     Concluded Sessions ({pastEvents.length})
                   </h2>
-                  <p className="text-slate-400 text-xs mt-1">
+                  <p className="text-slate-600 dark:text-slate-400 text-xs mt-1">
                     Browse past business masterminds and chapter gatherings hosted by GBN Circle.
                   </p>
                 </div>
@@ -474,18 +474,18 @@ export default function EventsPage() {
                   {pastEvents.map((evt) => (
                     <div
                       key={evt.id}
-                      className="bg-slate-950/70 border border-slate-800/70 opacity-80 hover:opacity-100 rounded-2xl overflow-hidden flex flex-col transition-all duration-300 group"
+                      className="bg-white dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/70 opacity-90 hover:opacity-100 rounded-2xl overflow-hidden flex flex-col transition-all duration-300 group shadow-sm"
                     >
-                      <div className="relative h-44 w-full bg-slate-950 grayscale group-hover:grayscale-0 transition-all duration-500">
+                      <div className="relative h-44 w-full bg-slate-100 dark:bg-slate-950 grayscale group-hover:grayscale-0 transition-all duration-500">
                         <Image
                           src={evt.image || '/event-networking-BdmXOEy2 (1).jpg'}
                           alt={evt.title}
                           fill
                           className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-black/60"></div>
+                        <div className="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
                         <div className="absolute top-3 right-3">
-                          <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                          <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                             Concluded
                           </span>
                         </div>
@@ -493,25 +493,25 @@ export default function EventsPage() {
 
                       <div className="p-5 flex-1 flex flex-col justify-between">
                         <div>
-                          <div className="text-[11px] text-slate-400 font-mono">
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                             {new Date(evt.date).toLocaleDateString('en-US', {
                               month: 'short',
                               day: 'numeric',
                               year: 'numeric',
                             })}
                           </div>
-                          <h3 className="text-base font-bold text-slate-200 mt-1.5 line-clamp-2">
+                          <h3 className="text-base font-bold text-slate-900 dark:text-slate-200 mt-1.5 line-clamp-2">
                             {evt.title}
                           </h3>
-                          <p className="text-slate-400 text-xs mt-2 line-clamp-2">
+                          <p className="text-slate-600 dark:text-slate-400 text-xs mt-2 line-clamp-2">
                             {evt.shortDescription}
                           </p>
                         </div>
 
-                        <div className="mt-5 pt-3 border-t border-slate-800/60">
+                        <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60">
                           <Link
                             href={`/events/${evt.id}`}
-                            className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold rounded-lg transition-colors"
+                            className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white text-xs font-semibold rounded-lg transition-colors border border-slate-200 dark:border-transparent"
                           >
                             View Overview <ExternalLink size={11} />
                           </Link>
@@ -529,14 +529,14 @@ export default function EventsPage() {
           /* ============================================================ */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Calendar Grid (lg:col-span-8) */}
-            <div className="lg:col-span-8 bg-slate-900/50 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+            <div className="lg:col-span-8 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-xl">
               {/* Month Navigation */}
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <span className="text-xs uppercase font-bold tracking-widest text-[#c5a059]">
+                  <span className="text-xs uppercase font-bold tracking-widest text-[#b38838] dark:text-[#c5a059]">
                     Monthly Schedule
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 dark:text-white mt-1">
                     {calendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                   </h2>
                 </div>
@@ -544,20 +544,20 @@ export default function EventsPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => changeMonth(-1)}
-                    className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                    className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white border border-slate-200 dark:border-transparent transition-colors"
                     title="Previous Month"
                   >
                     <ChevronLeft size={18} />
                   </button>
                   <button
                     onClick={() => setCalendarDate(new Date())}
-                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition-colors"
+                    className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white border border-slate-200 dark:border-transparent transition-colors"
                   >
                     Today
                   </button>
                   <button
                     onClick={() => changeMonth(1)}
-                    className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                    className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white border border-slate-200 dark:border-transparent transition-colors"
                     title="Next Month"
                   >
                     <ChevronRight size={18} />
@@ -566,7 +566,7 @@ export default function EventsPage() {
               </div>
 
               {/* Day Headers */}
-              <div className="grid grid-cols-7 text-center text-xs font-bold uppercase tracking-wider text-slate-400 pb-3 border-b border-slate-800">
+              <div className="grid grid-cols-7 text-center text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 pb-3 border-b border-slate-200 dark:border-slate-800">
                 <span>Sun</span>
                 <span>Mon</span>
                 <span>Tue</span>
@@ -600,20 +600,20 @@ export default function EventsPage() {
                       onClick={() => setSelectedCalendarDate(dateStr)}
                       className={`h-20 sm:h-24 p-2 rounded-xl border flex flex-col justify-between text-left transition-all relative ${
                         isSelected
-                          ? 'bg-[#c5a059]/15 border-[#c5a059] shadow-lg shadow-[#c5a059]/10'
+                          ? 'bg-[#c5a059]/15 border-[#c5a059] shadow-md shadow-[#c5a059]/10'
                           : dayEvents.length > 0
-                          ? 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
-                          : 'bg-slate-950/30 border-transparent hover:border-slate-850 opacity-70'
+                          ? 'bg-slate-50 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700'
+                          : 'bg-slate-50/50 dark:bg-slate-950/30 border-transparent hover:border-slate-200 dark:hover:border-slate-850 opacity-80'
                       }`}
                     >
                       <div className="flex justify-between items-center w-full">
                         <span
                           className={`text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center ${
                             isToday
-                              ? 'bg-[#c5a059] text-black'
+                              ? 'bg-[#c5a059] text-black font-extrabold'
                               : isSelected
-                              ? 'text-[#c5a059]'
-                              : 'text-slate-300'
+                              ? 'text-[#b38838] dark:text-[#c5a059]'
+                              : 'text-slate-700 dark:text-slate-300'
                           }`}
                         >
                           {dayNum}
@@ -629,19 +629,19 @@ export default function EventsPage() {
                           {dayEvents.slice(0, 1).map((ev) => (
                             <div
                               key={ev.id}
-                              className="text-[9px] truncate px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-[#c5a059]"
+                              className="text-[9px] truncate px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[#b38838] dark:text-[#c5a059] font-medium"
                             >
                               {ev.title}
                             </div>
                           ))}
                           {dayEvents.length > 1 && (
-                            <div className="text-[8px] text-slate-400 font-mono">
+                            <div className="text-[8px] text-slate-500 dark:text-slate-400 font-mono font-medium">
                               +{dayEvents.length - 1} more
                             </div>
                           )}
                         </div>
                       ) : (
-                        <div className="text-[10px] text-slate-700"></div>
+                        <div className="text-[10px] text-slate-400"></div>
                       )}
                     </button>
                   );
@@ -650,12 +650,12 @@ export default function EventsPage() {
             </div>
 
             {/* Selected Date Event Spotlight (lg:col-span-4) */}
-            <div className="lg:col-span-4 bg-[#0b1021] border border-[#c5a059]/30 rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+            <div className="lg:col-span-4 bg-white dark:bg-[#0b1021] border border-slate-200 dark:border-[#c5a059]/30 rounded-2xl p-6 shadow-sm dark:shadow-2xl flex flex-col justify-between">
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#c5a059]">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#b38838] dark:text-[#c5a059]">
                   Date Inspector
                 </span>
-                <h3 className="text-xl font-serif font-bold text-white mt-1">
+                <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white mt-1">
                   {selectedCalendarDate
                     ? new Date(selectedCalendarDate + 'T00:00:00').toLocaleDateString('en-US', {
                         weekday: 'short',
@@ -668,46 +668,46 @@ export default function EventsPage() {
 
                 <div className="mt-6 space-y-4">
                   {selectedDateEvents.length === 0 ? (
-                    <div className="py-12 text-center text-slate-400 text-xs">
-                      <CalendarIcon size={32} className="mx-auto text-slate-600 mb-2" />
+                    <div className="py-12 text-center text-slate-500 dark:text-slate-400 text-xs">
+                      <CalendarIcon size={32} className="mx-auto text-slate-400 mb-2" />
                       No events scheduled for this selected date.
-                      <p className="text-slate-500 mt-1">Select a highlighted date with a dot on the calendar.</p>
+                      <p className="text-slate-400 mt-1">Select a highlighted date with a dot on the calendar.</p>
                     </div>
                   ) : (
                     selectedDateEvents.map((evt) => (
                       <div
                         key={evt.id}
-                        className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-[#c5a059]/40 transition-all space-y-3"
+                        className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 hover:border-[#c5a059]/40 transition-all space-y-3"
                       >
                         <div className="flex items-center justify-between text-[10px] uppercase font-semibold">
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[#c5a059]">{evt.tier}</span>
+                            <span className="text-[#b38838] dark:text-[#c5a059] font-bold">{evt.tier}</span>
                             {evt.status === 'CANCELLED' && (
-                              <span className="px-1.5 py-0.5 rounded bg-red-950 text-red-300 border border-red-800 text-[9px] font-bold">
+                              <span className="px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800 text-[9px] font-bold">
                                 Cancelled
                               </span>
                             )}
                             {(evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED') && (
-                              <span className="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 text-[9px] font-bold">
+                              <span className="px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-[9px] font-bold">
                                 Closed
                               </span>
                             )}
                           </div>
-                          <span className="text-slate-400">{evt.format}</span>
+                          <span className="text-slate-500 dark:text-slate-400">{evt.format}</span>
                         </div>
 
-                        <h4 className="text-sm font-bold font-serif text-white">{evt.title}</h4>
+                        <h4 className="text-sm font-bold font-serif text-slate-900 dark:text-white">{evt.title}</h4>
 
-                        <div className="text-xs text-slate-300 space-y-1">
-                          <div className="flex items-center gap-1.5 text-slate-400">
-                            <Clock size={12} className="text-[#c5a059]" />
+                        <div className="text-xs text-slate-700 dark:text-slate-300 space-y-1">
+                          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                            <Clock size={12} className="text-[#b38838] dark:text-[#c5a059]" />
                             <span>
                               {evt.startTime} - {evt.endTime} ({evt.timezone})
                             </span>
                           </div>
                           {evt.venueName && (
-                            <div className="flex items-center gap-1.5 text-slate-400">
-                              <MapPin size={12} className="text-[#c5a059]" />
+                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                              <MapPin size={12} className="text-[#b38838] dark:text-[#c5a059]" />
                               <span className="truncate">{evt.venueName}, {evt.venueCity}</span>
                             </div>
                           )}
@@ -716,16 +716,16 @@ export default function EventsPage() {
                         <div className="pt-2 flex items-center gap-2">
                           <Link
                             href={`/events/${evt.id}`}
-                            className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-white text-center text-xs font-semibold rounded-lg transition-colors"
+                            className="flex-1 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white text-center text-xs font-semibold rounded-lg transition-colors"
                           >
                             View Details
                           </Link>
                           {evt.status === 'CANCELLED' ? (
-                            <span className="flex-1 py-2 bg-red-950/60 border border-red-800/60 text-red-300 text-center text-xs font-bold rounded-lg cursor-not-allowed uppercase">
+                            <span className="flex-1 py-2 bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/60 text-red-800 dark:text-red-300 text-center text-xs font-bold rounded-lg cursor-not-allowed uppercase">
                               Cancelled
                             </span>
                           ) : evt.status === 'ACCESS_CLOSED' || evt.status === 'CLOSED' ? (
-                            <span className="flex-1 py-2 bg-amber-950/60 border border-amber-800/60 text-amber-300 text-center text-xs font-bold rounded-lg cursor-not-allowed uppercase">
+                            <span className="flex-1 py-2 bg-amber-100 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/60 text-amber-800 dark:text-amber-300 text-center text-xs font-bold rounded-lg cursor-not-allowed uppercase">
                               Closed
                             </span>
                           ) : evt.allowVisitorRequests ? (
@@ -734,7 +734,7 @@ export default function EventsPage() {
                                 setSelectedEvent(evt);
                                 setSubmitStatus(null);
                               }}
-                              className="flex-1 py-2 bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black text-center text-xs font-bold rounded-lg uppercase tracking-wider"
+                              className="flex-1 py-2 bg-gradient-to-r from-[#c5a059] to-[#d4af37] text-black text-center text-xs font-bold rounded-lg uppercase tracking-wider shadow-sm"
                             >
                               Request Pass
                             </button>
@@ -747,8 +747,8 @@ export default function EventsPage() {
               </div>
 
               {/* Verified member footer note */}
-              <div className="mt-8 pt-4 border-t border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
-                <ShieldCheck size={16} className="text-[#c5a059] shrink-0 mt-0.5" />
+              <div className="mt-8 pt-4 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400 flex items-start gap-2">
+                <ShieldCheck size={16} className="text-[#b38838] dark:text-[#c5a059] shrink-0 mt-0.5" />
                 <span>
                   GBN Circle members have automatic access to all sessions. No per-event booking needed.
                 </span>
@@ -760,34 +760,34 @@ export default function EventsPage() {
 
       {/* Visitor Screening Modal */}
       {selectedEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="bg-[#0b1021] border border-[#c5a059]/40 rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative my-8 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md overflow-y-auto">
+          <div className="bg-white dark:bg-[#0b1021] border border-slate-200 dark:border-[#c5a059]/40 rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative my-8 shadow-2xl">
             <button
               onClick={() => setSelectedEvent(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl p-1"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 dark:hover:text-white text-2xl p-1 transition-colors"
             >
               &times;
             </button>
 
             <div className="mb-6">
-              <span className="text-[#c5a059] text-[10px] uppercase font-bold tracking-widest">
+              <span className="text-[#b38838] dark:text-[#c5a059] text-[10px] uppercase font-bold tracking-widest">
                 Visitor Screening & Pass Request
               </span>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white mt-1">
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 dark:text-white mt-1">
                 Apply to Attend: {selectedEvent.title}
               </h2>
-              <p className="text-slate-400 text-xs mt-1.5 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 text-xs mt-1.5 leading-relaxed font-normal dark:font-light">
                 GBN Circle sessions maintain high-table peer confidentiality. Complete this brief credential verification to request a visitor delegation pass.
               </p>
             </div>
 
             {submitStatus?.success ? (
-              <div className="p-8 bg-emerald-950/40 border border-emerald-500/40 rounded-xl text-center space-y-4">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-2xl font-bold">
+              <div className="p-8 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 rounded-xl text-center space-y-4">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mx-auto text-2xl font-bold">
                   ✓
                 </div>
-                <h3 className="text-lg font-bold text-white">Application Received</h3>
-                <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Application Received</h3>
+                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
                   {submitStatus.message}
                 </p>
                 <button
@@ -803,7 +803,7 @@ export default function EventsPage() {
             ) : (
               <form onSubmit={handleFormSubmit} className="space-y-4">
                 {submitStatus?.success === false && (
-                  <div className="p-3 bg-rose-950/60 border border-rose-500/50 rounded-lg text-rose-300 text-xs flex items-center gap-2">
+                  <div className="p-3 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-500/50 rounded-lg text-rose-800 dark:text-rose-300 text-xs flex items-center gap-2">
                     <AlertCircle size={15} />
                     {submitStatus.message}
                   </div>
@@ -811,7 +811,7 @@ export default function EventsPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Full Name *
                     </label>
                     <input
@@ -821,11 +821,11 @@ export default function EventsPage() {
                       value={formData.fullName}
                       onChange={handleInputChange}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Business Email *
                     </label>
                     <input
@@ -835,14 +835,14 @@ export default function EventsPage() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="e.g. rahul@company.com"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Phone / WhatsApp *
                     </label>
                     <input
@@ -852,18 +852,18 @@ export default function EventsPage() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+91 98765 43210"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Country *
                     </label>
                     <select
                       name="country"
                       value={formData.country}
                       onChange={handleInputChange}
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:outline-none"
                     >
                       <option value="India">India</option>
                       <option value="Georgia">Georgia</option>
@@ -875,7 +875,7 @@ export default function EventsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       City *
                     </label>
                     <input
@@ -885,14 +885,14 @@ export default function EventsPage() {
                       value={formData.city}
                       onChange={handleInputChange}
                       placeholder="e.g. Mumbai, Tbilisi"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Company Name *
                     </label>
                     <input
@@ -902,11 +902,11 @@ export default function EventsPage() {
                       value={formData.companyName}
                       onChange={handleInputChange}
                       placeholder="e.g. Apex Global Corp"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Designation *
                     </label>
                     <input
@@ -916,11 +916,11 @@ export default function EventsPage() {
                       value={formData.designation}
                       onChange={handleInputChange}
                       placeholder="e.g. Managing Director"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Industry *
                     </label>
                     <input
@@ -930,14 +930,14 @@ export default function EventsPage() {
                       value={formData.industry}
                       onChange={handleInputChange}
                       placeholder="e.g. Real Estate, Logistics"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       Company Website (Optional)
                     </label>
                     <input
@@ -946,11 +946,11 @@ export default function EventsPage() {
                       value={formData.website}
                       onChange={handleInputChange}
                       placeholder="https://company.com"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                       LinkedIn Profile (Optional)
                     </label>
                     <input
@@ -959,13 +959,13 @@ export default function EventsPage() {
                       value={formData.linkedIn}
                       onChange={handleInputChange}
                       placeholder="https://linkedin.com/in/username"
-                      className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                     Why do you wish to attend this session? *
                   </label>
                   <textarea
@@ -975,12 +975,12 @@ export default function EventsPage() {
                     value={formData.whyAttend}
                     onChange={handleInputChange}
                     placeholder="State your purpose for attending this specific session..."
-                    className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none resize-none"
+                    className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none resize-none"
                   ></textarea>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-300 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
                     What collaboration or business value are you looking to create? *
                   </label>
                   <textarea
@@ -990,7 +990,7 @@ export default function EventsPage() {
                     value={formData.collaborationGoals}
                     onChange={handleInputChange}
                     placeholder="e.g. Seeking cross-border distribution, strategic investments..."
-                    className="w-full bg-slate-900/90 border border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none resize-none"
+                    className="w-full bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 focus:border-[#c5a059] rounded-lg px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none resize-none"
                   ></textarea>
                 </div>
 
@@ -998,7 +998,7 @@ export default function EventsPage() {
                   <button
                     type="button"
                     onClick={() => setSelectedEvent(null)}
-                    className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg transition-colors"
+                    className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 hover:text-slate-950 dark:text-slate-300 border border-slate-300 dark:border-transparent text-xs font-semibold rounded-lg transition-colors"
                   >
                     Cancel
                   </button>
