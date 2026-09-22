@@ -19,6 +19,7 @@ export default async function ContactPage() {
 
   const email = content?.channels?.email || 'gbncircle@gmail.com';
   const phone = content?.channels?.phone || '+91 9783577773';
+  const secondaryPhone = content?.channels?.secondaryPhone || '+995 555433091';
   const website = content?.channels?.website || 'www.gbncircle.com';
   const websiteUrl = website.startsWith('http') ? website : `https://${website}`;
 
@@ -72,20 +73,32 @@ export default async function ContactPage() {
                   </div>
                 </a>
 
-                <a
-                  href={`tel:${phone.replace(/\s+/g, '')}`}
-                  className="flex items-center group text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
-                >
+                <div className="flex items-start group text-slate-900 dark:text-slate-300">
                   <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-center mr-4 text-[#c5a059] group-hover:border-[#c5a059] transition-colors shrink-0">
                     <Phone size={18} />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-700 block">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-700 block mb-0.5">
                       Phone
                     </span>
-                    <span className="text-sm font-medium text-slate-950 dark:text-white">{phone}</span>
+                    <div className="space-y-1">
+                      <a
+                        href={`tel:${phone.replace(/\s+/g, '')}`}
+                        className="block text-sm font-medium text-slate-950 dark:text-white hover:text-[#c5a059] transition-colors"
+                      >
+                        {phone} <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">(India)</span>
+                      </a>
+                      {secondaryPhone && (
+                        <a
+                          href={`tel:${secondaryPhone.replace(/\s+/g, '')}`}
+                          className="block text-sm font-medium text-slate-950 dark:text-white hover:text-[#c5a059] transition-colors"
+                        >
+                          {secondaryPhone} <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">(Georgia)</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </a>
+                </div>
 
                 <a
                   href={websiteUrl}
@@ -114,6 +127,16 @@ export default async function ContactPage() {
                       Georgia Office
                     </strong>
                     <span className="text-slate-800 dark:text-slate-400 font-normal leading-relaxed">{georgiaOffice}</span>
+                    {secondaryPhone && (
+                      <div className="mt-1">
+                        <a
+                          href={`tel:${secondaryPhone.replace(/\s+/g, '')}`}
+                          className="inline-flex items-center gap-1.5 text-xs text-[#a88235] dark:text-[#c5a059] hover:underline font-medium"
+                        >
+                          <Phone size={11} /> {secondaryPhone}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -123,6 +146,16 @@ export default async function ContactPage() {
                       India Office
                     </strong>
                     <span className="text-slate-800 dark:text-slate-400 font-normal leading-relaxed">{indiaOffice}</span>
+                    {phone && (
+                      <div className="mt-1">
+                        <a
+                          href={`tel:${phone.replace(/\s+/g, '')}`}
+                          className="inline-flex items-center gap-1.5 text-xs text-[#a88235] dark:text-[#c5a059] hover:underline font-medium"
+                        >
+                          <Phone size={11} /> {phone}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

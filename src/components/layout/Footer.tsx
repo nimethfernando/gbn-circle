@@ -111,7 +111,10 @@ export default function Footer({
                         </h4>
                         <ul className="space-y-3 mb-6 text-slate-800 dark:text-gray-400 font-medium">
                             <li><a href="mailto:gbncircle@gmail.com" className="hover:text-slate-900 dark:hover:text-white transition-colors">gbncircle@gmail.com</a></li>
-                            <li><a href="tel:+919783577773" className="hover:text-slate-900 dark:hover:text-white transition-colors">+91 9783577773</a></li>
+                            <li className="space-y-1">
+                                <a href="tel:+919783577773" className="block hover:text-slate-900 dark:hover:text-white transition-colors">+91 9783577773 <span className="text-xs text-slate-500 dark:text-gray-500">(India)</span></a>
+                                <a href="tel:+995555433091" className="block hover:text-slate-900 dark:hover:text-white transition-colors">+995 555433091 <span className="text-xs text-slate-500 dark:text-gray-500">(Georgia)</span></a>
+                            </li>
                             <li><a href="https://www.gbncircle.com" className="hover:text-slate-900 dark:hover:text-white transition-colors">www.gbncircle.com</a></li>
                         </ul>
 
@@ -123,13 +126,23 @@ export default function Footer({
                                 <strong className="block text-slate-900 dark:text-white font-medium text-xs mb-1 uppercase tracking-wider">
                                     {t.footer.georgiaOffice}
                                 </strong>
-                                {t.footer.georgiaAddress}
+                                <div>{t.footer.georgiaAddress}</div>
+                                <div className="mt-1">
+                                    <a href="tel:+995555433091" className="text-xs text-[#a88235] dark:text-gbn-gold hover:underline font-medium inline-flex items-center gap-1">
+                                        +995 555433091
+                                    </a>
+                                </div>
                             </li>
                             <li>
                                 <strong className="block text-slate-900 dark:text-white font-medium text-xs mb-1 uppercase tracking-wider">
                                     {t.footer.indiaOffice}
                                 </strong>
-                                {t.footer.indiaAddress}
+                                <div>{t.footer.indiaAddress}</div>
+                                <div className="mt-1">
+                                    <a href="tel:+919783577773" className="text-xs text-[#a88235] dark:text-gbn-gold hover:underline font-medium inline-flex items-center gap-1">
+                                        +91 9783577773
+                                    </a>
+                                </div>
                             </li>
                         </ul>
 

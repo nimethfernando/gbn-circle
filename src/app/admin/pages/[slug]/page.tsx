@@ -2522,12 +2522,26 @@ export default function AdminPageEditor() {
 
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
-                      Official Phone Number
+                      Primary Phone Number (India)
                     </label>
                     <input
                       type="text"
                       value={content.channels?.phone || ''}
                       onChange={(e) => updateNestedField('channels', 'phone', e.target.value)}
+                      placeholder="+91 9783577773"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Secondary Phone Number (Georgia)
+                    </label>
+                    <input
+                      type="text"
+                      value={content.channels?.secondaryPhone || ''}
+                      onChange={(e) => updateNestedField('channels', 'secondaryPhone', e.target.value)}
+                      placeholder="+995 555433091"
                       className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white"
                     />
                   </div>

@@ -184,6 +184,8 @@ export const ka: TranslationsType = {
     offices: "ოფისები",
     georgiaOffice: "საქართველოს ოფისი",
     indiaOffice: "ინდოეთის ოფისი",
+    georgiaPhone: "+995 555433091",
+    indiaPhone: "+91 9783577773",
     georgiaAddress: "იოანე შავთელის ქ. 17, თბილისი, საქართველო",
     indiaAddress: "მე-3 სართული, 261, სევა სადან მარგი, ფრონტიერ კოლონია, ადარშ ნაგარი, ჯაიპური, რაჯასტანი 302004",
     rights: "ყველა უფლება დაცულია.",

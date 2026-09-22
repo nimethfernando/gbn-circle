@@ -120,17 +120,28 @@ export default function Contact() {
                 </div>
               </a>
 
-              <a href="tel:+919783577773" className="flex items-center group">
-                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-900 dark:text-white bg-white dark:bg-transparent shadow-sm">
+              <div className="flex items-start group">
+                <div className="w-12 h-12 border border-slate-300 dark:border-white/10 rounded-sm flex items-center justify-center mr-4 group-hover:border-[#c5a059] group-hover:text-[#c5a059] transition-colors text-slate-900 dark:text-white bg-white dark:bg-transparent shadow-sm shrink-0">
                   <Phone size={18} strokeWidth={1.5} />
                 </div>
                 <div>
                   <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">Phone</p>
-                  <p className="font-normal text-slate-950 dark:text-gray-300 group-hover:text-[#c5a059] dark:group-hover:text-white transition-colors">
-                    +91 9783577773
-                  </p>
+                  <div className="space-y-1">
+                    <a
+                      href="tel:+919783577773"
+                      className="block font-normal text-slate-950 dark:text-gray-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
+                    >
+                      +91 9783577773 <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">(India)</span>
+                    </a>
+                    <a
+                      href="tel:+995555433091"
+                      className="block font-normal text-slate-950 dark:text-gray-300 hover:text-[#c5a059] dark:hover:text-white transition-colors"
+                    >
+                      +995 555433091 <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">(Georgia)</span>
+                    </a>
+                  </div>
                 </div>
-              </a>
+              </div>
 
               <a
                 href="https://www.gbncircle.com"
@@ -161,6 +172,12 @@ export default function Contact() {
                     <p className="font-normal text-slate-950 dark:text-gray-300 text-sm">
                       {t.footer.georgiaAddress}
                     </p>
+                    <a
+                      href="tel:+995555433091"
+                      className="inline-flex items-center gap-1.5 text-xs text-[#a88235] dark:text-[#c5a059] hover:underline mt-1 font-medium"
+                    >
+                      <Phone size={12} /> +995 555433091
+                    </a>
                   </div>
                   <div>
                     <p className="text-[10px] tracking-widest uppercase font-bold text-slate-700">
@@ -169,6 +186,12 @@ export default function Contact() {
                     <p className="font-normal text-slate-950 dark:text-gray-300 text-sm leading-relaxed">
                       {t.footer.indiaAddress}
                     </p>
+                    <a
+                      href="tel:+919783577773"
+                      className="inline-flex items-center gap-1.5 text-xs text-[#a88235] dark:text-[#c5a059] hover:underline mt-1 font-medium"
+                    >
+                      <Phone size={12} /> +91 9783577773
+                    </a>
                   </div>
                 </div>
               </div>

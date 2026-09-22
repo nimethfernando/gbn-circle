@@ -89,7 +89,7 @@ export async function POST(
               <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 28px 0 16px 0;" />
               <div style="text-align: center; font-size: 11px; color: #64748b; line-height: 1.5;">
                 <p style="margin: 0;">GBN Circle &bull; Executive Admissions &amp; Visitor Screening</p>
-                <p style="margin: 4px 0 0 0;">For inquiries, contact <a href="mailto:gbncircle@gmail.com" style="color: #c5a059; text-decoration: none;">gbncircle@gmail.com</a> or call <a href="tel:+919783577773" style="color: #c5a059; text-decoration: none;">+91 9783577773</a></p>
+                <p style="margin: 4px 0 0 0;">For inquiries, contact <a href="mailto:gbncircle@gmail.com" style="color: #c5a059; text-decoration: none;">gbncircle@gmail.com</a> or call <a href="tel:+919783577773" style="color: #c5a059; text-decoration: none;">+91 9783577773</a> / <a href="tel:+995555433091" style="color: #c5a059; text-decoration: none;">+995 555433091</a></p>
               </div>
             </div>
           `,

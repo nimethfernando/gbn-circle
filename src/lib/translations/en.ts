@@ -182,6 +182,8 @@ export const en = {
     offices: "Offices",
     georgiaOffice: "Georgia Office",
     indiaOffice: "India Office",
+    georgiaPhone: "+995 555433091",
+    indiaPhone: "+91 9783577773",
     georgiaAddress: "17 Ioane Shavteli St, Tbilisi, Georgia",
     indiaAddress: "3rd floor, 261, Sewa Sadan Marg, Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004",
     rights: "All rights reserved.",

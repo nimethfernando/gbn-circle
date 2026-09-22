@@ -712,9 +712,15 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={13} className="text-[#b38838] dark:text-[#c5a059]" />
-                  <a href="tel:+919783577773" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
-                    +91 9783577773
-                  </a>
+                  <div className="flex items-center gap-2 flex-wrap text-xs">
+                    <a href="tel:+919783577773" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      +91 9783577773 <span className="text-[10px] text-slate-500">(IN)</span>
+                    </a>
+                    <span className="text-slate-400">/</span>
+                    <a href="tel:+995555433091" className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      +995 555433091 <span className="text-[10px] text-slate-500">(GE)</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

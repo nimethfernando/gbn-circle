@@ -241,6 +241,7 @@ export interface ContactPageContent {
   channels: {
     email: string;
     phone: string;
+    secondaryPhone?: string;
     website: string;
     georgiaOffice: string;
     indiaOffice: string;
@@ -803,6 +804,7 @@ export const DEFAULT_PAGE_CONTENTS: PageContentMap = {
     channels: {
       email: "gbncircle@gmail.com",
       phone: "+91 9783577773",
+      secondaryPhone: "+995 555433091",
       website: "www.gbncircle.com",
       georgiaOffice: "17 Ioane Shavteli St, Tbilisi, Georgia",
       indiaOffice:
