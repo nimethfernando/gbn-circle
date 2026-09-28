@@ -62,21 +62,21 @@ export default function Header({
           : "bg-transparent py-5 text-slate-900 dark:text-white"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-12 flex justify-between items-center max-w-7xl">
+      <div className="container mx-auto px-3 sm:px-6 md:px-12 flex justify-between items-center max-w-7xl">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 shrink-0 mr-4">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 mr-1 sm:mr-4">
           <Image
             src="/favicon.png"
             alt="GBN Circle Logo"
-            width={40}
-            height={40}
-            className="object-contain"
+            width={36}
+            height={36}
+            className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
           />
           <div className="flex flex-col">
-            <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
+            <span className="text-lg sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
               GBN Circle
             </span>
-            <span className="text-[10px] tracking-widest uppercase mt-0.5 text-slate-700 dark:text-slate-400 whitespace-nowrap font-medium">
+            <span className="hidden sm:block text-[10px] tracking-widest uppercase mt-0.5 text-slate-700 dark:text-slate-400 whitespace-nowrap font-medium">
               Global Business Network
             </span>
           </div>
@@ -107,12 +107,12 @@ export default function Header({
         </nav>
 
         {/* Controls & CTA */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Language Switcher Pill */}
           <div className="inline-flex items-center bg-slate-200/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-full p-0.5 shadow-inner">
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2.5 py-1 text-[10px] font-bold tracking-wider rounded-full transition-all cursor-pointer ${
+              className={`px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold tracking-wider rounded-full transition-all cursor-pointer ${
                 language === 'en'
                   ? 'bg-white dark:bg-[#c5a059] text-slate-950 dark:text-black shadow-sm'
                   : 'text-slate-800 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
@@ -123,7 +123,7 @@ export default function Header({
             </button>
             <button
               onClick={() => setLanguage('ka')}
-              className={`px-2.5 py-1 text-[10px] font-bold tracking-wider rounded-full transition-all cursor-pointer ${
+              className={`px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold tracking-wider rounded-full transition-all cursor-pointer ${
                 language === 'ka'
                   ? 'bg-white dark:bg-[#c5a059] text-slate-950 dark:text-black shadow-sm'
                   : 'text-slate-800 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
@@ -139,18 +139,19 @@ export default function Header({
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? t.theme.switchToLight : t.theme.switchToDark}
             title={theme === 'dark' ? t.theme.switchToLight : t.theme.switchToDark}
-            className="w-9 h-9 rounded-full flex items-center justify-center border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/80 text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-[#c5a059] transition-all cursor-pointer shadow-sm"
+            className="w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/80 text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-[#c5a059] transition-all cursor-pointer shadow-sm shrink-0"
           >
             {theme === 'dark' ? (
-              <Sun size={17} className="text-[#f5c344]" />
+              <Sun size={15} className="text-[#f5c344] sm:w-[17px] sm:h-[17px]" />
             ) : (
-              <Moon size={17} className="text-slate-900" />
+              <Moon size={15} className="text-slate-900 sm:w-[17px] sm:h-[17px]" />
             )}
           </button>
 
+          {/* Admin Button - visible on phone and desktop */}
           <Link
             href="/admin/events"
-            className="hidden sm:inline-flex border border-slate-300 dark:border-slate-700 hover:border-[#c5a059] text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white text-[10px] tracking-widest font-semibold px-3.5 py-2 rounded transition-all uppercase"
+            className="inline-flex border border-slate-300 dark:border-slate-700 hover:border-[#c5a059] text-slate-900 dark:text-slate-300 hover:text-[#c5a059] dark:hover:text-white text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest font-semibold px-2 py-1 sm:px-3.5 sm:py-2 rounded transition-all uppercase whitespace-nowrap shrink-0"
           >
             {t.nav.admin}
           </Link>
@@ -162,12 +163,13 @@ export default function Header({
             {t.nav.joinGbn}
           </Link>
 
+          {/* Mobile Menu Toggle Button - guaranteed fit and visibility */}
           <button
             aria-label="Toggle Navigation Menu"
-            className="lg:hidden p-2 text-slate-800 dark:text-white"
+            className="lg:hidden p-1 sm:p-2 text-slate-800 dark:text-white hover:text-[#c5a059] transition-colors shrink-0 flex items-center justify-center cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={22} className="sm:w-6 sm:h-6" /> : <Menu size={22} className="sm:w-6 sm:h-6" />}
           </button>
         </div>
       </div>
@@ -222,6 +224,16 @@ export default function Header({
               )}
             </button>
           </div>
+
+          {/* Admin Portal Quick Link in Mobile Menu */}
+          <Link
+            href="/admin/events"
+            className="flex items-center justify-between font-semibold text-sm tracking-widest uppercase border-b border-slate-100 dark:border-white/5 pb-2 text-[#c5a059] hover:text-[#d4af37] transition-colors"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span>{t.nav.adminPortal}</span>
+            <span className="text-[9px] px-2 py-0.5 rounded bg-[#c5a059]/15 border border-[#c5a059]/30 text-[#c5a059] font-bold">PORTAL</span>
+          </Link>
 
           {navLinks.map((link) => {
             const isActive =
