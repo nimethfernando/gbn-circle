@@ -424,17 +424,22 @@ export default function BlogsPage() {
                   </p>
                 </div>
 
-                <div className="pt-8 border-t border-slate-100 dark:border-slate-800/80 mt-6 flex items-center justify-between">
-                  <div className="text-xs">
-                    <span className="text-slate-900 dark:text-white font-semibold block">{featuredArticle.author.name}</span>
-                    <span className="text-slate-500 text-[11px]">{featuredArticle.date} &bull; {featuredArticle.readTime}</span>
+                <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-6 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 text-xs font-bold shrink-0">
+                      <User size={14} />
+                    </div>
+                    <div className="text-xs">
+                      <span className="text-slate-900 dark:text-white font-semibold block">{featuredArticle.author.name}</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-[11px]">{featuredArticle.date} &bull; {featuredArticle.readTime}</span>
+                    </div>
                   </div>
 
                   <button
                     onClick={() => setReadingArticle(featuredArticle)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm hover:scale-[1.02] cursor-pointer"
                   >
-                    Read <ArrowRight size={13} />
+                    Read Article <ArrowRight size={13} />
                   </button>
                 </div>
               </div>
@@ -470,10 +475,10 @@ export default function BlogsPage() {
             {filteredArticles.map((art) => (
               <div
                 key={art.id}
-                className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#c5a059]/60 dark:hover:border-[#c5a059]/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-[#c5a059]/5"
+                className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#c5a059]/60 dark:hover:border-[#c5a059]/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-[#c5a059]/5 h-full"
               >
-                <div>
-                  <div className="relative h-48 w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
+                <div className="flex flex-col flex-1">
+                  <div className="relative h-48 w-full bg-slate-100 dark:bg-slate-950 overflow-hidden shrink-0">
                     <BlogImage
                       src={art.image}
                       alt={art.title}
@@ -488,7 +493,7 @@ export default function BlogsPage() {
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-1">
                     <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-2.5 font-medium">
                       <span className="flex items-center gap-1">
                         <Calendar size={12} className="text-[#b38838] dark:text-[#c5a059]" /> {art.date}
@@ -509,19 +514,19 @@ export default function BlogsPage() {
                   </div>
                 </div>
 
-                <div className="p-6 pt-0 border-t border-slate-100 dark:border-slate-800/80 mt-4 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-transparent flex items-center justify-center text-slate-700 dark:text-slate-300 text-[10px] font-bold">
+                <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-3 bg-slate-50/40 dark:bg-slate-950/20">
+                  <div className="flex items-center gap-2.5 min-w-0 pr-1">
+                    <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-transparent flex items-center justify-center text-slate-700 dark:text-slate-300 text-[10px] font-bold shrink-0">
                       <User size={12} />
                     </div>
-                    <div className="text-[11px] truncate max-w-[130px]">
+                    <div className="text-[11px] truncate">
                       <span className="text-slate-800 dark:text-slate-300 block truncate font-semibold">{art.author.name}</span>
                     </div>
                   </div>
 
                   <button
                     onClick={() => setReadingArticle(art)}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#b38838] dark:text-[#c5a059] hover:text-[#d4af37] uppercase tracking-wider transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm hover:scale-[1.02] cursor-pointer shrink-0"
                   >
                     Read Article <ArrowRight size={13} />
                   </button>
