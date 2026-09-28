@@ -35,7 +35,15 @@ export async function GET(request: NextRequest) {
       orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
     });
 
-    const parsedBlogs = blogs.map((blog) => {
+    const fallbackImages = [
+      '/vision-wide-Dafp-BMf.jpg',
+      '/event-global-CKOLaEg2 (1).jpg',
+      '/event-networking-BdmXOEy2 (1).jpg',
+      '/event-leadership-C1eE1_9Q (1).jpg',
+      '/event-leadership-C1eE1_9Q.jpg',
+    ];
+
+    const parsedBlogs = blogs.map((blog, idx) => {
       let takeaways: string[] = [];
       if (blog.takeaways) {
         try {
@@ -53,8 +61,24 @@ export async function GET(request: NextRequest) {
         .map((p) => p.trim())
         .filter(Boolean);
 
+      // Resolve safe image
+      let safeImage = (blog.image || '').trim();
+      if (!safeImage) {
+        safeImage = fallbackImages[idx % fallbackImages.length];
+      } else if (safeImage === '/images/hero-banner-clean.jpg') {
+        safeImage = '/vision-wide-Dafp-BMf.jpg';
+      } else if (safeImage === '/images/core-values-modern.jpg') {
+        safeImage = '/event-global-CKOLaEg2 (1).jpg';
+      } else if (safeImage === '/images/blog-bay-leaf.jpg') {
+        safeImage = '/event-networking-BdmXOEy2 (1).jpg';
+      } else if (safeImage === '/images/why-choose-modern.jpg') {
+        safeImage = '/event-leadership-C1eE1_9Q (1).jpg';
+      }
+
       return {
         ...blog,
+        image: safeImage,
+        date: blog.createdAt ? blog.createdAt.toISOString() : new Date().toISOString(),
         takeaways,
         contentParagraphs,
       };

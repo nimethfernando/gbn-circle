@@ -35,6 +35,37 @@ interface Article {
   takeaways: string[];
 }
 
+function BlogImage({
+  src,
+  alt,
+  className,
+  fill,
+  priority,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  fill?: boolean;
+  priority?: boolean;
+}) {
+  const [imgSrc, setImgSrc] = useState(src || '/vision-wide-Dafp-BMf.jpg');
+
+  useEffect(() => {
+    setImgSrc(src || '/vision-wide-Dafp-BMf.jpg');
+  }, [src]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill={fill}
+      priority={priority}
+      onError={() => setImgSrc('/vision-wide-Dafp-BMf.jpg')}
+      className={className}
+    />
+  );
+}
+
 const ARTICLES: Article[] = [
   {
     id: '1',
@@ -76,7 +107,7 @@ const ARTICLES: Article[] = [
       name: 'Davit Kvirikashvili',
       role: 'Director of International Trade, Caucasus Desk',
     },
-    image: '/chapter-georgia-D8E7sW8X.jpg',
+    image: '/event-global-CKOLaEg2 (1).jpg',
     takeaways: [
       'Georgia offers zero corporate tax on reinvested earnings and duty-free access to EU and CIS markets.',
       'Indian manufacturing and agricultural exporters are increasingly leveraging Tbilisi as an EU distribution staging hub.',
@@ -151,7 +182,7 @@ const ARTICLES: Article[] = [
       name: 'Ananya Singhania',
       role: 'Principal, Singhania Strategic Holdings',
     },
-    image: '/chapter-jaipur-D6rR1Z-z.jpg',
+    image: '/event-leadership-C1eE1_9Q.jpg',
     takeaways: [
       'Family offices increasingly seek sector-specialist founders rather than blind-pool financial managers.',
       'Patient capital values EBITDA profitability and clean balance sheets over vanity growth multiples.',
@@ -213,30 +244,60 @@ export default function BlogsPage() {
         const res = await fetch('/api/blogs');
         const json = await res.json();
         if (json.success && json.data && json.data.length > 0) {
-          const mapped: Article[] = json.data.map((b: any) => ({
-            id: b.id,
-            slug: b.slug,
-            title: b.title,
-            excerpt: b.excerpt,
-            category: b.category,
-            readTime: b.readTime,
-            date: new Date(b.date).toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            }),
-            author: {
-              name: b.authorName,
-              role: b.authorRole,
-            },
-            image: b.image || '/vision-wide-Dafp-BMf.jpg',
-            featured: b.featured,
-            content:
-              b.contentParagraphs && b.contentParagraphs.length > 0
-                ? b.contentParagraphs
-                : [b.content],
-            takeaways: b.takeaways || [],
-          }));
+          const fallbackImages = [
+            '/vision-wide-Dafp-BMf.jpg',
+            '/event-global-CKOLaEg2 (1).jpg',
+            '/event-networking-BdmXOEy2 (1).jpg',
+            '/event-leadership-C1eE1_9Q (1).jpg',
+            '/event-leadership-C1eE1_9Q.jpg',
+          ];
+
+          const mapped: Article[] = json.data.map((b: any, idx: number) => {
+            const rawDate = b.date || b.createdAt;
+            const parsedDate = rawDate ? new Date(rawDate) : null;
+            const safeDate =
+              parsedDate && !isNaN(parsedDate.getTime())
+                ? parsedDate.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })
+                : 'March 8, 2026';
+
+            let safeImage = (b.image || '').trim();
+            if (!safeImage) {
+              safeImage = fallbackImages[idx % fallbackImages.length];
+            } else if (safeImage === '/images/hero-banner-clean.jpg') {
+              safeImage = '/vision-wide-Dafp-BMf.jpg';
+            } else if (safeImage === '/images/core-values-modern.jpg') {
+              safeImage = '/event-global-CKOLaEg2 (1).jpg';
+            } else if (safeImage === '/images/blog-bay-leaf.jpg') {
+              safeImage = '/event-networking-BdmXOEy2 (1).jpg';
+            } else if (safeImage === '/images/why-choose-modern.jpg') {
+              safeImage = '/event-leadership-C1eE1_9Q (1).jpg';
+            }
+
+            return {
+              id: b.id,
+              slug: b.slug,
+              title: b.title,
+              excerpt: b.excerpt,
+              category: b.category,
+              readTime: b.readTime || '5 min read',
+              date: safeDate,
+              author: {
+                name: b.authorName || 'GBN Executive Board',
+                role: b.authorRole || 'Global Business Network Leadership',
+              },
+              image: safeImage,
+              featured: b.featured,
+              content:
+                b.contentParagraphs && b.contentParagraphs.length > 0
+                  ? b.contentParagraphs
+                  : [b.content],
+              takeaways: b.takeaways || [],
+            };
+          });
           setArticles(mapped);
         }
       } catch (err) {
@@ -333,7 +394,7 @@ export default function BlogsPage() {
           <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-[#c5a059]/30 bg-white dark:bg-slate-950 group shadow-xl dark:shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto min-h-[320px] overflow-hidden bg-slate-100 dark:bg-slate-950">
-                <Image
+                <BlogImage
                   src={featuredArticle.image}
                   alt={featuredArticle.title}
                   fill
@@ -413,7 +474,7 @@ export default function BlogsPage() {
               >
                 <div>
                   <div className="relative h-48 w-full bg-slate-100 dark:bg-slate-950 overflow-hidden">
-                    <Image
+                    <BlogImage
                       src={art.image}
                       alt={art.title}
                       fill
@@ -558,7 +619,7 @@ export default function BlogsPage() {
 
             {/* Article Image */}
             <div className="relative h-64 sm:h-80 w-full rounded-xl overflow-hidden my-6 border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950">
-              <Image
+              <BlogImage
                 src={readingArticle.image}
                 alt={readingArticle.title}
                 fill

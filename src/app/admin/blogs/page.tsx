@@ -523,9 +523,14 @@ export default function AdminBlogsPage() {
                       <div className="flex items-center gap-3">
                         <div className="relative w-12 h-10 rounded overflow-hidden shrink-0 border border-slate-800 bg-slate-950">
                           <Image
-                            src={blog.image}
+                            src={blog.image || '/vision-wide-Dafp-BMf.jpg'}
                             alt={blog.title}
                             fill
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              target.srcset = '';
+                              target.src = '/vision-wide-Dafp-BMf.jpg';
+                            }}
                             className="object-cover"
                           />
                         </div>
