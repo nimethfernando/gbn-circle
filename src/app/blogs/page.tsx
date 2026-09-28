@@ -576,28 +576,34 @@ export default function BlogsPage() {
           <div className="bg-white dark:bg-[#0b1021] border border-slate-200 dark:border-[#c5a059]/40 rounded-2xl max-w-3xl w-full p-6 sm:p-10 relative my-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setReadingArticle(null)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-slate-900 dark:hover:text-white text-2xl p-1 z-10 transition-colors"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white flex items-center justify-center z-20 transition-all shadow-sm cursor-pointer"
               title="Close article"
+              aria-label="Close article"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
 
             {/* Header info */}
-            <div className="mb-6">
-              <div className="flex items-center gap-3 text-xs mb-3">
-                <span className="px-2.5 py-1 rounded bg-[#c5a059] text-black text-[10px] font-bold uppercase tracking-wider">
+            <div className="mb-6 pr-10 sm:pr-12">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs mb-3.5">
+                <span className="px-2.5 py-1 rounded bg-[#c5a059] text-black text-[10px] font-bold uppercase tracking-wider shrink-0 shadow-xs">
                   {readingArticle.category}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400">{readingArticle.date}</span>
-                <span className="text-slate-400">&bull;</span>
-                <span className="text-slate-500 dark:text-slate-400">{readingArticle.readTime}</span>
+                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 shrink-0">
+                  <span>{readingArticle.date}</span>
+                  <span className="text-slate-400">&bull;</span>
+                  <span className="inline-flex items-center gap-1 font-medium text-slate-600 dark:text-slate-300">
+                    <Clock size={12} className="text-[#b38838] dark:text-[#c5a059]" />
+                    {readingArticle.readTime}
+                  </span>
+                </div>
               </div>
 
               <h2 className="text-2xl sm:text-4xl font-serif font-bold text-slate-900 dark:text-white leading-tight">
                 {readingArticle.title}
               </h2>
 
-              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="text-sm font-semibold text-slate-900 dark:text-white">{readingArticle.author.name}</div>
                   <div className="text-xs text-[#b38838] dark:text-[#c5a059] font-medium">{readingArticle.author.role}</div>
@@ -610,7 +616,7 @@ export default function BlogsPage() {
                       alert('Perspective link copied to clipboard!');
                     }
                   }}
-                  className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Share2 size={13} /> Share
                 </button>
