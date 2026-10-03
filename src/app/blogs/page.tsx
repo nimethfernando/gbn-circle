@@ -589,15 +589,15 @@ export default function BlogsPage() {
             </button>
 
             {/* Header info */}
-            <div className="mb-6 pr-10 sm:pr-12">
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs mb-3.5">
+            <div className="mb-6 pr-12 sm:pr-14">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs mb-3.5 pr-6 sm:pr-0">
                 <span className="px-2.5 py-1 rounded bg-[#c5a059] text-black text-[10px] font-bold uppercase tracking-wider shrink-0 shadow-xs">
                   {readingArticle.category}
                 </span>
-                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 shrink-0">
+                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 flex-wrap">
                   <span>{readingArticle.date}</span>
                   <span className="text-slate-400">&bull;</span>
-                  <span className="inline-flex items-center gap-1 font-medium text-slate-600 dark:text-slate-300">
+                  <span className="inline-flex items-center gap-1 font-medium text-slate-600 dark:text-slate-300 whitespace-nowrap">
                     <Clock size={12} className="text-[#b38838] dark:text-[#c5a059]" />
                     {readingArticle.readTime}
                   </span>
