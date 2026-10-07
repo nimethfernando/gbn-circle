@@ -35,40 +35,38 @@ export default function Hero({ data }: HeroProps = {}) {
 
       <div className="container relative mx-auto px-6 md:px-12 z-10 max-w-7xl mt-6 sm:mt-12">
         <div className="max-w-3xl">
-          <div className="flex items-center gap-4 mb-6 animate-fade-in-up">
-            <div
-              className="h-px w-12 bg-gold-gradient animate-draw-line"
-              style={{
-                animationDelay: '0.2s',
-                background:
-                  'linear-gradient(to right, transparent, var(--color-gbn-gold))',
-              }}
-            ></div>
-            <p className="text-[#a88235] dark:text-gbn-gold uppercase tracking-[0.2em] text-xs font-semibold">
+          <div className="flex items-center gap-3.5 mb-6 animate-fade-in-up">
+            <div className="w-8 sm:w-12 h-[2px] rounded-full shrink-0 overflow-hidden bg-[#c5a059]/20">
+              <div
+                className="h-full w-full bg-gradient-to-r from-transparent via-[#c5a059] to-[#dfbb66] animate-draw-line"
+                style={{ animationDelay: '0.2s' }}
+              />
+            </div>
+            <p className="text-[#a88235] dark:text-[#c5a059] uppercase tracking-[0.2em] sm:tracking-[0.24em] text-xs sm:text-[13px] font-bold whitespace-nowrap shrink-0 drop-shadow-xs">
               {badge}
             </p>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-slate-900 dark:text-white mb-6 leading-[1.15] tracking-tight animate-fade-in-up delay-100">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-slate-900 dark:text-white mb-6 leading-[1.12] tracking-tight animate-fade-in-up delay-100">
             {headingLine1}{' '}
-            <br className="hidden md:block" />
-            <span className="text-gradient-gold">{headingLine2}</span>
+            <br className="hidden sm:block" />
+            <span className="text-gradient-gold drop-shadow-sm">{headingLine2}</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-slate-900 dark:text-gray-300 font-normal mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200">
+          <p className="text-base sm:text-lg md:text-xl text-slate-800 dark:text-gray-300 font-normal mb-8 sm:mb-10 max-w-2xl leading-relaxed animate-fade-in-up delay-200">
             {subtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4 sm:gap-6 animate-fade-in-up delay-300">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5 sm:gap-5 animate-fade-in-up delay-300">
             <Link
               href={primaryBtnLink}
-              className="w-full sm:w-auto bg-gradient-to-r from-gbn-gold to-gbn-gold-hover text-gbn-navy-dark text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:scale-105 flex items-center justify-center uppercase hover-shine shadow-md text-center"
+              className="w-full sm:w-auto bg-gradient-to-r from-gbn-gold to-gbn-gold-hover hover:from-gbn-gold-hover hover:to-[#dfbb66] text-gbn-navy-dark text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center uppercase hover-shine shadow-lg shadow-[#c5a059]/15 text-center cursor-pointer"
             >
               {primaryBtnText}
             </Link>
             <Link
               href={secondaryBtnLink}
-              className="w-full sm:w-auto bg-white/80 dark:bg-transparent border border-slate-300 dark:border-white/20 text-slate-950 dark:text-white text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-sm transition-all hover:border-[#c5a059] dark:hover:border-gbn-gold hover:text-[#c5a059] dark:hover:text-gbn-gold uppercase shadow-sm dark:shadow-none text-center"
+              className="w-full sm:w-auto bg-white/80 dark:bg-slate-900/40 backdrop-blur-sm border border-slate-300 dark:border-white/20 hover:border-[#c5a059] dark:hover:border-gbn-gold text-slate-950 dark:text-white hover:text-[#c5a059] dark:hover:text-gbn-gold text-xs tracking-[0.15em] font-bold px-8 py-4 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] uppercase shadow-sm text-center cursor-pointer"
             >
               {secondaryBtnText}
             </Link>
@@ -78,7 +76,7 @@ export default function Hero({ data }: HeroProps = {}) {
                 target="_blank"
                 rel="noopener noreferrer"
                 download
-                className="w-full sm:w-auto bg-[#c5a059]/15 hover:bg-[#c5a059]/25 border border-[#c5a059]/50 text-[#a88235] dark:text-[#f3d38c] hover:text-[#806020] dark:hover:text-white text-xs tracking-[0.15em] font-bold px-7 py-4 rounded-sm transition-all flex items-center justify-center gap-2 uppercase shadow-sm dark:shadow-none text-center group cursor-pointer"
+                className="w-full sm:w-auto bg-[#c5a059]/15 hover:bg-[#c5a059]/25 border border-[#c5a059]/50 text-[#a88235] dark:text-[#f3d38c] hover:text-[#806020] dark:hover:text-white text-xs tracking-[0.15em] font-bold px-7 py-4 rounded-xl transition-all flex items-center justify-center gap-2 uppercase shadow-sm text-center group cursor-pointer hover:scale-[1.02]"
                 title={brochureBtnText}
               >
                 <Download size={15} className="text-[#a88235] dark:text-[#f3d38c] group-hover:scale-110 transition-transform" />
