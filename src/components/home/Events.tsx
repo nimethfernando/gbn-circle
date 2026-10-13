@@ -10,7 +10,12 @@ import {
   ArrowRight,
   Sparkles,
   Users,
-  Compass,
+  Coffee,
+  Crown,
+  Globe2,
+  GraduationCap,
+  Briefcase,
+  PartyPopper,
 } from 'lucide-react';
 
 export default async function Events() {
@@ -36,6 +41,8 @@ export default async function Events() {
       title: 'GBN Circle Online Connect #1',
       format: 'Online',
       badge: 'Virtual',
+      icon: Video,
+      badgeStyle: 'bg-blue-500/10 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border-blue-500/30',
       desc: 'High-frequency cross-sector introductions and business exchanges across all national chapters.',
     },
     {
@@ -43,6 +50,8 @@ export default async function Events() {
       title: 'GBN Circle Monthly Physical Meet',
       format: 'Physical',
       badge: 'In-Person',
+      icon: Coffee,
+      badgeStyle: 'bg-amber-500/10 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300 border-amber-500/30',
       desc: 'In-person chapter breakfast and table rotations for verified entrepreneurs and corporate leaders.',
     },
     {
@@ -50,6 +59,8 @@ export default async function Events() {
       title: 'GBN Circle Online Connect #2',
       format: 'Online',
       badge: 'Virtual',
+      icon: Users,
+      badgeStyle: 'bg-blue-500/10 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border-blue-500/30',
       desc: 'Targeted sector breakout rooms, strategic referral pipelines, and joint-venture explorations.',
     },
     {
@@ -57,6 +68,9 @@ export default async function Events() {
       title: 'GBN Elite Executive Morning',
       format: 'Elite • Physical • Morning',
       badge: 'Elite Council',
+      icon: Crown,
+      isElite: true,
+      badgeStyle: 'bg-gradient-to-r from-[#c5a059]/20 to-[#e5c158]/20 text-[#a88235] dark:text-[#f3e7c4] border-[#c5a059]/50 font-bold',
       desc: 'Closed-door boardroom dialogue and executive breakfast reserved for ₹5Cr+ annual turnover leaders.',
     },
   ];
@@ -64,18 +78,22 @@ export default async function Events() {
   const additionalExperiences = [
     {
       title: 'Global Connect',
+      icon: Globe2,
       desc: 'Cross-border corridors connecting members with leaders in the GCC, Europe & Southeast Asia.',
     },
     {
       title: 'Masterclasses',
+      icon: GraduationCap,
       desc: 'High-leverage workshops on relationship capital, M&A structuring, and cross-border trade.',
     },
     {
       title: 'Leadership Sessions',
+      icon: Briefcase,
       desc: 'Closed roundtables where industry veterans candidly discuss scaling decisions and dilemmas.',
     },
     {
       title: 'Community Gatherings',
+      icon: PartyPopper,
       desc: 'Annual physical conclaves, festive galas, and informal retreats for long-term bonding.',
     },
   ];
@@ -129,32 +147,56 @@ export default async function Events() {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {monthlyFramework.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white dark:bg-gbn-navy-light/40 border border-slate-200 dark:border-white/5 rounded-sm p-6 hover:border-[#c5a059]/50 hover:bg-slate-50/80 dark:hover:bg-gbn-navy-light/70 transition-all duration-300 flex flex-col justify-between group shadow-sm dark:shadow-none"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className="text-[11px] font-bold text-[#a88235] dark:text-[#c5a059] tracking-widest uppercase">
-                        {item.week}
-                      </span>
-                      <span className="text-[9px] font-semibold uppercase px-2 py-0.5 rounded border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300">
-                        {item.badge}
+              {monthlyFramework.map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden backdrop-blur-sm ${
+                      item.isElite
+                        ? 'bg-gradient-to-b from-[#c5a059]/10 via-white to-white dark:from-[#c5a059]/15 dark:via-[#0c1426] dark:to-[#0c1426] border-2 border-[#c5a059]/50 shadow-lg shadow-[#c5a059]/10'
+                        : 'bg-white dark:bg-[#0c1426]/80 border border-slate-200/90 dark:border-white/10 hover:border-[#c5a059]/50 shadow-sm hover:shadow-xl'
+                    }`}
+                  >
+                    {/* Top Accent Line on hover */}
+                    <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#c5a059] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-5">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                            item.isElite
+                              ? 'bg-[#c5a059] text-slate-950 shadow-sm'
+                              : 'bg-[#c5a059]/15 text-[#a88235] dark:text-[#c5a059] border border-[#c5a059]/30'
+                          }`}>
+                            <IconComponent size={16} />
+                          </div>
+                          <span className="text-[11px] font-bold text-[#a88235] dark:text-[#c5a059] tracking-widest uppercase">
+                            {item.week}
+                          </span>
+                        </div>
+                        <span className={`text-[10px] font-semibold uppercase px-2.5 py-0.5 rounded-full border ${item.badgeStyle}`}>
+                          {item.badge}
+                        </span>
+                      </div>
+
+                      <h3 className="text-lg font-serif font-bold text-slate-900 dark:text-white group-hover:text-[#c5a059] transition-colors mb-3 leading-snug">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 font-normal leading-relaxed mb-6">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-[11px]">
+                      <span className="text-slate-500 dark:text-slate-400 font-medium">Format</span>
+                      <span className="text-slate-900 dark:text-white font-semibold">
+                        {item.format}
                       </span>
                     </div>
-                    <h3 className="text-lg font-serif text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-[#c5a059] transition-colors mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-slate-800 dark:text-slate-400 font-normal leading-relaxed mb-4">
-                      {item.desc}
-                    </p>
                   </div>
-                  <div className="pt-4 border-t border-slate-100 dark:border-white/5 text-[11px] font-medium text-slate-700 dark:text-slate-300">
-                    Format: <span className="text-slate-950 dark:text-white font-semibold">{item.format}</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -168,22 +210,27 @@ export default async function Events() {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {additionalExperiences.map((exp, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-white/5 rounded-sm hover:border-[#c5a059]/50 hover:shadow-md dark:hover:border-white/15 transition-all shadow-sm dark:shadow-none"
-                >
-                  <div className="w-9 h-9 rounded-sm bg-[#c5a059]/10 border border-[#c5a059]/30 flex items-center justify-center text-[#a88235] dark:text-[#c5a059] mb-4">
-                    <Compass size={18} />
+              {additionalExperiences.map((exp, idx) => {
+                const IconComponent = exp.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-7 bg-white dark:bg-[#0c1426]/70 border border-slate-200/90 dark:border-white/10 rounded-2xl hover:border-[#c5a059]/60 hover:shadow-xl hover:shadow-[#c5a059]/10 transition-all duration-300 group hover:-translate-y-1.5 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c5a059]/20 via-[#c5a059]/10 to-transparent border border-[#c5a059]/30 flex items-center justify-center text-[#a88235] dark:text-[#c5a059] mb-5 group-hover:scale-110 group-hover:bg-[#c5a059]/25 transition-all duration-300 shadow-sm">
+                        <IconComponent size={22} />
+                      </div>
+                      <h4 className="text-sm font-serif font-bold uppercase tracking-wider text-slate-900 dark:text-white group-hover:text-[#c5a059] transition-colors mb-2.5">
+                        {exp.title}
+                      </h4>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 font-normal leading-relaxed">
+                        {exp.desc}
+                      </p>
+                    </div>
                   </div>
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2">
-                    {exp.title}
-                  </h4>
-                  <p className="text-xs text-slate-800 dark:text-slate-400 font-normal leading-relaxed">
-                    {exp.desc}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
