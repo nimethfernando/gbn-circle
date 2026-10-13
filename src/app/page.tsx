@@ -57,7 +57,7 @@ export default async function Home() {
       {showLeadershipSection && (
         <Leadership data={content.leadershipSection} leaders={leaders} />
       )}
-      {showInspirationSection && <Inspiration />}
+      {showInspirationSection && <Inspiration data={content?.inspiration} />}
       {showMemberSection && <MemberCommunity />}
       {showJourneySection && <GBNJourney />}
       {/* TESTIMONIALS & VERIFIED IMPACT sections omitted for now, as per PRD "hide this section completely if not available" */}

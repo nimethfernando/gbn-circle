@@ -125,13 +125,17 @@ export const en = {
     btn: "Meet Our Leadership",
   },
   inspiration: {
+    badge: "The Philosophy",
     heading: "Inspired by Connection. Built for the Future.",
     quote:
       "GBN Circle was inspired by Ditya Batra and the belief that bringing people together can create opportunities, relationships and possibilities that extend far beyond a single meeting.",
     btn: "Discover Our Story",
     connect: "Connect people.",
+    connectDesc: "Bringing leaders together to spark trusted, meaningful conversations and authentic business relationships.",
     create: "Create possibilities.",
+    createDesc: "Transforming serendipitous introductions into joint ventures, shared ventures, and international expansion.",
     grow: "Grow together.",
+    growDesc: "Building enduring, long-term business value and collective strength that extends far beyond a single meeting.",
   },
   journey: {
     badge: "The GBN Journey",

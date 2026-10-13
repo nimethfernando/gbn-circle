@@ -1696,6 +1696,165 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
               </div>
+
+              {/* Section: 7. Inspiration & Philosophy Section */}
+              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+                <div className="flex items-center gap-2.5 border-b border-slate-800 pb-3">
+                  <Sparkles size={18} className="text-[#c5a059]" />
+                  <h2 className="text-lg font-bold font-serif text-white">7. Inspiration &amp; Philosophy Section</h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Section Badge
+                    </label>
+                    <input
+                      type="text"
+                      value={content.inspiration?.badge || ''}
+                      onChange={(e) => updateNestedField('inspiration', 'badge', e.target.value)}
+                      placeholder="The Philosophy"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Section Heading
+                    </label>
+                    <input
+                      type="text"
+                      value={content.inspiration?.heading || ''}
+                      onChange={(e) => updateNestedField('inspiration', 'heading', e.target.value)}
+                      placeholder="Inspired by Connection. Built for the Future."
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Inspirational Narrative / Quote
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={content.inspiration?.quote || ''}
+                      onChange={(e) => updateNestedField('inspiration', 'quote', e.target.value)}
+                      placeholder="GBN Circle was inspired by Ditya Batra..."
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      CTA Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={content.inspiration?.btnText || ''}
+                      onChange={(e) => updateNestedField('inspiration', 'btnText', e.target.value)}
+                      placeholder="Discover Our Story"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                      CTA Button Link
+                    </label>
+                    <input
+                      type="text"
+                      value={content.inspiration?.btnLink || ''}
+                      onChange={(e) => updateNestedField('inspiration', 'btnLink', e.target.value)}
+                      placeholder="/about"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white focus:border-[#c5a059] outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* The 3 Pillars */}
+                <div className="pt-4 border-t border-slate-800/80 space-y-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#c5a059]">
+                    The 3 Core Pillars (Action Cards)
+                  </h3>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Pillar 1 */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2">
+                      <span className="text-[10px] font-mono text-[#c5a059] font-bold">Pillar 01</span>
+                      <div>
+                        <label className="block text-[11px] text-slate-400 mb-1">Title</label>
+                        <input
+                          type="text"
+                          value={content.inspiration?.connectTitle || ''}
+                          onChange={(e) => updateNestedField('inspiration', 'connectTitle', e.target.value)}
+                          placeholder="Connect people."
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] text-slate-400 mb-1">Description</label>
+                        <textarea
+                          rows={2}
+                          value={content.inspiration?.connectDesc || ''}
+                          onChange={(e) => updateNestedField('inspiration', 'connectDesc', e.target.value)}
+                          placeholder="Bringing leaders together..."
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Pillar 2 */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2">
+                      <span className="text-[10px] font-mono text-[#c5a059] font-bold">Pillar 02</span>
+                      <div>
+                        <label className="block text-[11px] text-slate-400 mb-1">Title</label>
+                        <input
+                          type="text"
+                          value={content.inspiration?.createTitle || ''}
+                          onChange={(e) => updateNestedField('inspiration', 'createTitle', e.target.value)}
+                          placeholder="Create possibilities."
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] text-slate-400 mb-1">Description</label>
+                        <textarea
+                          rows={2}
+                          value={content.inspiration?.createDesc || ''}
+                          onChange={(e) => updateNestedField('inspiration', 'createDesc', e.target.value)}
+                          placeholder="Transforming introductions..."
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Pillar 3 */}
+                    <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2">
+                      <span className="text-[10px] font-mono text-[#c5a059] font-bold">Pillar 03</span>
+                      <div>
+                        <label className="block text-[11px] text-slate-400 mb-1">Title</label>
+                        <input
+                          type="text"
+                          value={content.inspiration?.growTitle || ''}
+                          onChange={(e) => updateNestedField('inspiration', 'growTitle', e.target.value)}
+                          placeholder="Grow together."
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] text-slate-400 mb-1">Description</label>
+                        <textarea
+                          rows={2}
+                          value={content.inspiration?.growDesc || ''}
+                          onChange={(e) => updateNestedField('inspiration', 'growDesc', e.target.value)}
+                          placeholder="Building enduring value..."
+                          className="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </>
           )}
 
