@@ -135,16 +135,20 @@ export default function Inspiration({ data }: InspirationProps = {}) {
         </h2>
 
         {/* Executive Quote Presentation with Floating Medallion */}
-        <div className="relative max-w-3xl mx-auto mb-20 p-8 sm:p-12 rounded-3xl bg-white/80 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xl dark:shadow-2xl dark:shadow-black/50 group hover:border-[#c5a059]/40 transition-all duration-500 overflow-hidden">
-          {/* Subtle Shimmer Sweep on Quote Card */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 dark:via-white/[0.03] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none"></div>
-
-          {/* Floating Medallion */}
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-gradient-to-br from-[#d4af37] via-[#c5a059] to-[#a88235] text-slate-950 flex items-center justify-center shadow-lg shadow-[#c5a059]/30 animate-float-slow">
-            <Quote className="w-5 h-5 fill-current" />
+        <div className="relative max-w-3xl mx-auto mb-20 p-8 sm:p-12 pt-10 sm:pt-14 rounded-3xl bg-white/80 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xl dark:shadow-2xl dark:shadow-black/50 group hover:border-[#c5a059]/40 transition-all duration-500">
+          {/* Subtle Shimmer Sweep on Quote Card (confined within card boundaries) */}
+          <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 dark:via-white/[0.03] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           </div>
 
-          <p className="text-lg sm:text-xl md:text-2xl font-serif font-light text-slate-800 dark:text-slate-200 leading-relaxed italic text-balance mb-6">
+          {/* Floating Medallion - centered on top border, fully visible without clipping */}
+          <div className="absolute -top-6 sm:-top-7 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#f3e7c4] via-[#c5a059] to-[#977328] text-slate-950 flex items-center justify-center shadow-xl shadow-[#c5a059]/40 border-4 border-white dark:border-[#070b19] transition-transform duration-300 group-hover:scale-105">
+              <Quote className="w-5 h-5 sm:w-6 sm:h-6 fill-current text-slate-950" />
+            </div>
+          </div>
+
+          <p className="text-lg sm:text-xl md:text-2xl font-serif font-light text-slate-800 dark:text-slate-200 leading-relaxed italic text-balance mb-6 pt-1">
             &ldquo;{quote}&rdquo;
           </p>
 
