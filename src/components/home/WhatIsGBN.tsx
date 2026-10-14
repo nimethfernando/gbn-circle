@@ -65,19 +65,24 @@ export default function WhatIsGBN({ data }: WhatIsGBNProps = {}) {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
           {points.map((point, index) => (
             <div
               key={index}
-              className="p-8 rounded-md bg-slate-50/90 dark:bg-gbn-navy-light/50 border border-slate-200/80 dark:border-white/5 hover:border-[#c5a059]/50 hover:bg-white dark:hover:bg-gbn-navy-light transition-all duration-500 group shadow-sm dark:shadow-none"
+              className="p-8 rounded-2xl bg-white dark:bg-[#0c1426]/80 border border-slate-200/90 dark:border-white/10 hover:border-[#c5a059]/60 hover:bg-white dark:hover:bg-[#111c33] hover:-translate-y-1.5 transition-all duration-300 group shadow-sm hover:shadow-2xl hover:shadow-[#c5a059]/10 relative overflow-hidden flex flex-col justify-between"
             >
-              <div className="mb-8 p-3 bg-slate-200/50 dark:bg-white/5 border border-slate-300/60 dark:border-white/10 rounded-sm inline-block group-hover:bg-[#c5a059]/10 transition-colors">
-                {point.icon}
+              {/* Top Accent Line on hover */}
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#c5a059] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              <div>
+                <div className="mb-6 w-12 h-12 rounded-xl bg-gradient-to-br from-[#c5a059]/20 via-[#c5a059]/10 to-transparent border border-[#c5a059]/30 flex items-center justify-center text-[#a88235] dark:text-[#c5a059] group-hover:scale-110 group-hover:bg-[#c5a059]/25 transition-all duration-300 shadow-sm">
+                  {point.icon}
+                </div>
+                <h3 className="text-base uppercase tracking-wider font-serif font-bold text-slate-900 dark:text-white group-hover:text-[#c5a059] mb-3 transition-colors">
+                  {point.title}
+                </h3>
               </div>
-              <h3 className="text-sm uppercase tracking-wider font-bold text-slate-900 dark:text-white group-hover:text-[#c5a059] dark:group-hover:text-gbn-gold mb-3 transition-colors">
-                {point.title}
-              </h3>
-              <p className="text-slate-800 dark:text-gray-400 font-normal text-sm leading-relaxed">
+              <p className="text-slate-600 dark:text-gray-400 font-normal text-xs sm:text-sm leading-relaxed mt-1">
                 {point.description}
               </p>
             </div>
