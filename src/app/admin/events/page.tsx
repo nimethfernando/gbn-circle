@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { KeyRound } from 'lucide-react';
+import { KeyRound, Trash2 } from 'lucide-react';
 import ChangePasswordModal from '@/components/admin/ChangePasswordModal';
 
 interface VisitorRequest {
@@ -1265,21 +1265,37 @@ export default function AdminEventsDashboard() {
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 border-t border-slate-800">
                 <button
                   type="button"
-                  onClick={() => setEditModalOpen(false)}
-                  className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-semibold transition"
+                  onClick={() => {
+                    if (editFormData.id) {
+                      handleDeleteEvent(editFormData.id, editFormData.title);
+                      setEditModalOpen(false);
+                    }
+                  }}
+                  className="w-full sm:w-auto px-4 py-2.5 bg-red-950/80 hover:bg-red-900 border border-red-700/60 text-red-200 rounded font-semibold text-xs transition flex items-center justify-center gap-2"
                 >
-                  Cancel
+                  <Trash2 size={14} />
+                  <span>Permanently Delete Event</span>
                 </button>
-                <button
-                  type="submit"
-                  disabled={editSubmitting}
-                  className="px-6 py-2.5 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold uppercase rounded tracking-wider shadow transition disabled:opacity-50"
-                >
-                  {editSubmitting ? 'Saving Changes...' : 'Save & Update Event'}
-                </button>
+
+                <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setEditModalOpen(false)}
+                    className="flex-1 sm:flex-initial px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded font-semibold text-xs transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={editSubmitting}
+                    className="flex-1 sm:flex-initial px-6 py-2.5 bg-[#c5a059] hover:bg-[#d4af37] text-black font-bold uppercase rounded text-xs tracking-wider shadow transition disabled:opacity-50"
+                  >
+                    {editSubmitting ? 'Saving Changes...' : 'Save & Update Event'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>
