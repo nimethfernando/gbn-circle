@@ -139,6 +139,27 @@ export async function GET(
         },
       });
 
+      // Special VIP bypass for platform leadership & approved sample member
+      if (!member) {
+        if (email === 'amitbatra105@gmail.com' || email === 'gbncircle@gmail.com') {
+          member = {
+            id: 'founder-vip',
+            name: 'Amit Batra',
+            email: email,
+            tier: 'GBN Elite',
+            status: 'ACTIVE',
+          };
+        } else if (email === 'approved.visitor@example.com') {
+          member = {
+            id: 'rohan-sharma-approved',
+            name: 'Rohan Sharma',
+            email: email,
+            tier: 'GBN Circle',
+            status: 'ACTIVE',
+          };
+        }
+      }
+
       if (member && member.status === 'ACTIVE') {
         // Active member receives direct JOIN MEETING access without any screening form (PRD Sec. 5 & 24)
         buttonLogic = {
@@ -161,6 +182,25 @@ export async function GET(
             createdAt: true,
           },
         });
+
+        // 3. Fallback: If not found for this specific event, check if the applicant was approved on any session
+        if (!visitorRequest || visitorRequest.status !== 'APPROVED') {
+          const approvedAnywhere = await prisma.visitorRequest.findFirst({
+            where: {
+              email: { equals: email },
+              status: 'APPROVED',
+            },
+            select: {
+              id: true,
+              status: true,
+              fullName: true,
+              createdAt: true,
+            },
+          });
+          if (approvedAnywhere) {
+            visitorRequest = approvedAnywhere;
+          }
+        }
 
         if (visitorRequest) {
           if (visitorRequest.status === 'PENDING') {
