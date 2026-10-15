@@ -70,6 +70,8 @@ export default function AdminEventsDashboard() {
   const [events, setEvents] = useState<AdminEvent[]>([]);
   const [eventsLoading, setEventsLoading] = useState(true);
   const [eventFilter, setEventFilter] = useState<'ALL' | 'UPCOMING' | 'PAST' | 'DRAFT' | 'PUBLISHED'>('ALL');
+  const [eventPage, setEventPage] = useState(1);
+  const EVENTS_PER_PAGE = 6;
 
   // Filter state for visitor requests
   const [filterStatus, setFilterStatus] = useState<'ALL' | 'PENDING' | 'APPROVED' | 'REJECTED'>('ALL');
@@ -426,6 +428,13 @@ export default function AdminEventsDashboard() {
     return true;
   });
 
+  const totalEventPages = Math.max(1, Math.ceil(filteredEvents.length / EVENTS_PER_PAGE));
+  const currentEventPageSafe = Math.min(Math.max(1, eventPage), totalEventPages);
+  const paginatedEvents = filteredEvents.slice(
+    (currentEventPageSafe - 1) * EVENTS_PER_PAGE,
+    currentEventPageSafe * EVENTS_PER_PAGE
+  );
+
   // Filtered requests list
   const filteredRequests = requests.filter((req) => {
     const matchesFilter = filterStatus === 'ALL' || req.status === filterStatus;
@@ -549,7 +558,10 @@ export default function AdminEventsDashboard() {
             {(['ALL', 'UPCOMING', 'PAST', 'PUBLISHED', 'DRAFT'] as const).map((filter) => (
               <button
                 key={filter}
-                onClick={() => setEventFilter(filter)}
+                onClick={() => {
+                  setEventFilter(filter);
+                  setEventPage(1);
+                }}
                 className={`px-3 py-1 rounded font-semibold transition ${
                   eventFilter === filter
                     ? 'bg-[#c5a059] text-black shadow'
@@ -586,7 +598,7 @@ export default function AdminEventsDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60">
-                {filteredEvents.map((evt) => (
+                {paginatedEvents.map((evt) => (
                   <tr key={evt.id} className="hover:bg-slate-800/30 transition">
                     <td className="py-3 pr-4">
                       <div className="font-bold text-white text-sm">{evt.title}</div>
@@ -689,6 +701,48 @@ export default function AdminEventsDashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Event Table Pagination Controls */}
+        {totalEventPages > 1 && (
+          <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <span className="text-slate-400">
+              Showing <strong className="text-white">{(currentEventPageSafe - 1) * EVENTS_PER_PAGE + 1}</strong> to{' '}
+              <strong className="text-white">
+                {Math.min(currentEventPageSafe * EVENTS_PER_PAGE, filteredEvents.length)}
+              </strong>{' '}
+              of <strong className="text-white">{filteredEvents.length}</strong> events
+            </span>
+            <div className="flex items-center gap-1.5 self-end sm:self-auto">
+              <button
+                disabled={currentEventPageSafe <= 1}
+                onClick={() => setEventPage((p) => Math.max(1, p - 1))}
+                className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+              >
+                &larr; Prev
+              </button>
+              {Array.from({ length: totalEventPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setEventPage(p)}
+                  className={`w-7 h-7 rounded text-xs font-semibold transition ${
+                    currentEventPageSafe === p
+                      ? 'bg-[#c5a059] text-black font-bold'
+                      : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+              <button
+                disabled={currentEventPageSafe >= totalEventPages}
+                onClick={() => setEventPage((p) => Math.min(totalEventPages, p + 1))}
+                className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+              >
+                Next &rarr;
+              </button>
+            </div>
           </div>
         )}
       </div>
