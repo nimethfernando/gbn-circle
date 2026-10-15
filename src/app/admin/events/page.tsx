@@ -74,6 +74,8 @@ export default function AdminEventsDashboard() {
   // Filter state for visitor requests
   const [filterStatus, setFilterStatus] = useState<'ALL' | 'PENDING' | 'APPROVED' | 'REJECTED'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+  const [requestPage, setRequestPage] = useState(1);
+  const REQUESTS_PER_PAGE = 6;
 
   // New Event Form State
   const [formData, setFormData] = useState({
@@ -382,6 +384,30 @@ export default function AdminEventsDashboard() {
     }
   };
 
+  const handleDeleteRequest = async (id: string, name: string, email: string) => {
+    if (!confirm(`Are you sure you want to permanently delete the visitor registration for "${name}" (${email})? This action cannot be undone.`)) {
+      return;
+    }
+
+    setActionLoading(id);
+    try {
+      const res = await fetch(`/api/admin/requests/${id}`, {
+        method: 'DELETE',
+      });
+      const json = await res.json();
+      if (json.success) {
+        await loadRequests();
+        await loadEvents();
+      } else {
+        alert(json.message || 'Failed to delete visitor request');
+      }
+    } catch {
+      alert('Failed to delete visitor request');
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   // Metrics calculation
   const totalEventsCount = events.length;
   const totalCount = requests.length;
@@ -410,6 +436,13 @@ export default function AdminEventsDashboard() {
       req.event.title.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
   });
+
+  const totalRequestPages = Math.max(1, Math.ceil(filteredRequests.length / REQUESTS_PER_PAGE));
+  const currentPageSafe = Math.min(Math.max(1, requestPage), totalRequestPages);
+  const paginatedRequests = filteredRequests.slice(
+    (currentPageSafe - 1) * REQUESTS_PER_PAGE,
+    currentPageSafe * REQUESTS_PER_PAGE
+  );
 
   return (
     <div className="min-h-screen bg-[#070b19] text-white pt-24 pb-20 px-4 sm:px-8 max-w-7xl mx-auto">
@@ -798,7 +831,10 @@ export default function AdminEventsDashboard() {
               {(['ALL', 'PENDING', 'APPROVED', 'REJECTED'] as const).map((st) => (
                 <button
                   key={st}
-                  onClick={() => setFilterStatus(st)}
+                  onClick={() => {
+                    setFilterStatus(st);
+                    setRequestPage(1);
+                  }}
                   className={`px-2.5 py-1 rounded font-semibold transition ${
                     filterStatus === st
                       ? 'bg-[#c5a059] text-black'
@@ -817,7 +853,10 @@ export default function AdminEventsDashboard() {
               type="text"
               placeholder="Search by applicant, company, email, or event title..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setRequestPage(1);
+              }}
               className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white placeholder-slate-500 focus:border-[#c5a059] outline-none"
             />
           </div>
@@ -832,74 +871,137 @@ export default function AdminEventsDashboard() {
               <p className="text-slate-400 text-xs">No visitor applications match your filter.</p>
             </div>
           ) : (
-            <div className="space-y-3 overflow-y-auto max-h-[720px] pr-1">
-              {filteredRequests.map((req) => (
-                <div
-                  key={req.id}
-                  className="p-4 bg-slate-950 border border-slate-800/90 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 transition hover:border-slate-700"
-                >
-                  <div className="text-xs space-y-1.5 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-bold text-white text-sm">{req.fullName}</span>
+            <>
+              <div className="space-y-3 overflow-y-auto max-h-[720px] pr-1">
+                {paginatedRequests.map((req) => (
+                  <div
+                    key={req.id}
+                    className="p-4 bg-slate-950 border border-slate-800/90 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 transition hover:border-slate-700"
+                  >
+                    <div className="text-xs space-y-1.5 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-bold text-white text-sm">{req.fullName}</span>
 
-                      {/* Status Badges */}
-                      {req.status === 'APPROVED' && (
-                        <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/80 flex items-center gap-1">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Approved
-                        </span>
-                      )}
-                      {req.status === 'REJECTED' && (
-                        <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-red-950 text-red-400 border border-red-800/80 flex items-center gap-1">
-                          <span className="h-1.5 w-1.5 rounded-full bg-red-400"></span> Rejected
-                        </span>
-                      )}
-                      {req.status === 'PENDING' && (
-                        <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-amber-950 text-amber-400 border border-amber-800/80 flex items-center gap-1">
-                          <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span> Pending Review
-                        </span>
-                      )}
+                        {/* Status Badges */}
+                        {req.status === 'APPROVED' && (
+                          <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/80 flex items-center gap-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Approved
+                          </span>
+                        )}
+                        {req.status === 'REJECTED' && (
+                          <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-red-950 text-red-400 border border-red-800/80 flex items-center gap-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-red-400"></span> Rejected
+                          </span>
+                        )}
+                        {req.status === 'PENDING' && (
+                          <span className="text-[10px] px-2 py-0.5 rounded font-bold bg-amber-950 text-amber-400 border border-amber-800/80 flex items-center gap-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span> Pending Review
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-slate-400">
+                        {req.designation} &bull; <strong className="text-slate-200">{req.companyName}</strong>
+                      </p>
+                      <p className="text-slate-500 text-[11px]">
+                        {req.email} &bull; {req.phone}
+                      </p>
+                      <p className="text-slate-400 pt-0.5">
+                        Target Event: <span className="text-[#c5a059] font-medium">{req.event.title}</span>
+                      </p>
+                      <p className="text-slate-400 italic bg-slate-900/50 p-2 rounded text-[11px] border border-slate-800/60">
+                        &quot;{req.whyAttend}&quot;
+                      </p>
                     </div>
 
-                    <p className="text-slate-400">
-                      {req.designation} &bull; <strong className="text-slate-200">{req.companyName}</strong>
-                    </p>
-                    <p className="text-slate-500 text-[11px]">
-                      {req.email} &bull; {req.phone}
-                    </p>
-                    <p className="text-slate-400 pt-0.5">
-                      Target Event: <span className="text-[#c5a059] font-medium">{req.event.title}</span>
-                    </p>
-                    <p className="text-slate-400 italic bg-slate-900/50 p-2 rounded text-[11px] border border-slate-800/60">
-                      &quot;{req.whyAttend}&quot;
-                    </p>
+                    {/* Actions */}
+                    {req.status === 'PENDING' ? (
+                      <div className="flex items-center gap-2 self-end md:self-center">
+                        <button
+                          disabled={actionLoading === req.id}
+                          onClick={() => handleStatusUpdate(req.id, 'approve')}
+                          className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-semibold disabled:opacity-50 transition shadow"
+                        >
+                          {actionLoading === req.id ? 'Saving...' : 'Approve'}
+                        </button>
+                        <button
+                          disabled={actionLoading === req.id}
+                          onClick={() => handleStatusUpdate(req.id, 'reject')}
+                          className="px-3.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded text-xs font-semibold disabled:opacity-50 transition shadow"
+                        >
+                          Reject
+                        </button>
+                        <button
+                          disabled={actionLoading === req.id}
+                          onClick={() => handleDeleteRequest(req.id, req.fullName, req.email)}
+                          title="Delete registration (Spam)"
+                          className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-950/40 rounded transition border border-transparent hover:border-red-900/40 disabled:opacity-50"
+                        >
+                          <Trash2 size={15} />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3 self-end md:self-center">
+                        <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">
+                          Processed
+                        </span>
+                        <button
+                          disabled={actionLoading === req.id}
+                          onClick={() => handleDeleteRequest(req.id, req.fullName, req.email)}
+                          title="Delete registration (Spam)"
+                          className="px-2.5 py-1 text-slate-400 hover:text-red-400 hover:bg-red-950/40 rounded text-xs font-semibold transition border border-slate-800 hover:border-red-900/60 flex items-center gap-1.5 disabled:opacity-50"
+                        >
+                          <Trash2 size={13} />
+                          <span>{actionLoading === req.id ? 'Deleting...' : 'Delete'}</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
+                ))}
+              </div>
 
-                  {/* Actions */}
-                  {req.status === 'PENDING' ? (
-                    <div className="flex items-center gap-2 self-end md:self-center">
+              {/* Pagination controls */}
+              {totalRequestPages > 1 && (
+                <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <span className="text-slate-400">
+                    Showing <strong className="text-white">{(currentPageSafe - 1) * REQUESTS_PER_PAGE + 1}</strong> to{' '}
+                    <strong className="text-white">
+                      {Math.min(currentPageSafe * REQUESTS_PER_PAGE, filteredRequests.length)}
+                    </strong>{' '}
+                    of <strong className="text-white">{filteredRequests.length}</strong> applications
+                  </span>
+                  <div className="flex items-center gap-1.5 self-end sm:self-auto">
+                    <button
+                      disabled={currentPageSafe <= 1}
+                      onClick={() => setRequestPage((p) => Math.max(1, p - 1))}
+                      className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    >
+                      &larr; Prev
+                    </button>
+                    {Array.from({ length: totalRequestPages }, (_, i) => i + 1).map((p) => (
                       <button
-                        disabled={actionLoading === req.id}
-                        onClick={() => handleStatusUpdate(req.id, 'approve')}
-                        className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-semibold disabled:opacity-50 transition shadow"
+                        key={p}
+                        onClick={() => setRequestPage(p)}
+                        className={`w-7 h-7 rounded text-xs font-semibold transition ${
+                          currentPageSafe === p
+                            ? 'bg-[#c5a059] text-black font-bold'
+                            : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white'
+                        }`}
                       >
-                        {actionLoading === req.id ? 'Saving...' : 'Approve'}
+                        {p}
                       </button>
-                      <button
-                        disabled={actionLoading === req.id}
-                        onClick={() => handleStatusUpdate(req.id, 'reject')}
-                        className="px-3.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded text-xs font-semibold disabled:opacity-50 transition shadow"
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="text-[11px] text-slate-500 self-end md:self-center uppercase tracking-wider font-semibold">
-                      Processed
-                    </div>
-                  )}
+                    ))}
+                    <button
+                      disabled={currentPageSafe >= totalRequestPages}
+                      onClick={() => setRequestPage((p) => Math.min(totalRequestPages, p + 1))}
+                      className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+                    >
+                      Next &rarr;
+                    </button>
+                  </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </div>
       </div>
