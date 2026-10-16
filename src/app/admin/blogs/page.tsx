@@ -388,14 +388,20 @@ export default function AdminBlogsPage() {
       </div>
 
       {/* Admin Module Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-800 mb-8 pb-3">
+      <div className="flex items-center gap-2 border-b border-slate-800 mb-8 pb-3 overflow-x-auto">
         <Link
           href="/admin/events"
-          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors whitespace-nowrap"
         >
           Events Management
         </Link>
-        <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md">
+        <Link
+          href="/admin/members"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors whitespace-nowrap"
+        >
+          Approved Members
+        </Link>
+        <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md whitespace-nowrap">
           Blogs CMS
         </div>
         <Link

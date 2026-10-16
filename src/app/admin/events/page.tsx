@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { KeyRound, Trash2 } from 'lucide-react';
+import { KeyRound, Trash2, UserCheck } from 'lucide-react';
 import ChangePasswordModal from '@/components/admin/ChangePasswordModal';
 
 interface VisitorRequest {
@@ -410,6 +410,40 @@ export default function AdminEventsDashboard() {
     }
   };
 
+  const handlePromoteToMember = async (req: VisitorRequest) => {
+    if (!confirm(`Register "${req.fullName}" (${req.email}) as an Approved GBN Circle Member? This will grant them access across all events and list them in the member directory.`)) {
+      return;
+    }
+
+    setActionLoading(req.id);
+    try {
+      const res = await fetch('/api/admin/members', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: req.fullName,
+          email: req.email,
+          phone: req.phone,
+          company: req.companyName,
+          designation: req.designation,
+          industry: 'Business Leadership & Networking',
+          tier: 'GBN Circle',
+          status: 'ACTIVE',
+        }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        alert(`Successfully registered "${req.fullName}" as an Approved GBN Member!`);
+      } else {
+        alert(json.message || 'Failed to add as member');
+      }
+    } catch {
+      alert('Network error while registering member');
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   // Metrics calculation
   const totalEventsCount = events.length;
   const totalCount = requests.length;
@@ -490,13 +524,19 @@ export default function AdminEventsDashboard() {
       </div>
 
       {/* Admin Module Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-800 mb-8 pb-3">
-        <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md">
+      <div className="flex items-center gap-2 border-b border-slate-800 mb-8 pb-3 overflow-x-auto">
+        <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] rounded-lg shadow-md whitespace-nowrap">
           Events Management
         </div>
         <Link
+          href="/admin/members"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors whitespace-nowrap"
+        >
+          Approved Members
+        </Link>
+        <Link
           href="/admin/blogs"
-          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors"
+          className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white rounded-lg transition-colors whitespace-nowrap"
         >
           Blogs CMS
         </Link>
@@ -997,7 +1037,18 @@ export default function AdminEventsDashboard() {
                         </button>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-3 self-end md:self-center">
+                      <div className="flex items-center gap-2 self-end md:self-center">
+                        {req.status === 'APPROVED' && (
+                          <button
+                            disabled={actionLoading === req.id}
+                            onClick={() => handlePromoteToMember(req)}
+                            title="Register as verified Member (universal access)"
+                            className="px-2.5 py-1 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/80 text-emerald-300 rounded text-xs font-semibold transition flex items-center gap-1 disabled:opacity-50 shadow-xs"
+                          >
+                            <UserCheck size={13} />
+                            <span>Add as Member</span>
+                          </button>
+                        )}
                         <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">
                           Processed
                         </span>

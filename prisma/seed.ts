@@ -386,10 +386,36 @@ The collective intelligence of a room with 50+ combined years of founder experie
         status: 'ACTIVE',
         linkedIn: 'https://linkedin.com',
       },
+      {
+        name: 'Amit Batra',
+        email: 'amitbatra105@gmail.com',
+        phone: '+91 98952 89030',
+        company: 'GBN Circle',
+        designation: 'Founder & President',
+        industry: 'Business Leadership & Networking',
+        tier: 'GBN Elite',
+        city: 'New Delhi',
+        turnoverBand: '₹5Cr+',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
+      {
+        name: 'Rohan Sharma',
+        email: 'approved.visitor@example.com',
+        phone: '+91 98111 22334',
+        company: 'Apex Innovations Pvt Ltd',
+        designation: 'Managing Director',
+        industry: 'Technology & Manufacturing',
+        tier: 'GBN Circle',
+        city: 'Mumbai',
+        turnoverBand: '₹5Cr+',
+        status: 'ACTIVE',
+        linkedIn: 'https://linkedin.com',
+      },
     ],
   });
 
-  console.log(`Database seeded successfully! Created 4 events, 3 visitor test requests, 4 blogs, and 6 active members.`);
+  console.log(`Database seeded successfully! Created 4 events, 3 visitor test requests, 4 blogs, and 8 active members.`);
 }
 
 main()
