@@ -98,8 +98,8 @@ export default function ThreePrinciples({ data }: ThreePrinciplesProps = {}) {
           })}
         </div>
 
-        <div className="text-center max-w-3xl mx-auto p-6 rounded-2xl bg-white/60 dark:bg-white/[0.02] border border-slate-200/70 dark:border-white/5 backdrop-blur-sm">
-          <p className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-[#a88235] dark:text-[#e5c158] italic leading-relaxed">
+        <div className="text-center max-w-3xl mx-auto p-6 rounded-2xl bg-white/80 dark:bg-white/[0.03] border border-slate-200/90 dark:border-white/10 backdrop-blur-sm shadow-sm dark:shadow-none">
+          <p className="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-[#8c671b] dark:text-[#f3d27a] italic leading-relaxed">
             &ldquo;{quote}&rdquo;
           </p>
         </div>

@@ -954,17 +954,19 @@ export default function AdminEventsDashboard() {
                         )}
                       </div>
 
-                      <p className="text-slate-400">
-                        {req.designation} &bull; <strong className="text-slate-200">{req.companyName}</strong>
+                      <p className="text-slate-300">
+                        {req.designation} &bull; <strong className="text-white font-semibold">{req.companyName}</strong>
                       </p>
-                      <p className="text-slate-500 text-[11px]">
+                      <p className="text-slate-400 text-[11px]">
                         {req.email} &bull; {req.phone}
                       </p>
-                      <p className="text-slate-400 pt-0.5">
-                        Target Event: <span className="text-[#c5a059] font-medium">{req.event.title}</span>
+                      <p className="text-slate-300 pt-0.5">
+                        Target Event: <span className="text-[#c5a059] font-semibold">{req.event.title}</span>
                       </p>
-                      <p className="text-slate-400 italic bg-slate-900/50 p-2 rounded text-[11px] border border-slate-800/60">
-                        &quot;{req.whyAttend}&quot;
+                      <p className="text-slate-200 italic bg-slate-900/90 p-2.5 rounded text-[11px] border border-slate-800/80 leading-relaxed font-normal">
+                        <span className="text-[#c5a059] font-serif font-bold text-xs mr-1">&ldquo;</span>
+                        {req.whyAttend}
+                        <span className="text-[#c5a059] font-serif font-bold text-xs ml-1">&rdquo;</span>
                       </p>
                     </div>
 

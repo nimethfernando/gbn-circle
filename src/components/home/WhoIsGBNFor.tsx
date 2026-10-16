@@ -102,7 +102,7 @@ export default function WhoIsGBNFor({ data }: WhoIsGBNForProps = {}) {
                   </h3>
                 </div>
 
-                <p className="text-slate-600 dark:text-gray-400 font-normal text-xs leading-relaxed mt-1">
+                <p className="text-slate-600 dark:text-slate-300 font-normal text-xs leading-relaxed mt-1">
                   {card.desc}
                 </p>
               </div>

@@ -148,7 +148,7 @@ export default function Inspiration({ data }: InspirationProps = {}) {
             </div>
           </div>
 
-          <p className="text-lg sm:text-xl md:text-2xl font-serif font-light text-slate-800 dark:text-slate-200 leading-relaxed italic text-balance mb-6 pt-1">
+          <p className="text-lg sm:text-xl md:text-2xl font-serif font-medium text-slate-950 dark:text-slate-100 leading-relaxed italic text-balance mb-6 pt-1">
             &ldquo;{quote}&rdquo;
           </p>
 

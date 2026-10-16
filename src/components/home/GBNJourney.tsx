@@ -67,7 +67,7 @@ export default function GBNJourney() {
           ))}
         </div>
 
-        <p className="text-lg md:text-2xl text-slate-900 dark:text-gray-400 max-w-3xl mx-auto italic font-serif font-normal">
+        <p className="text-lg md:text-2xl text-slate-900 dark:text-slate-100 max-w-3xl mx-auto italic font-serif font-medium leading-relaxed">
           &ldquo;{t.journey.quote}&rdquo;
         </p>
       </div>

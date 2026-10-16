@@ -18,6 +18,7 @@ import {
   Sparkles,
   AlertCircle,
   Key,
+  Info,
 } from 'lucide-react';
 
 export interface EventDetailData {
@@ -649,17 +650,24 @@ export default function EventDetailView({ event }: { event: EventDetailData }) {
 
                   {accessData?.message && (
                     <div
-                      className={`p-2.5 rounded-lg text-[11px] border leading-relaxed ${
+                      className={`p-3 rounded-lg text-xs border leading-relaxed flex items-start gap-2.5 font-medium transition-all ${
                         accessData.state === 'JOIN_MEETING' || accessData.state === 'ACCESS_MEETING'
-                          ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-300'
+                          ? 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-700 text-emerald-950 dark:text-emerald-200'
                           : accessData.state === 'REQUEST_SUBMITTED'
-                          ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                          ? 'bg-amber-50 dark:bg-amber-950/80 border-amber-300 dark:border-amber-700 text-amber-950 dark:text-amber-200'
                           : accessData.state === 'REQUEST_NOT_APPROVED'
-                          ? 'bg-red-50 dark:bg-red-950/60 border-red-300 dark:border-red-800 text-red-900 dark:text-red-300'
-                          : 'bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-300'
+                          ? 'bg-red-50 dark:bg-red-950/80 border-red-300 dark:border-red-700 text-red-950 dark:text-red-200'
+                          : 'bg-amber-50/70 dark:bg-slate-900 border-amber-200/90 dark:border-[#c5a059]/40 text-slate-800 dark:text-slate-100 shadow-xs'
                       }`}
                     >
-                      {accessData.message}
+                      {accessData.state === 'JOIN_MEETING' || accessData.state === 'ACCESS_MEETING' ? (
+                        <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                      ) : accessData.state === 'REQUEST_NOT_APPROVED' ? (
+                        <AlertCircle size={16} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                      ) : (
+                        <Info size={16} className="text-[#b38838] dark:text-[#c5a059] shrink-0 mt-0.5" />
+                      )}
+                      <span className="flex-1">{accessData.message}</span>
                     </div>
                   )}
                 </form>
